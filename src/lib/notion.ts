@@ -33,7 +33,7 @@ export async function getBlogPosts(limit?: number) {
   const dbId = process.env.NOTION_BLOG_DB_ID!;
   const response = await notion.databases.query({
     database_id: dbId,
-    filter: { property: 'Published', checkbox: { equals: true } },
+    filter: { property: 'Status', select: { equals: 'Published' } },
     sorts: [{ property: 'Date', direction: 'descending' }],
     ...(limit ? { page_size: limit } : {}),
   });
