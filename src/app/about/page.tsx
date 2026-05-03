@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Eye, Target, Heart } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '会社概要 | ZEST Inc.',
@@ -14,27 +16,48 @@ const COMPANY_INFO = [
   { label: '事業内容', value: '営業支援プラットフォーム開発・提供 / 営業組織コンサルティング' },
 ];
 
-const VALUES = [
+const VMV = [
   {
     label: 'Vision',
+    icon: <Eye size={20} className="text-brand-orange" />,
     title: '中小企業の「人の力」を、データで解き放つ',
     desc: '日本経済を支える中小企業には、まだ引き出されていない営業力が眠っている。トップセールスの「属人的な勘」を行動データとして可視化し、組織全体で再現できる「型」に変えることで、すべての営業担当者が成果を出せる世界をつくる。',
-    color: 'border-brand-orange',
-    badge: 'text-brand-orange',
+    border: 'border-brand-orange',
+    labelColor: 'text-brand-orange',
   },
   {
     label: 'Mission',
+    icon: <Target size={20} className="text-brand-navy" />,
     title: '「隠れた価値」を、誰もが実行できる勝ちパターンへ',
     desc: '熟練の知見と行動データ科学を融合し、自社では気づけない営業の「センターピン」を特定する。それを組織的な型として定着させることで、個人の才能に依存しない、持続可能な営業組織の構築を支援する。',
-    color: 'border-brand-navy',
-    badge: 'text-brand-navy',
+    border: 'border-brand-navy',
+    labelColor: 'text-brand-navy',
   },
   {
     label: 'Value',
-    title: '精神論ゼロ。行動の言葉だけで定義する。',
-    desc: '「頑張れ」「気合いを入れろ」ではなく、「いつ・誰に・何を・どのくらい」が明確な物理的行動として定義する。Yes/Noで判定できる行動だけをKFSとし、現場が迷わず動ける仕組みを渡す。',
-    color: 'border-slate-300',
-    badge: 'text-slate-500',
+    icon: <Heart size={20} className="text-slate-500" />,
+    title: '価値観と行動指針',
+    desc: (
+      <div className="space-y-4">
+        {[
+          { num: '01', title: '本質的かつ継続的なコミュニケーション', desc: '社内外問わず、本質的で継続的なコミュニケーションを実践しよう。お客様にも働く仲間にも信頼されることで、深く長期的な関係性が生まれ、いずれ自分への糧になる。' },
+          { num: '02', title: '完璧より完遂', desc: '完璧を求めて道半ばで終わるより、完遂して改善を繰り返そう。完遂は少なくとも、掲げた目標に向けた前進を保証し、進歩と成長の機会を与えてくれる。' },
+          { num: '03', title: '凡事徹底、迅速実行', desc: '当たり前を当たり前にこなし、今できる時に実行してしまおう。些細なことの継続的な積み重ねが、近い将来周囲との天と地の差になる。何よりも他者からの信頼に繋がる。' },
+          { num: '04', title: 'トライ→分析→仕組み化→展開', desc: '大きな成果も一度きりでは心許ない。それを徹底的に分析し、仕組み化して組織に展開することで、継続的かつ何倍もの大きな成果に成長させよう。' },
+          { num: '05', title: '創造的組み合わせ+α', desc: '0から1を創らずともイノベーションは起こせる。常日頃から周囲に思考のアンテナを張り巡らせ、既にあるもの同士の組み合わせに、少しのアイデアを付け足そう。' },
+        ].map((item) => (
+          <div key={item.num} className="flex gap-3">
+            <span className="text-slate-400 font-black text-xs w-5 shrink-0 pt-0.5">{item.num}</span>
+            <div>
+              <div className="font-bold text-brand-navy text-sm mb-1">{item.title}</div>
+              <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    ),
+    border: 'border-slate-300',
+    labelColor: 'text-slate-500',
   },
 ];
 
@@ -60,11 +83,18 @@ export default function AboutPage() {
           <span className="section-label">Philosophy</span>
           <h2 className="section-title">私たちが大切にしていること</h2>
           <div className="space-y-5 mt-10">
-            {VALUES.map((v) => (
-              <div key={v.label} className={`card border-l-4 ${v.color}`}>
-                <div className={`text-xs font-black uppercase tracking-widest mb-2 ${v.badge}`}>{v.label}</div>
+            {VMV.map((v) => (
+              <div key={v.label} className={`card border-l-4 ${v.border}`}>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center">
+                    {v.icon}
+                  </div>
+                  <span className={`text-xs font-black uppercase tracking-widest ${v.labelColor}`}>
+                    {v.label}
+                  </span>
+                </div>
                 <h3 className="font-black text-brand-navy text-xl mb-3">{v.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{v.desc}</p>
+                <div className="text-slate-600 leading-relaxed">{v.desc}</div>
               </div>
             ))}
           </div>
@@ -75,12 +105,18 @@ export default function AboutPage() {
       <section className="bg-brand-bg py-20">
         <div className="container-inner max-w-3xl">
           <span className="section-label">Message</span>
-          <h2 className="section-title">代表より</h2>
+          <h2 className="section-title">代表メッセージ</h2>
           <div className="card mt-8">
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="md:w-40 shrink-0 text-center">
-                <div className="w-28 h-28 rounded-full bg-slate-200 mx-auto mb-3 overflow-hidden flex items-center justify-center">
-                  <span className="text-slate-400 text-xs">Photo</span>
+                <div className="w-28 h-28 rounded-full mx-auto mb-3 overflow-hidden bg-slate-100">
+                  <Image
+                    src="/profile_shunpei.avif"
+                    alt="丹澤 俊平"
+                    width={112}
+                    height={112}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="font-black text-brand-navy">丹澤 俊平</div>
                 <div className="text-xs text-slate-500 mt-1">代表取締役社長 / CEO</div>
@@ -100,7 +136,7 @@ export default function AboutPage() {
                   この両軸を歩む中で、多くの中小企業の営業組織を支援してきました。
                 </p>
                 <p>
-                  その経験の中で、あることに気づきました。<br />
+                  その経験の中で、あることに気づきました。
                   どの組織にも必ず、成果を出し続けるトップセールスがいる。
                   しかし彼らが「なぜ売れているのか」を言語化できる組織は、ほとんど存在しない。
                   そしてそのトップが抜けた瞬間、組織の成果は崩れ落ちる——。
@@ -126,9 +162,9 @@ export default function AboutPage() {
                   ZESTは、営業組織の隠れた可能性を引き出し、
                   中小企業が新しい一歩を踏み出せるよう、これからも寄り添い続けます。
                 </p>
-                <p className="text-sm text-slate-500 pt-2">
+                <p className="text-sm text-slate-500 pt-2 border-t border-slate-100">
                   代表取締役社長 / CEO<br />
-                  <span className="text-brand-navy font-bold text-base">丹澤 俊平</span>
+                  <span className="text-brand-navy font-black text-base">丹澤 俊平</span>
                 </p>
               </div>
             </div>
@@ -151,7 +187,6 @@ export default function AboutPage() {
               ))}
             </dl>
           </div>
-
           <div className="text-center mt-12">
             <Link href="/contact" className="btn-primary">
               お問い合わせ・無料相談
