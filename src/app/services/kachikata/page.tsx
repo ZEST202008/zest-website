@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Target, BarChart2, Users } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -14,9 +15,9 @@ export default function KachikataPage() {
       <section className="bg-brand-bg border-b border-slate-200 py-20">
         <div className="container-inner">
           <span className="section-label">Service</span>
-          <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
-            カチカタ
-          </h1>
+          <div className="flex items-center gap-4 mb-4">
+            <Image src="/kachikata-logo.png" alt="カチカタ" width={200} height={60} className="h-14 w-auto object-contain" />
+          </div>
           <p className="text-xl text-brand-orange font-bold mb-6">
             「勝ち」と「価値」を型化する、KFS特定サービス
           </p>
