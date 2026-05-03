@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: '会社概要',
-  description: 'ZEST Inc.は営業組織のデータ活用・型化を支援するサービスを提供しています。',
+  title: '会社概要 | ZEST Inc.',
+  description: 'ZESTのVision・Mission・Value、代表メッセージ、会社情報をご紹介します。',
 };
 
 const COMPANY_INFO = [
@@ -17,22 +17,22 @@ const COMPANY_INFO = [
 const VALUES = [
   {
     label: 'Vision',
-    title: '営業力の属人化をゼロにする',
-    desc: '「あの人だから売れる」が当たり前の世界を変える。すべての営業担当者が、再現性の高い成果を出せる組織を日本中に広げていきます。',
+    title: '中小企業の「人の力」を、データで解き放つ',
+    desc: '日本経済を支える中小企業には、まだ引き出されていない営業力が眠っている。トップセールスの「属人的な勘」を行動データとして可視化し、組織全体で再現できる「型」に変えることで、すべての営業担当者が成果を出せる世界をつくる。',
     color: 'border-brand-orange',
     badge: 'text-brand-orange',
   },
   {
     label: 'Mission',
-    title: '勝ちパターンを、組織の資産に変える',
-    desc: 'トップセールスの暗黙知をデータとして可視化し、誰もが実践できる「型」として定着させる。個人の才能に依存しない、強い組織づくりを支援します。',
+    title: '「隠れた価値」を、誰もが実行できる勝ちパターンへ',
+    desc: '熟練の知見と行動データ科学を融合し、自社では気づけない営業の「センターピン」を特定する。それを組織的な型として定着させることで、個人の才能に依存しない、持続可能な営業組織の構築を支援する。',
     color: 'border-brand-navy',
     badge: 'text-brand-navy',
   },
   {
     label: 'Value',
-    title: '精神論ゼロ、行動の言葉で定義する',
-    desc: '「頑張れ」「意識を高めろ」ではなく、「いつ・誰に・何を・どのくらい」が明確な物理的行動を定義する。Yes/Noで判定できることだけを、現場に渡します。',
+    title: '精神論ゼロ。行動の言葉だけで定義する。',
+    desc: '「頑張れ」「気合いを入れろ」ではなく、「いつ・誰に・何を・どのくらい」が明確な物理的行動として定義する。Yes/Noで判定できる行動だけをKFSとし、現場が迷わず動ける仕組みを渡す。',
     color: 'border-slate-300',
     badge: 'text-slate-500',
   },
@@ -83,23 +83,52 @@ export default function AboutPage() {
                   <span className="text-slate-400 text-xs">Photo</span>
                 </div>
                 <div className="font-black text-brand-navy">丹澤 俊平</div>
-                <div className="text-xs text-slate-500 mt-1">ZEST Inc. 代表</div>
+                <div className="text-xs text-slate-500 mt-1">代表取締役社長 / CEO</div>
               </div>
-              <div className="flex-1">
-                <p className="text-slate-700 leading-8 mb-5">
-                  「なぜあの人だけが売れるのか」——この問いから、ZESTは生まれました。
+              <div className="flex-1 space-y-5 text-slate-700 leading-8">
+                <p className="font-bold text-brand-navy text-lg leading-snug">
+                  中小企業の挑戦をデータで後押しし、<br />日本経済をより豊かにする。
                 </p>
-                <p className="text-slate-700 leading-8 mb-5">
-                  営業の現場では今も、「気合いを入れろ」「件数を増やせ」という言葉が飛び交っています。
-                  しかし、本当に成果を出しているトップセールスは、精神論ではなく、
-                  明確な「行動の型」を持っています。
+                <p>
+                  私は、日本経済はまだまだポテンシャルを秘めていると思っています。
+                  その鍵を握るのは、中小企業の現場に眠る「人の力」です。
+                  データは、その力を引き出すための最も強力なツールです。
                 </p>
-                <p className="text-slate-700 leading-8 mb-5">
-                  その型をデータで可視化し、チーム全員が再現できる形にすること。
-                  それが私たちのやっていることであり、これからもやり続けることです。
+                <p>
+                  私自身、営業・マーケティングの現場からキャリアをスタートし、
+                  その後アナリティクスエンジニアとしてデータの専門領域へ。
+                  この両軸を歩む中で、多くの中小企業の営業組織を支援してきました。
                 </p>
-                <p className="text-slate-700 leading-8">
-                  「あの人だから売れる」をなくす日まで、私たちは走り続けます。
+                <p>
+                  その経験の中で、あることに気づきました。<br />
+                  どの組織にも必ず、成果を出し続けるトップセールスがいる。
+                  しかし彼らが「なぜ売れているのか」を言語化できる組織は、ほとんど存在しない。
+                  そしてそのトップが抜けた瞬間、組織の成果は崩れ落ちる——。
+                </p>
+                <p>
+                  これは才能の問題ではありません。<strong className="text-brand-navy">「型化」の問題です。</strong>
+                </p>
+                <p>
+                  多くのクライアント企業のデータを深く分析し続ける中で、私たちはあることを確信しました。
+                  熟練営業の「属人的な勘」の裏には、必ず再現可能な行動パターンがある。
+                  それは表面的な数字では見えない「隠れた価値」ですが、
+                  行動データとして可視化すれば、誰もが実行できる勝ちパターンへと変換できる。
+                </p>
+                <p>
+                  この確信から生まれたのが、<strong className="text-brand-navy">カチカタ</strong>です。
+                  「熟練の知見」と「行動データ科学」を融合させ、
+                  組織のセンターピン——KFS（Key Factor for Success）——を特定するサービスです。
+                  精神論ゼロ。行動の言葉だけで定義された、誰もが実践できる営業の型を、現場に渡す。
+                </p>
+                <p>
+                  データを「経営の力」として活用することで、
+                  地域経済や社会全体がさらに豊かになると信じています。
+                  ZESTは、営業組織の隠れた可能性を引き出し、
+                  中小企業が新しい一歩を踏み出せるよう、これからも寄り添い続けます。
+                </p>
+                <p className="text-sm text-slate-500 pt-2">
+                  代表取締役社長 / CEO<br />
+                  <span className="text-brand-navy font-bold text-base">丹澤 俊平</span>
                 </p>
               </div>
             </div>
