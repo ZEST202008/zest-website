@@ -15,11 +15,12 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   try {
+    const { slug } = await params;
     const posts = await getBlogPosts();
-    const post = posts.find((p) => p.slug === params.slug);
+    const post = posts.find((p) => p.slug === slug);
     if (post) {
       return { title: post.title, description: post.excerpt };
     }
@@ -27,13 +28,14 @@ export async function generateMetadata(
   return { title: 'ブログ記事' };
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   let post: any = null;
   let content = '';
 
   try {
     const posts = await getBlogPosts();
-    post = posts.find((p) => p.slug === params.slug);
+    post = posts.find((p) => p.slug === slug);
     if (post) {
       content = await getBlogPostContent(post.id);
     }
