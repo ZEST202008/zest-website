@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -8,8 +9,14 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-10">
           {/* Brand */}
           <div>
-            <div className="font-black text-2xl mb-2">
-              ZEST<span className="text-brand-orange">.</span>
+            <div className="mb-3">
+              <Image
+                src="/zest-logo.png"
+                alt="ZEST"
+                width={90}
+                height={32}
+                className="h-8 w-auto object-contain brightness-0 invert"
+              />
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
               営業組織の「型化」で、<br />
