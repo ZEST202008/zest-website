@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
@@ -22,10 +23,15 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
       <div className="container-inner flex items-center justify-between h-16">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 no-underline">
-          <span className="font-black text-xl text-slate-800 tracking-tight">
-            ZEST<span className="text-brand-orange">.</span>
-          </span>
+        <Link href="/" className="flex items-center no-underline">
+          <Image
+            src="/zest-logo.png"
+            alt="ZEST"
+            width={100}
+            height={36}
+            className="h-9 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}

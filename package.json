@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@notionhq/client": "^2.2.14",
+    "@tailwindcss/typography": "^0.5.19",
     "clsx": "^2.1.1",
     "lucide-react": "^1.14.0",
     "next": "^16.2.4",
