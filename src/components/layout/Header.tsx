@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: 'サービス', href: '#', children: [
     { label: 'カチカタ', href: '/services/kachikata', desc: 'KFS特定・営業型化' },
     { label: 'SheetViz', href: '/services/sheetziv', desc: 'AppSheetベースCRM' },
+    { label: 'インサイドセールス内製化', href: '/services/inside-sales', desc: '90日で自走するIS組織へ' },
   ]},
   { label: 'ブログ', href: '/blog' },
   { label: '会社概要', href: '/about' },
