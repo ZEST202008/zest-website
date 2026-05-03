@@ -18,8 +18,9 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
-          '-apple-system', 'BlinkMacSystemFont', '"Hiragino Sans"',
-          '"Yu Gothic"', '"Noto Sans JP"', 'sans-serif'
+          '"MS PGothic"', '"MS Pゴシック"',
+          '"Hiragino Kaku Gothic Pro"', '"ヒラギノ角ゴ Pro W3"',
+          'Osaka', 'sans-serif'
         ],
       },
     },

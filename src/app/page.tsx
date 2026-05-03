@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, BarChart2, Users, TrendingUp, CheckCircle } from 'lucide-react';
+import { ArrowRight, BarChart2, Users, TrendingUp, Target } from 'lucide-react';
 import { getServices, getBlogPosts } from '@/lib/notion';
 
 // ── Hero Section ──────────────────────────────────────
@@ -42,7 +42,8 @@ const SERVICES_STATIC = [
     name: 'カチカタ',
     tagline: 'KFS特定・営業の型化',
     description: 'トップセールスの行動データを解析し、組織全体で再現できる「センターピン（KFS）」を特定。誰もが成果を出せる営業の型を作ります。',
-    icon: '🎯',
+    icon: <Target size={24} className="text-brand-orange" />,
+    iconBg: 'bg-orange-50',
     color: 'orange',
   },
   {
@@ -50,7 +51,8 @@ const SERVICES_STATIC = [
     name: 'SheetViz',
     tagline: 'AppSheetベースの営業CRM',
     description: 'Google SheetsとAppSheetを使った、導入コストゼロの営業支援プラットフォーム。フィールド・インサイド・管理職の3役割に最適化。',
-    icon: '📊',
+    icon: <BarChart2 size={24} className="text-brand-navy" />,
+    iconBg: 'bg-slate-100',
     color: 'navy',
   },
 ];
@@ -70,7 +72,9 @@ function Services() {
               href={`/services/${s.slug}`}
               className="card group no-underline"
             >
-              <div className="text-4xl mb-4">{s.icon}</div>
+              <div className={`w-10 h-10 ${s.iconBg} rounded-xl flex items-center justify-center mb-4`}>
+                {s.icon}
+              </div>
               <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${
                 s.color === 'orange' ? 'text-brand-orange' : 'text-brand-navy'
               }`}>

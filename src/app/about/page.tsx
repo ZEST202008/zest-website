@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Eye, Target, Heart } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '会社概要 | ZEST Inc.',
@@ -18,16 +17,14 @@ const COMPANY_INFO = [
 
 const VMV = [
   {
-    label: 'Vision',
-    icon: <Eye size={20} className="text-brand-orange" />,
+    label: 'Mission',
     title: '中小企業の「人の力」を、データで解き放つ',
     desc: '日本経済を支える中小企業には、まだ引き出されていない営業力が眠っている。トップセールスの「属人的な勘」を行動データとして可視化し、組織全体で再現できる「型」に変えることで、すべての営業担当者が成果を出せる世界をつくる。',
     border: 'border-brand-orange',
     labelColor: 'text-brand-orange',
   },
   {
-    label: 'Mission',
-    icon: <Target size={20} className="text-brand-navy" />,
+    label: 'Vision',
     title: '「隠れた価値」を、誰もが実行できる勝ちパターンへ',
     desc: '熟練の知見と行動データ科学を融合し、自社では気づけない営業の「センターピン」を特定する。それを組織的な型として定着させることで、個人の才能に依存しない、持続可能な営業組織の構築を支援する。',
     border: 'border-brand-navy',
@@ -35,7 +32,6 @@ const VMV = [
   },
   {
     label: 'Value',
-    icon: <Heart size={20} className="text-slate-500" />,
     title: '価値観と行動指針',
     desc: (
       <div className="space-y-4">
@@ -85,10 +81,7 @@ export default function AboutPage() {
           <div className="space-y-5 mt-10">
             {VMV.map((v) => (
               <div key={v.label} className={`card border-l-4 ${v.border}`}>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center">
-                    {v.icon}
-                  </div>
+                <div className="mb-3">
                   <span className={`text-xs font-black uppercase tracking-widest ${v.labelColor}`}>
                     {v.label}
                   </span>
