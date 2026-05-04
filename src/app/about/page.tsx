@@ -8,11 +8,13 @@ export const metadata: Metadata = {
 };
 
 const COMPANY_INFO = [
-  { label: '会社名', value: 'ZEST Inc.（ゼスト）' },
+  { label: '会社名', value: '株式会社ZEST（ゼスト）' },
   { label: '代表者', value: '丹澤 俊平（Shunpei Tanzawa）' },
-  { label: 'メール', value: 'shunpei.tanzawa@zest2020.com' },
-  { label: '設立', value: '2020年' },
-  { label: '事業内容', value: '営業支援プラットフォーム開発・提供 / 営業組織コンサルティング' },
+  { label: '設立', value: '2020年8月' },
+  { label: '資本金', value: '15,000,000円' },
+  { label: '所在地', value: '〒107-0061 東京都港区北青山3-6-7' },
+  { label: '事業内容', value: '型化プラットフォーム事業 / 成長支援プログラム事業' },
+  { label: 'メンバー', value: '20名（業務委託・アドバイザー含む）' },
 ];
 
 const VMV = [
