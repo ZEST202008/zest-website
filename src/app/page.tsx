@@ -44,6 +44,7 @@ const SERVICES_STATIC = [
     tagline: 'KFS特定・営業の型化',
     description: 'トップセールスの行動データを解析し、組織全体で再現できる「センターピン（KFS）」を特定。誰もが成果を出せる営業の型を作ります。',
     logo: '/kachikata-logo.png',
+    logoClass: 'h-14 w-auto object-contain',
     color: 'orange',
   },
   {
@@ -52,6 +53,7 @@ const SERVICES_STATIC = [
     tagline: 'AppSheetベースの営業CRM',
     description: 'Google SheetsとAppSheetを使った、導入コストゼロの営業支援プラットフォーム。フィールド・インサイド・管理職の3役割に最適化。',
     logo: '/sheetviz-logo.png',
+    logoClass: 'h-10 w-auto object-contain',
     color: 'navy',
   },
 ];
@@ -71,8 +73,8 @@ function Services() {
               href={`/services/${s.slug}`}
               className="card group no-underline"
             >
-              <div className="h-12 mb-4 flex items-center">
-                <Image src={s.logo} alt={s.name} width={160} height={48} className="h-10 w-auto object-contain" />
+              <div className="h-14 mb-4 flex items-center">
+                <Image src={s.logo} alt={s.name} width={200} height={56} className={s.logoClass} />
               </div>
               <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${
                 s.color === 'orange' ? 'text-brand-orange' : 'text-brand-navy'
