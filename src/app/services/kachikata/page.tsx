@@ -6,6 +6,7 @@ import {
   Target, CheckCircle, ChevronRight, RefreshCw,
   TrendingUp, TrendingDown, Users, Database, Zap,
   Archive, EyeOff, ChevronDown, Layers, MessageCircle,
+  Shield, Award, BookOpen, XCircle, MinusCircle,
 } from 'lucide-react';
 import DiagnosisSection from './DiagnosisSection';
 
@@ -14,27 +15,127 @@ export const metadata: Metadata = {
   description: 'トップセールスの行動パターンをデータで解析し、誰もが再現できる「型」として定着させる。センターピン特定サービス カチカタ × SheetViz で営業組織のデータ活用を支援します。',
 };
 
-// ── Pain points ──
-const PAINS = [
-  {
-    icon: <AlertCircle size={20} className="text-brand-orange" />,
-    title: 'CRMツールを導入したが、\n現場への定着が難しかった',
-    desc: '導入費用をかけたにもかかわらず、操作の複雑さなどから現場への浸透が進まず、ツールが活用されないまま月額費用だけが発生し続けるケースは少なくありません。',
-    em: '鍵は「何を記録するか」を先に明確にすること',
-  },
+// ── 3つの悪循環 ──
+const BAD_CYCLES = [
   {
     icon: <User size={20} className="text-brand-orange" />,
-    title: 'トップセールスの成功パターンが\n言語化・共有されていない',
-    desc: '成果を上げるメンバーの行動には、再現可能なパターンがあります。しかしそれを抽出・型化する方法論を持っている組織はまだ多くありません。属人的なノウハウを組織の資産に変えることが、安定した成長への近道です。',
-    em: '',
+    title: '現場の疲弊',
+    subtitle: 'トップが頑張るほど組織が弱くなる',
+    desc: 'トップセールスが動き続けなければ売上が落ちる構造から抜け出せない。特定メンバーへの依存が深まるほど、組織全体の再現性は失われていく。',
   },
   {
-    icon: <BarChart2 size={20} className="text-brand-orange" />,
-    title: 'データは集まっているのに\n意思決定に活かせていない',
-    desc: '蓄積されたデータが「どの指標を見ればいいか」「何がボトルネックか」の判断に活かされていない状態。データを意思決定につなげるには、分析の枠組み（KFS設計）が必要です。',
-    em: '',
+    icon: <AlertCircle size={20} className="text-brand-orange" />,
+    title: '経営の不確実性',
+    subtitle: '予測できない売上が戦略を歪める',
+    desc: '「なぜ売れたのか」「なぜ失注したのか」の因果関係が見えないため、再現できない。データはあるのに意思決定の根拠にならない状態が続く。',
+  },
+  {
+    icon: <TrendingDown size={20} className="text-brand-orange" />,
+    title: '成長の停滞',
+    subtitle: '属人化が組織の限界を決める',
+    desc: 'メンバーが増えても売上が比例して伸びない。新人教育に時間がかかり、育成コストが積み上がる一方で、ノウハウは個人の頭の中にしか残らない。',
   },
 ];
+
+// ── 3つの構造的欠陥 ──
+const BOTTLENECKS = [
+  {
+    icon: <Target size={20} className="text-red-500" />,
+    num: '01',
+    title: '武器の不在',
+    desc: '勝てる行動が定義されていない。トップ営業の何が成果につながっているのかが言語化されておらず、組織として活かせる「型」がない。',
+  },
+  {
+    icon: <BarChart2 size={20} className="text-red-500" />,
+    num: '02',
+    title: '基準の欠如',
+    desc: '何を測り、何を追跡するかが決まっていない。記録されるデータがバラバラで、分析に使えるデータが溜まらず、改善のサイクルが回らない。',
+  },
+  {
+    icon: <Archive size={20} className="text-red-500" />,
+    num: '03',
+    title: '資産の放棄',
+    desc: '蓄積されるはずの経験が次に活かされていない。メンバーが変わるたびにノウハウがリセットされ、組織は永遠に同じスタートラインに戻り続ける。',
+  },
+];
+
+// ── 4つのソリューション ──
+const SOLUTIONS = [
+  {
+    num: '01',
+    color: 'orange',
+    icon: <Target size={20} className="text-brand-orange" />,
+    title: 'KFS設計・設定',
+    desc: 'データ分析×ヒアリング×AIで、成約率と最も相関する行動を科学的に特定。「精神論」を「測定可能なアクション」へ変換する。',
+    tags: ['センターピン特定', 'KPI設計', '行動指標の定義'],
+  },
+  {
+    num: '02',
+    color: 'blue',
+    icon: <Database size={20} className="text-blue-600" />,
+    title: 'CRM構築・連携',
+    desc: 'GoogleスプレッドシートとAppSheetをベースにした、現場が使いたくなるシンプルなCRM基盤を構築。既存ツールとの連携も対応。',
+    tags: ['SheetViz CRM / IS / Daily', '既存CRM連携', '現場定着支援'],
+  },
+  {
+    num: '03',
+    color: 'purple',
+    icon: <BarChart2 size={20} className="text-purple-600" />,
+    title: 'データ・ドリブン分析',
+    desc: '蓄積されたデータをKPI改善に直結させるダッシュボードと分析レポートを提供。Looker Studio・Tableauで経営判断を支援する。',
+    tags: ['Looker Studio / Tableau', 'KFS実施率モニタリング', '改善サイクル設計'],
+  },
+  {
+    num: '04',
+    color: 'green',
+    icon: <Users size={20} className="text-green-600" />,
+    title: '運用支援',
+    desc: '定着まで伴走する6ヶ月のフルサポート。オンボーディング研修からプレイブック納品まで、「自走できる組織」になるまで支援し続ける。',
+    tags: ['オンボーディング研修', 'プレイブック納品', '日報革命（AIコーチング）'],
+  },
+];
+
+// ── 競争優位性 ──
+const ADVANTAGES = [
+  {
+    icon: <Award size={22} className="text-brand-orange" />,
+    title: '経営の重鎮',
+    desc: '現役経営者・投資家としての実践知を持つメンバーが支援。机上の理論ではなく、実際の営業現場で検証されたメソッドを提供する。',
+  },
+  {
+    icon: <Database size={22} className="text-brand-orange" />,
+    title: 'データ戦略家',
+    desc: 'SaaS・金融領域でのデータ解析実績を持つ専門家が在籍。統計分析から意思決定支援まで、データ活用のプロが営業組織を変える。',
+  },
+  {
+    icon: <Shield size={22} className="text-brand-orange" />,
+    title: '独自学習データ',
+    desc: '複数社の営業データで訓練された独自モデルを保有。業界・商材の特性を踏まえたKFS特定で、汎用AIツールでは出せない精度を実現する。',
+  },
+];
+
+// ── 他社比較 ──
+const COMPARISON_AXES = [
+  '現場への定着',
+  '導入コスト',
+  'スピード感',
+  '自社データ活用',
+  '継続的な改善',
+];
+
+type Mark = 'great' | 'ok' | 'bad';
+const COMPARISON_DATA: { company: string; marks: Mark[] }[] = [
+  { company: '大手コンサル', marks: ['bad', 'bad', 'bad', 'ok', 'bad'] },
+  { company: 'SFAベンダー', marks: ['ok', 'ok', 'ok', 'ok', 'ok'] },
+  { company: '営業研修', marks: ['bad', 'great', 'great', 'bad', 'bad'] },
+  { company: 'カチカタ', marks: ['great', 'ok', 'great', 'great', 'great'] },
+];
+
+function CompMark({ mark, isKachikata }: { mark: Mark; isKachikata: boolean }) {
+  if (mark === 'great') return <CheckCircle size={18} className={isKachikata ? 'text-brand-orange mx-auto' : 'text-green-500 mx-auto'} />;
+  if (mark === 'ok') return <MinusCircle size={18} className="text-slate-400 mx-auto" />;
+  return <XCircle size={18} className="text-red-300 mx-auto" />;
+}
 
 // ── Growth cycle steps ──
 const CYCLE = [
@@ -183,15 +284,15 @@ const AFTER = [
 
 // ── Pricing inclusions ──
 const PLAN_ITEMS = [
-  'SBM行動解析・ヒアリング',
-  'センターピン（KFS）の特定',
-  'KPI設定',
-  '専用CRM（SheetViz）構築',
-  'オンボーディング研修',
-  '日報革命（AIコーチング）',
-  'Looker Studio / Tableau 分析レポート',
-  'プレイブック（セールスブック）納品',
-  'Google製品活用支援',
+  { num: '01', label: 'SBM行動解析・ヒアリング', desc: 'トップ営業の行動パターンをデータと対話で解析' },
+  { num: '02', label: 'センターピン（KFS）の特定', desc: '成約率と最も相関する核心行動を科学的に導出' },
+  { num: '03', label: 'KPI設定', desc: '追跡すべき指標と目標値を組織に合わせて設計' },
+  { num: '04', label: '専用CRM（SheetViz）構築', desc: 'KFS入力に特化したCRM基盤をゼロから構築' },
+  { num: '05', label: 'オンボーディング研修', desc: '現場への定着を促すハンズオン研修を実施' },
+  { num: '06', label: '日報革命（AIコーチング）', desc: 'AIが日報をもとに個別フィードバックを自動生成' },
+  { num: '07', label: 'Looker Studio / Tableau 分析レポート', desc: 'KFS実施率と成果の相関をダッシュボードで可視化' },
+  { num: '08', label: 'プレイブック（セールスブック）納品', desc: '組織固有の「勝ちパターン」を文書化して納品' },
+  { num: '09', label: 'Google製品活用支援', desc: 'Workspace全体の活用最適化まで伴走' },
 ];
 
 // ── FAQ ──
@@ -234,9 +335,10 @@ export default function KachikataPage() {
               className="h-14 w-auto object-contain"
             />
           </div>
-          <p className="text-xl text-brand-orange font-bold mb-4">
-            「勝ち」と「価値」を型化する、KFS特定サービス
-          </p>
+          <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
+            属人性を排し、<br />
+            <span className="text-brand-orange">再現性を極める。</span>
+          </h1>
           <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
             トップセールスの行動パターンをデータで解析し、誰もが再現できる「型」として定着させる。
             シンプルなCRM基盤 <strong className="text-brand-navy">SheetViz</strong> と、
@@ -255,26 +357,22 @@ export default function KachikataPage() {
         </div>
       </section>
 
-      {/* ── Pain ── */}
+      {/* ── 3つの悪循環 ── */}
       <section className="py-20">
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">課題の整理</span>
-            <h2 className="section-title">こんな課題をお持ちではないでしょうか</h2>
+            <h2 className="section-title">多くの営業組織が陥る<br />「3つの悪循環」</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {PAINS.map((p, i) => (
+            {BAD_CYCLES.map((p, i) => (
               <div key={i} className="card border-t-4 border-t-brand-orange">
                 <div className="w-11 h-11 bg-orange-50 rounded-xl flex items-center justify-center mb-4">
                   {p.icon}
                 </div>
-                <h3 className="font-black text-brand-navy text-base mb-3 leading-snug whitespace-pre-line">
-                  {p.title}
-                </h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  {p.desc}
-                  {p.em && <><br /><strong className="text-brand-navy">{p.em}</strong></>}
-                </p>
+                <h3 className="font-black text-brand-navy text-base mb-1">{p.title}</h3>
+                <p className="text-brand-orange text-sm font-semibold mb-3">{p.subtitle}</p>
+                <p className="text-slate-600 text-sm leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -282,9 +380,9 @@ export default function KachikataPage() {
             <MessageCircle size={22} className="text-brand-orange shrink-0 mt-0.5" />
             <div>
               <p className="text-brand-navy font-semibold leading-relaxed mb-1">
-                「データドリブンを目指したいが、どこから始めればよいかわからない」——その答えは、
-                <span className="text-brand-orange">センターピン（KFS）</span>を先に定義することにあります。
-                何を記録・追跡するかが決まれば、ツールは機能します。
+                この悪循環の根本にあるのは、「感覚」で営業を回し続けてきた組織構造の問題です。
+                解決策は<span className="text-brand-orange">センターピン（KFS）</span>を先に定義し、
+                「何を記録・追跡するか」を決めること——それだけで、ツールも人も動き始めます。
               </p>
               <p className="text-xs text-slate-400">— 株式会社ZEST / カチカタ設計チーム</p>
             </div>
@@ -292,7 +390,37 @@ export default function KachikataPage() {
         </div>
       </section>
 
-      {/* ── Solution ── */}
+      {/* ── 3つの構造的欠陥 ── */}
+      <section className="bg-red-50 py-20">
+        <div className="container-inner">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase mb-4">
+              根本原因
+            </span>
+            <h2 className="section-title">悪循環を生み出す<br />「3つの構造的欠陥」</h2>
+            <p className="section-sub mt-3">
+              ツールを入れ替えても、研修を増やしても変わらないのは、<br />
+              組織の設計レベルにこれらの欠陥があるからです。
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {BOTTLENECKS.map((b) => (
+              <div key={b.num} className="bg-white rounded-2xl border border-red-100 p-6 shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-3xl font-black text-red-100">{b.num}</span>
+                  <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
+                    {b.icon}
+                  </div>
+                </div>
+                <h3 className="font-black text-brand-navy text-base mb-3">{b.title}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Solution (SheetViz + カチカタ) ── */}
       <section className="bg-brand-bg py-20">
         <div className="container-inner">
           <div className="text-center mb-12">
@@ -360,8 +488,130 @@ export default function KachikataPage() {
         </div>
       </section>
 
-      {/* ── Growth Cycle ── */}
+      {/* ── 4つのソリューション ── */}
       <section className="py-20">
+        <div className="container-inner">
+          <div className="text-center mb-12">
+            <span className="section-label">サービス詳細</span>
+            <h2 className="section-title">カチカタが提供する<br />「4つのソリューション」</h2>
+            <p className="section-sub mt-3">
+              KFS設計から運用定着まで、組織変革に必要なすべてをワンストップで。
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {SOLUTIONS.map((s) => {
+              const borderCls =
+                s.color === 'orange' ? 'border-brand-orange' :
+                s.color === 'blue' ? 'border-blue-400' :
+                s.color === 'purple' ? 'border-purple-400' : 'border-green-400';
+              const tagBg =
+                s.color === 'orange' ? 'bg-orange-50 text-orange-700' :
+                s.color === 'blue' ? 'bg-blue-50 text-blue-700' :
+                s.color === 'purple' ? 'bg-purple-50 text-purple-700' : 'bg-green-50 text-green-700';
+              const numCls =
+                s.color === 'orange' ? 'text-brand-orange' :
+                s.color === 'blue' ? 'text-blue-600' :
+                s.color === 'purple' ? 'text-purple-600' : 'text-green-600';
+              return (
+                <div key={s.num} className={`card border-l-4 ${borderCls}`}>
+                  <div className="flex items-start gap-4 mb-3">
+                    <span className={`text-3xl font-black ${numCls} opacity-30 leading-none`}>{s.num}</span>
+                    <div>
+                      <h3 className="font-black text-brand-navy text-base mb-2">{s.title}</h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">{s.desc}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {s.tags.map((tag) => (
+                      <span key={tag} className={`text-xs font-bold px-2.5 py-1 rounded-full ${tagBg}`}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 競争優位性 ── */}
+      <section className="bg-brand-navy py-20">
+        <div className="container-inner">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase mb-4">
+              競争優位性
+            </span>
+            <h2 className="text-3xl font-black text-white leading-tight mb-5">
+              なぜカチカタだけが<br />「再現性」を実現できるのか
+            </h2>
+            <p className="text-slate-400 text-base leading-8">
+              3つの固有資産が、他社にはない精度と実行力を生み出します。
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {ADVANTAGES.map((a) => (
+              <div key={a.title} className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-4">
+                  {a.icon}
+                </div>
+                <h3 className="font-black text-white mb-3">{a.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 他社比較 ── */}
+      <section className="py-20">
+        <div className="container-inner max-w-3xl">
+          <div className="text-center mb-10">
+            <span className="section-label">他社との比較</span>
+            <h2 className="section-title">カチカタが選ばれる理由</h2>
+          </div>
+          <div className="card overflow-hidden p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-brand-bg border-b border-slate-200">
+                    <th className="text-left p-4 font-bold text-slate-500 text-xs">比較軸</th>
+                    {COMPARISON_DATA.map((c) => (
+                      <th
+                        key={c.company}
+                        className={`p-4 font-black text-xs text-center ${c.company === 'カチカタ' ? 'text-brand-orange bg-orange-50' : 'text-brand-navy'}`}
+                      >
+                        {c.company}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {COMPARISON_AXES.map((axis, axisIdx) => (
+                    <tr key={axis} className={axisIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}>
+                      <td className="p-4 font-semibold text-slate-700 text-xs">{axis}</td>
+                      {COMPARISON_DATA.map((c) => (
+                        <td
+                          key={c.company}
+                          className={`p-4 text-center ${c.company === 'カチカタ' ? 'bg-orange-50/50' : ''}`}
+                        >
+                          <CompMark mark={c.marks[axisIdx]} isKachikata={c.company === 'カチカタ'} />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="border-t border-slate-100 px-4 py-3 flex items-center gap-6 bg-slate-50 text-xs text-slate-400">
+              <span className="flex items-center gap-1"><CheckCircle size={13} className="text-green-500" /> 対応・優位</span>
+              <span className="flex items-center gap-1"><MinusCircle size={13} className="text-slate-400" /> 部分対応</span>
+              <span className="flex items-center gap-1"><XCircle size={13} className="text-red-300" /> 非対応・弱点</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Growth Cycle ── */}
+      <section className="bg-brand-bg py-20">
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">連携の仕組み</span>
@@ -388,12 +638,12 @@ export default function KachikataPage() {
             ))}
           </div>
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-brand-bg border border-slate-200 rounded-full px-5 py-2">
+            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-5 py-2">
               <RefreshCw size={16} className="text-brand-orange" />
               <span className="text-sm font-semibold text-slate-600">この循環が継続することで、組織の営業力が積み上がっていく</span>
             </div>
           </div>
-          <div className="bg-brand-bg border border-slate-200 rounded-2xl p-6">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6">
             <p className="font-bold text-brand-navy mb-2">
               SheetVizで蓄積されるデータは、それ自体が<span className="text-brand-orange">「組織の財産」</span>です。
             </p>
@@ -405,7 +655,7 @@ export default function KachikataPage() {
       </section>
 
       {/* ── Center Pin ── */}
-      <section className="bg-brand-bg py-20">
+      <section className="py-20">
         <div className="container-inner max-w-4xl">
           <div className="text-center mb-12">
             <span className="section-label">中心概念</span>
@@ -467,7 +717,7 @@ export default function KachikataPage() {
       </section>
 
       {/* ── Roadmap ── */}
-      <section className="py-20">
+      <section className="bg-brand-bg py-20">
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">導入ロードマップ</span>
@@ -492,7 +742,7 @@ export default function KachikataPage() {
       </section>
 
       {/* ── Before / After ── */}
-      <section className="bg-brand-bg py-20">
+      <section className="py-20">
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">導入効果</span>
@@ -544,7 +794,7 @@ export default function KachikataPage() {
       </section>
 
       {/* ── Pricing ── */}
-      <section className="py-20">
+      <section className="bg-brand-bg py-20">
         <div className="container-inner max-w-3xl">
           <div className="text-center mb-10">
             <span className="section-label">料金プラン</span>
@@ -578,18 +828,21 @@ export default function KachikataPage() {
                 <p className="text-xs text-slate-400 mt-0.5">20ユーザーまで含む / 追加 +1,000円/名</p>
               </div>
             </div>
-            <p className="font-bold text-brand-navy mb-3">パッケージに含まれるもの</p>
-            <div className="grid grid-cols-2 gap-2">
-              {PLAN_ITEMS.map((item, i) => (
-                <div key={item} className="text-sm text-slate-600 flex gap-1.5">
-                  <span className="text-brand-orange font-bold shrink-0">{'0' + (i + 1) === '010' ? '10' : '0' + (i + 1)}</span>
-                  {item}
+            <p className="font-bold text-brand-navy mb-4">パッケージに含まれるもの</p>
+            <div className="space-y-3">
+              {PLAN_ITEMS.map((item) => (
+                <div key={item.num} className="flex gap-3 items-start">
+                  <span className="text-brand-orange font-black text-xs shrink-0 mt-0.5">{item.num}</span>
+                  <div>
+                    <p className="text-sm font-bold text-brand-navy">{item.label}</p>
+                    <p className="text-xs text-slate-500">{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
           {/* Cost comparison */}
-          <div className="bg-brand-bg border border-slate-200 rounded-2xl overflow-hidden max-w-lg mx-auto">
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden max-w-lg mx-auto">
             <div className="grid grid-cols-[1fr_auto_1fr] text-center p-5 gap-4 items-center">
               <div>
                 <p className="text-xs font-semibold text-slate-500 mb-1">専門人材を採用した場合</p>
@@ -611,7 +864,7 @@ export default function KachikataPage() {
       </section>
 
       {/* ── Diagnosis ── */}
-      <section className="bg-brand-bg py-20" id="diagnosis">
+      <section className="py-20" id="diagnosis">
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">無料診断</span>
@@ -626,7 +879,7 @@ export default function KachikataPage() {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="py-20">
+      <section className="bg-brand-bg py-20">
         <div className="container-inner max-w-2xl">
           <div className="text-center mb-10">
             <span className="section-label">よくある質問</span>
