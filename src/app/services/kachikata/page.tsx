@@ -128,11 +128,11 @@ const COMPARISON_DATA: { company: string; marks: Mark[] }[] = [
   { company: '大手コンサル', marks: ['bad', 'bad', 'bad', 'ok', 'bad'] },
   { company: 'SFAベンダー', marks: ['ok', 'ok', 'ok', 'ok', 'ok'] },
   { company: '営業研修', marks: ['bad', 'great', 'great', 'bad', 'bad'] },
-  { company: 'カチカタ', marks: ['great', 'ok', 'great', 'great', 'great'] },
+  { company: 'カチカタ', marks: ['great', 'great', 'great', 'great', 'great'] },
 ];
 
-function CompMark({ mark, isKachikata }: { mark: Mark; isKachikata: boolean }) {
-  if (mark === 'great') return <CheckCircle size={18} className={isKachikata ? 'text-brand-orange mx-auto' : 'text-green-500 mx-auto'} />;
+function CompMark({ mark }: { mark: Mark; isKachikata: boolean }) {
+  if (mark === 'great') return <CheckCircle size={18} className="text-green-500 mx-auto" />;
   if (mark === 'ok') return <MinusCircle size={18} className="text-slate-400 mx-auto" />;
   return <XCircle size={18} className="text-red-300 mx-auto" />;
 }
@@ -341,8 +341,8 @@ export default function KachikataPage() {
           </h1>
           <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
             トップセールスの行動パターンをデータで解析し、誰もが再現できる「型」として定着させる。
-            シンプルなCRM基盤 <strong className="text-brand-navy">SheetViz</strong> と、
-            センターピン特定サービス <strong className="text-brand-orange">カチカタ</strong> を組み合わせた、
+            センターピン特定サービス <strong className="text-brand-orange">カチカタ</strong> と
+            シンプルなCRM基盤 <strong className="text-brand-navy">SheetViz</strong> を組み合わせた、
             データドリブン営業支援サービスです。
           </p>
           <div className="flex flex-wrap gap-4">
@@ -420,41 +420,18 @@ export default function KachikataPage() {
         </div>
       </section>
 
-      {/* ── Solution (SheetViz + カチカタ) ── */}
+      {/* ── Solution (カチカタ + SheetViz) ── */}
       <section className="bg-brand-bg py-20">
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">ソリューション</span>
-            <h2 className="section-title">「使えるCRM」と「使い方の設計」<br />両方があって初めて機能する</h2>
+            <h2 className="section-title">「KFSの設計」と「使えるCRM」<br />両方があって初めて機能する</h2>
             <p className="section-sub mt-3">
-              ツールだけでも、戦略だけでも成果につながりにくい。<br />
+              戦略だけでも、ツールだけでも成果につながりにくい。<br />
               ZESTが提供するのは、2つをセットにした「動く仕組み」です。
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 mb-6">
-            {/* SheetViz */}
-            <div className="card border-2 border-blue-400">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-11 h-11 bg-blue-50 rounded-xl flex items-center justify-center">
-                  <BarChart2 size={20} className="text-blue-600" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-0.5">Step 1 — データ基盤</div>
-                  <div className="font-black text-slate-800 text-lg">SheetViz</div>
-                </div>
-              </div>
-              <p className="font-bold text-brand-navy mb-3">Googleスプレッドシートで動く、シンプルな専用CRM基盤</p>
-              <ul className="space-y-2 mb-4">
-                {['現場が迷わない最小限UI（SheetViz CRM / IS / Daily）', 'スマホ・PCどちらでも即時入力', '追加ライセンスコスト不要', '既存CRMとの連携・併用も可能'].map((t) => (
-                  <li key={t} className="flex items-start gap-2 text-sm text-slate-600">
-                    <CheckCircle size={14} className="text-blue-500 shrink-0 mt-0.5" /> {t}
-                  </li>
-                ))}
-              </ul>
-              <div className="bg-blue-50 rounded-xl p-3 text-sm text-blue-800 font-medium">
-                センターピン入力に特化したシンプルな設計により、現場への定着率が向上します。
-              </div>
-            </div>
             {/* カチカタ */}
             <div className="card border-2 border-brand-orange">
               <div className="flex items-center gap-3 mb-4">
@@ -462,7 +439,7 @@ export default function KachikataPage() {
                   <Target size={20} className="text-brand-orange" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-0.5">Step 2 — KFS設計</div>
+                  <div className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-0.5">Step 1 — KFS設計</div>
                   <div className="font-black text-brand-navy text-lg">カチカタ</div>
                 </div>
               </div>
@@ -476,6 +453,29 @@ export default function KachikataPage() {
               </ul>
               <div className="bg-orange-50 rounded-xl p-3 text-sm text-orange-900 font-medium">
                 「まず勝てる型（質）を確立し、その後にアクセル（量）を踏む」——順序が成果を左右します。
+              </div>
+            </div>
+            {/* SheetViz */}
+            <div className="card border-2 border-blue-400">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-11 h-11 bg-blue-50 rounded-xl flex items-center justify-center">
+                  <BarChart2 size={20} className="text-blue-600" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-0.5">Step 2 — データ基盤</div>
+                  <div className="font-black text-slate-800 text-lg">SheetViz</div>
+                </div>
+              </div>
+              <p className="font-bold text-brand-navy mb-3">Googleスプレッドシートで動く、シンプルな専用CRM基盤</p>
+              <ul className="space-y-2 mb-4">
+                {['現場が迷わない最小限UI（SheetViz CRM / IS / Daily）', 'スマホ・PCどちらでも即時入力', '追加ライセンスコスト不要', '既存CRMとの連携・併用も可能'].map((t) => (
+                  <li key={t} className="flex items-start gap-2 text-sm text-slate-600">
+                    <CheckCircle size={14} className="text-blue-500 shrink-0 mt-0.5" /> {t}
+                  </li>
+                ))}
+              </ul>
+              <div className="bg-blue-50 rounded-xl p-3 text-sm text-blue-800 font-medium">
+                センターピン入力に特化したシンプルな設計により、現場への定着率が向上します。
               </div>
             </div>
           </div>
@@ -615,7 +615,7 @@ export default function KachikataPage() {
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">連携の仕組み</span>
-            <h2 className="section-title">SheetViz × カチカタが実現する<br />「成長の循環」</h2>
+            <h2 className="section-title">カチカタ × SheetVizが実現する<br />「成長の循環」</h2>
             <p className="section-sub mt-3">
               データ蓄積→KFS特定→実行定着→モニタリング改善が循環することで、<br />
               組織の営業力が継続的に高まっていきます。
@@ -712,6 +712,71 @@ export default function KachikataPage() {
                 </ul>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── カチカタAI ── */}
+      <section className="py-20">
+        <div className="container-inner max-w-4xl">
+          <div className="text-center mb-12">
+            <span className="section-label">テクノロジー</span>
+            <h2 className="section-title">カチカタAIとは</h2>
+            <p className="section-sub mt-3">
+              現場の暗黙知を、中小企業が即日使える「型」へ民主化する<br />
+              弊社独自の構造化ヒアリングシステムです。
+            </p>
+          </div>
+          <div className="card border-2 border-brand-orange mb-6">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">
+                <Zap size={22} className="text-brand-orange" />
+              </div>
+              <div>
+                <h3 className="font-black text-brand-navy text-lg mb-2">大企業の「経営の規律」×成長企業の「現場の機動力」</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  売上数億〜数兆円規模の企業経営を経験した多彩なブレーン陣がSBM（営業行動モデル）の設計思想を監修。
+                  現場から必要な定性・定量データを精緻に収集し、独自の解析技術（回答群の多角的クロス解析）で
+                  「無意識の勝ちパターン」を抽出します。
+                </p>
+              </div>
+            </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                {
+                  step: '01',
+                  title: 'WEB事前ヒアリング',
+                  desc: 'トップパフォーマーと成長層に、カチカタAIが精神論を排除した設問で思考・行動プロセスを言語化させる。人事評価に影響しない環境で現場のリアルを引き出す。',
+                  color: 'orange',
+                },
+                {
+                  step: '02',
+                  title: 'AIによる即時構造化',
+                  desc: '蓄積された回答をカチカタAIがクロス解析。成功パターンの共通項と行動の差異を自動構造化し、多忙な現場の負荷を極小化する。',
+                  color: 'orange',
+                },
+                {
+                  step: '03',
+                  title: 'ディープ・ヒアリング',
+                  desc: '構造化されたデータをベースに、弊社と御社コアメンバーでピンポイントなヒアリングを実施。暗黙知の細部を言語化し、KSF（センターピン）として全社合意を図る。',
+                  color: 'orange',
+                },
+              ].map((item) => (
+                <div key={item.step} className="bg-orange-50 rounded-xl p-4">
+                  <div className="text-brand-orange font-black text-xs mb-2">Step {item.step}</div>
+                  <h4 className="font-black text-brand-navy text-sm mb-2">{item.title}</h4>
+                  <p className="text-slate-600 text-xs leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="bg-brand-bg border border-slate-200 rounded-2xl p-5 flex gap-3 items-start">
+            <Shield size={18} className="text-brand-orange shrink-0 mt-0.5" />
+            <p className="text-sm text-slate-600 leading-relaxed">
+              <strong className="text-brand-navy">回答の安全性について：</strong>
+              カチカタAIへの回答は人事評価には一切影響しないことを担保し、現場のリアルな実態をありのままに引き出します。
+              収集されたデータは御社のKSF特定にのみ使用されます。
+            </p>
           </div>
         </div>
       </section>
