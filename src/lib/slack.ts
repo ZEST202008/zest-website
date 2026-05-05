@@ -1,11 +1,16 @@
 import { Message } from './agent/types';
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL!;
-const SLACK_GROUP_HANDLE = 'client-inquiry'; // <!subteam^ID> 形式か @handle 形式
+// Slack管理画面でグループIDを確認して環境変数に設定してください（例: S12345ABC）
+// 未設定の場合は @client-inquiry のテキストメンションにフォールバック
+const SLACK_GROUP_ID = process.env.SLACK_GROUP_ID ?? '';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zest2020.com';
+const STAFF_REPLY_TOKEN = process.env.STAFF_REPLY_TOKEN ?? '';
 
 export async function sendEscalationToSlack(
   messages: Message[],
-  reason: string
+  reason: string,
+  sessionId?: string
 ): Promise<void> {
   if (!SLACK_WEBHOOK_URL) {
     console.error('SLACK_WEBHOOK_URL is not set');
@@ -18,8 +23,19 @@ export async function sendEscalationToSlack(
     .map((m) => `${m.role === 'user' ? '👤 訪問者' : '🤖 Bot'}: ${m.content}`)
     .join('\n');
 
+  // グループメンション: IDが設定済みなら <!subteam^ID>、未設定なら @handle テキスト
+  const mention = SLACK_GROUP_ID
+    ? `<!subteam^${SLACK_GROUP_ID}|client-inquiry>`
+    : '@client-inquiry';
+
+  // スタッフ返信URL（sessionIdがある場合のみ生成）
+  const replyUrl =
+    sessionId && STAFF_REPLY_TOKEN
+      ? `${SITE_URL}/staff/reply/${sessionId}?token=${encodeURIComponent(STAFF_REPLY_TOKEN)}`
+      : null;
+
   const payload = {
-    text: `<!subteam^${SLACK_GROUP_HANDLE}> *ホームページからの問い合わせが届きました*`,
+    text: `${mention} *ホームページからの問い合わせが届きました*`,
     blocks: [
       {
         type: 'header',
@@ -34,7 +50,7 @@ export async function sendEscalationToSlack(
         fields: [
           {
             type: 'mrkdwn',
-            text: `*エスカレーション理由:*\n${reason}`,
+            text: `*エスカレーション理由 / 連絡先:*\n${reason}`,
           },
           {
             type: 'mrkdwn',
@@ -52,15 +68,21 @@ export async function sendEscalationToSlack(
       {
         type: 'actions',
         elements: [
+          // KVが設定済みの場合のみ「チャットで返信」ボタンを表示
+          ...(replyUrl
+            ? [
+                {
+                  type: 'button',
+                  text: { type: 'plain_text', text: '💬 チャットで返信する', emoji: true },
+                  style: 'primary',
+                  url: replyUrl,
+                },
+              ]
+            : []),
           {
             type: 'button',
-            text: {
-              type: 'plain_text',
-              text: '対応する',
-              emoji: true,
-            },
-            style: 'primary',
-            url: 'https://www.zest2020.com',
+            text: { type: 'plain_text', text: '🌐 サイトを見る', emoji: true },
+            url: SITE_URL,
           },
         ],
       },

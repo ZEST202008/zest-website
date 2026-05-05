@@ -15,7 +15,10 @@ const client = new Anthropic({
  * この関数の中身を Managed Agents の Session API に差し替えるだけでOK。
  * 呼び出し元（route.ts）は変更不要。
  */
-export async function sendMessage(messages: Message[]): Promise<{
+export async function sendMessage(
+  messages: Message[],
+  sessionId?: string
+): Promise<{
   reply: string;
   escalated: boolean;
 }> {
@@ -39,11 +42,11 @@ export async function sendMessage(messages: Message[]): Promise<{
 
     if (toolUse && toolUse.type === 'tool_use' && toolUse.name === 'escalate_to_slack') {
       const input = toolUse.input as { reason: string };
-      await sendEscalationToSlack(trimmedMessages, input.reason);
+      await sendEscalationToSlack(trimmedMessages, input.reason, sessionId);
 
       return {
         reply:
-          'ありがとうございます。担当者に引き継ぎました。1営業日以内にご連絡いたします。それまでの間、ご不便をおかけして申し訳ございません。',
+          'ありがとうございます。担当者よりこのチャットまたはメールにてご連絡いたします。少々お待ちください。',
         escalated: true,
       };
     }
