@@ -63,8 +63,8 @@ function AssistantAvatarSmall() {
         borderRadius: '50%',
         backgroundColor: '#f8f4f0',
         backgroundImage: 'url(/chat-assistant.png)',
-        backgroundSize: '280%',       // 拡大率：大きいほど顔にズームイン
-        backgroundPosition: '50% 8%', // 横:中央 縦:上から8%（顔の位置に合わせて調整）
+        backgroundSize: '280%',        // 拡大率：大きいほど顔にズームイン
+        backgroundPosition: '50% 25%', // 横:中央 縦:上から25%（顔の位置に合わせて調整）
         backgroundRepeat: 'no-repeat',
         flexShrink: 0,
       }}
