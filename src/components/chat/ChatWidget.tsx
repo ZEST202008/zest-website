@@ -50,16 +50,34 @@ function generateSessionId() {
 
 // ────────────────────────────────────────────────────────────────
 // Small avatar for chat header / message bubbles
+// 画像の上部（顔エリア）のみを円形にクリップして表示
 // ────────────────────────────────────────────────────────────────
 function AssistantAvatarSmall() {
   return (
-    <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-slate-100">
-      <Image
+    <div
+      className="flex-shrink-0"
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        backgroundColor: '#f8f4f0',
+      }}
+    >
+      {/*
+        画像を縦2.5倍でレンダリングし、上部40%（顔エリア）のみ表示。
+        画像の構成に応じて height の倍率を調整してください。
+      */}
+      <img
         src="/chat-assistant.png"
         alt="アシスタント"
-        width={32}
-        height={32}
-        className="w-full h-full object-cover object-top"
+        style={{
+          width: '32px',
+          height: '80px',          // 32 × 2.5 = 上部40%を表示
+          objectFit: 'cover',
+          objectPosition: 'top center',
+          display: 'block',
+        }}
       />
     </div>
   );
@@ -133,11 +151,12 @@ export default function ChatWidget() {
   const [error, setError] = useState<string | null>(null);
   const [showBubble, setShowBubble] = useState(false);
   const [sessionId] = useState(() => generateSessionId());
-  const [lastStaffAt, setLastStaffAt] = useState<string | null>(null);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // useRef で最新の「最終取得時刻」を管理（stale closure を防ぐ）
+  const lastStaffAtRef = useRef<string | null>(null);
 
   // 吹き出しを3秒後に表示、12秒後に自動非表示
   useEffect(() => {
@@ -158,10 +177,12 @@ export default function ChatWidget() {
   }, [open]);
 
   // エスカレーション後: スタッフ返信ポーリング（5秒ごと）
+  // lastStaffAtRef を使うことで stale closure を回避し、無限ループを防止
   useEffect(() => {
     if (!escalated) return;
+
     async function poll() {
-      const since = lastStaffAt ?? '';
+      const since = lastStaffAtRef.current;
       const url = `/api/chat/poll?sessionId=${sessionId}${since ? `&since=${encodeURIComponent(since)}` : ''}`;
       try {
         const res = await fetch(url, { cache: 'no-store' });
@@ -172,14 +193,15 @@ export default function ChatWidget() {
             content: m.content,
           }));
           setMessages((prev) => [...prev, ...newMsgs]);
-          setLastStaffAt(data.messages[data.messages.length - 1].sentAt);
+          // ref を直接更新（再レンダリング不要 & 次のポーリングに即反映）
+          lastStaffAtRef.current = data.messages[data.messages.length - 1].sentAt;
         }
       } catch { /* ignore */ }
     }
+
     poll();
     pollRef.current = setInterval(poll, 5000);
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [escalated, sessionId]);
 
   const sendMessage = useCallback(async () => {
@@ -215,7 +237,11 @@ export default function ChatWidget() {
   }, [input, loading, escalated, messages, sessionId]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    // isComposing が true の間は日本語IMEの変換確定中なので送信しない
+    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -284,7 +310,7 @@ export default function ChatWidget() {
             {error && <p className="text-xs text-red-500 text-center px-2">{error}</p>}
             {escalated && (
               <p className="text-xs text-slate-500 text-center bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
-                ⏳ 担当者からの返信をお待ちください
+                担当者からの返信をお待ちください
               </p>
             )}
             <div ref={bottomRef} />
@@ -332,7 +358,7 @@ export default function ChatWidget() {
             <div
               className="chat-bubble-enter relative mb-16 mr-3 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 whitespace-nowrap"
             >
-              <p className="text-sm font-semibold text-slate-700">お気軽にお問い合わせください 😊</p>
+              <p className="text-sm font-semibold text-slate-700">お気軽にお問い合わせください</p>
               <p className="text-xs text-slate-400 mt-0.5">AIが24時間対応します</p>
               {/* 三角（右向き） */}
               <span
@@ -374,10 +400,13 @@ export default function ChatWidget() {
             <Image
               src="/chat-assistant.png"
               alt="AIアシスタント"
-              width={120}
-              height={120}
-              className="drop-shadow-lg"
+              width={200}
+              height={200}
               priority
+              style={{
+                // PNG輪郭に沿ったドロップシャドウ（背景色を問わず視認性を確保）
+                filter: 'drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.45))',
+              }}
             />
           </button>
         </div>
