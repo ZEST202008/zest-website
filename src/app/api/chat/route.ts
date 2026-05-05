@@ -50,6 +50,7 @@ export async function POST(req: NextRequest) {
           escalated: true,
           contactInfo: {},
           staffMessages: [],
+          visitorMessages: [],
           createdAt: new Date().toISOString(),
           lastActivityAt: new Date().toISOString(),
         });

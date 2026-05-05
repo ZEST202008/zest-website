@@ -50,7 +50,8 @@ function generateSessionId() {
 
 // ────────────────────────────────────────────────────────────────
 // Small avatar for chat header / message bubbles
-// 画像の上部（顔エリア）のみを円形にクリップして表示
+// background-image で顔エリアにズームイン表示
+// backgroundSize で倍率、backgroundPosition で位置を調整
 // ────────────────────────────────────────────────────────────────
 function AssistantAvatarSmall() {
   return (
@@ -60,26 +61,16 @@ function AssistantAvatarSmall() {
         width: 32,
         height: 32,
         borderRadius: '50%',
-        overflow: 'hidden',
         backgroundColor: '#f8f4f0',
+        backgroundImage: 'url(/chat-assistant.jpeg)',
+        backgroundSize: '280%',       // 拡大率：大きいほど顔にズームイン
+        backgroundPosition: '50% 8%', // 横:中央 縦:上から8%（顔の位置に合わせて調整）
+        backgroundRepeat: 'no-repeat',
+        flexShrink: 0,
       }}
-    >
-      {/*
-        画像を縦2.5倍でレンダリングし、上部40%（顔エリア）のみ表示。
-        画像の構成に応じて height の倍率を調整してください。
-      */}
-      <img
-        src="/chat-assistant.png"
-        alt="アシスタント"
-        style={{
-          width: '32px',
-          height: '80px',          // 32 × 2.5 = 上部40%を表示
-          objectFit: 'cover',
-          objectPosition: 'top center',
-          display: 'block',
-        }}
-      />
-    </div>
+      role="img"
+      aria-label="アシスタント"
+    />
   );
 }
 
@@ -206,7 +197,7 @@ export default function ChatWidget() {
 
   const sendMessage = useCallback(async () => {
     const text = input.trim();
-    if (!text || loading || escalated) return;
+    if (!text || loading) return;
 
     const userMsg: Message = { role: 'user', content: text };
     const nextMessages = [...messages, userMsg];
@@ -215,6 +206,23 @@ export default function ChatWidget() {
     setLoading(true);
     setError(null);
 
+    // エスカレーション後は担当者へのメッセージとしてKVに保存
+    if (escalated) {
+      try {
+        await fetch('/api/chat/visitor-reply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, message: text }),
+        });
+      } catch {
+        // ネットワークエラーは無視（メッセージは画面には表示済み）
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
+    // エスカレーション前: Claude APIへ送信
     const apiMessages = nextMessages
       .filter((m) => m.role !== 'staff')
       .map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }));
@@ -285,7 +293,7 @@ export default function ChatWidget() {
           <div className="flex items-center gap-3 px-4 py-3 text-white flex-shrink-0" style={{ backgroundColor: '#1a2744' }}>
             <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 bg-slate-100">
               <Image
-                src="/chat-assistant.png"
+                src="/chat-assistant.jpeg"
                 alt="アシスタント"
                 width={36}
                 height={36}
@@ -324,8 +332,8 @@ export default function ChatWidget() {
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
-                placeholder={escalated ? '担当者からの返信をお待ちください' : 'メッセージを入力… (Enter で送信)'}
-                disabled={loading || escalated}
+                placeholder={escalated ? '担当者へメッセージを送る… (Enter で送信)' : 'メッセージを入力… (Enter で送信)'}
+                disabled={loading}
                 rows={1}
                 className="flex-1 resize-none rounded-xl border border-slate-300 px-3 py-2.5 text-sm leading-6 outline-none disabled:bg-slate-50 disabled:text-slate-400 placeholder:text-slate-400 transition-colors"
                 style={{ minHeight: '40px', maxHeight: '120px' }}
@@ -334,7 +342,7 @@ export default function ChatWidget() {
               />
               <button
                 onClick={sendMessage}
-                disabled={!input.trim() || loading || escalated}
+                disabled={!input.trim() || loading}
                 className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 active:scale-95"
                 style={{ backgroundColor: '#e04102' }}
                 aria-label="送信"
@@ -398,15 +406,11 @@ export default function ChatWidget() {
             aria-label="チャットで問い合わせ"
           >
             <Image
-              src="/chat-assistant.png"
+              src="/chat-assistant.jpeg"
               alt="AIアシスタント"
-              width={200}
-              height={200}
+              width={150}
+              height={150}
               priority
-              style={{
-                // PNG輪郭に沿ったドロップシャドウ（背景色を問わず視認性を確保）
-                filter: 'drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.45))',
-              }}
             />
           </button>
         </div>
