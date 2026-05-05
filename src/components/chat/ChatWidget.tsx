@@ -62,7 +62,7 @@ function AssistantAvatarSmall() {
         height: 32,
         borderRadius: '50%',
         backgroundColor: '#f8f4f0',
-        backgroundImage: 'url(/chat-assistant.jpeg)',
+        backgroundImage: 'url(/chat-assistant.png)',
         backgroundSize: '280%',       // 拡大率：大きいほど顔にズームイン
         backgroundPosition: '50% 8%', // 横:中央 縦:上から8%（顔の位置に合わせて調整）
         backgroundRepeat: 'no-repeat',
@@ -293,7 +293,7 @@ export default function ChatWidget() {
           <div className="flex items-center gap-3 px-4 py-3 text-white flex-shrink-0" style={{ backgroundColor: '#1a2744' }}>
             <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 bg-slate-100">
               <Image
-                src="/chat-assistant.jpeg"
+                src="/chat-assistant.png"
                 alt="アシスタント"
                 width={36}
                 height={36}
@@ -406,7 +406,7 @@ export default function ChatWidget() {
             aria-label="チャットで問い合わせ"
           >
             <Image
-              src="/chat-assistant.jpeg"
+              src="/chat-assistant.png"
               alt="AIアシスタント"
               width={150}
               height={150}
