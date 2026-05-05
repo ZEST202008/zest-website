@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.93.0",
     "@notionhq/client": "^2.2.14",
     "@tailwindcss/typography": "^0.5.19",
     "clsx": "^2.1.1",
