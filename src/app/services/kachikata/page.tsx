@@ -425,10 +425,10 @@ export default function KachikataPage() {
         <div className="container-inner">
           <div className="text-center mb-12">
             <span className="section-label">ソリューション</span>
-            <h2 className="section-title">「KFSの設計」と「使えるCRM」<br />両方があって初めて機能する</h2>
+            <h2 className="section-title">「KFSの設計」で型を定め、<br />「使えるCRM」で型を実装する</h2>
             <p className="section-sub mt-3">
-              戦略だけでも、ツールだけでも成果につながりにくい。<br />
-              ZESTが提供するのは、2つをセットにした「動く仕組み」です。
+              何を追うかが決まれば、ツールは武器になる。<br />
+              カチカタは「KFSの設計」から、SheetVizは「データ基盤の構築」から、それぞれ単独でも、セットでも提供可能です。
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -758,7 +758,7 @@ export default function KachikataPage() {
                 {
                   step: '03',
                   title: 'ディープ・ヒアリング',
-                  desc: '構造化されたデータをベースに、弊社と御社コアメンバーでピンポイントなヒアリングを実施。暗黙知の細部を言語化し、KSF（センターピン）として全社合意を図る。',
+                  desc: '構造化されたデータをベースに、弊社と御社コアメンバーでピンポイントなヒアリングを実施。暗黙知の細部を言語化し、KFS（センターピン）として全社合意を図る。',
                   color: 'orange',
                 },
               ].map((item) => (
@@ -775,7 +775,7 @@ export default function KachikataPage() {
             <p className="text-sm text-slate-600 leading-relaxed">
               <strong className="text-brand-navy">回答の安全性について：</strong>
               カチカタAIへの回答は人事評価には一切影響しないことを担保し、現場のリアルな実態をありのままに引き出します。
-              収集されたデータは御社のKSF特定にのみ使用されます。
+              収集されたデータは御社のKFS特定にのみ使用されます。
             </p>
           </div>
         </div>
