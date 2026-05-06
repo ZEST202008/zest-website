@@ -48,6 +48,12 @@ function generateSessionId() {
   return `sess_${Date.now()}_${Math.random().toString(36).slice(2)}`;
 }
 
+/** URLの ?chat=<sessionId> パラメータを取得する */
+function getSessionIdFromUrl(): string | null {
+  if (typeof window === 'undefined') return null;
+  return new URLSearchParams(window.location.search).get('chat');
+}
+
 // ────────────────────────────────────────────────────────────────
 // Small avatar for chat header / message bubbles
 // background-image で顔エリアにズームイン表示
@@ -141,7 +147,8 @@ export default function ChatWidget() {
   const [escalated, setEscalated] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showBubble, setShowBubble] = useState(false);
-  const [sessionId] = useState(() => generateSessionId());
+  const [sessionId] = useState(() => getSessionIdFromUrl() ?? generateSessionId());
+  const [isRestoredSession] = useState(() => !!getSessionIdFromUrl());
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -149,12 +156,52 @@ export default function ChatWidget() {
   // useRef で最新の「最終取得時刻」を管理（stale closure を防ぐ）
   const lastStaffAtRef = useRef<string | null>(null);
 
+  // メールリンクからの復帰: URLに ?chat=<sessionId> がある場合にセッションを復元
+  useEffect(() => {
+    if (!isRestoredSession) return;
+
+    async function restoreSession() {
+      try {
+        const res = await fetch(`/api/chat/poll?sessionId=${sessionId}`, { cache: 'no-store' });
+        const data = await res.json();
+
+        if (data.escalated) {
+          setEscalated(true);
+          setOpen(true);
+
+          const restored: Message[] = [
+            {
+              role: 'assistant',
+              content: 'チャットを再開しました。引き続き担当者とやり取りできます。',
+            },
+            ...(data.messages ?? []).map((m: { content: string }) => ({
+              role: 'staff' as const,
+              content: m.content,
+            })),
+          ];
+          setMessages(restored);
+
+          // 最新メッセージの送信日時をポーリング基準に設定
+          if (data.messages?.length > 0) {
+            lastStaffAtRef.current = data.messages[data.messages.length - 1].sentAt;
+          }
+        }
+      } catch {
+        // ignore — 通常の新規セッションにフォールバック
+      }
+    }
+
+    restoreSession();
+  }, [isRestoredSession, sessionId]);
+
   // 吹き出しを3秒後に表示、12秒後に自動非表示
   useEffect(() => {
+    // セッション復元時は吹き出しを表示しない
+    if (isRestoredSession) return;
     const show = setTimeout(() => setShowBubble(true), 3000);
     const hide = setTimeout(() => setShowBubble(false), 15000);
     return () => { clearTimeout(show); clearTimeout(hide); };
-  }, []);
+  }, [isRestoredSession]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
