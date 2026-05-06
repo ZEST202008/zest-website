@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, TrendingUp, BadgePercent, ShieldCheck, Building2, LineChart, Users, Megaphone, BookOpen, Database } from 'lucide-react';
+import { ArrowRight, TrendingUp, BadgePercent, ShieldCheck, Building2, LineChart, Users, Megaphone, BookOpen, Database, Target, Layers } from 'lucide-react';
 import { getServices, getBlogPosts } from '@/lib/notion';
 
 // ── Hero ───────────────────────────────────────────────
@@ -241,49 +241,67 @@ function Services() {
   );
 }
 
-// ── 実行支援実績 ───────────────────────────────────────
-const TRACK_RECORDS = [
+// ── 弊社が選ばれる理由 ────────────────────────────────────
+const WHY_REASONS = [
   {
-    icon: <Building2 size={20} className="text-brand-orange" />,
+    icon: <Target size={22} className="text-brand-orange" />,
+    title: '精神論ゼロ、データで検証された「型」',
+    desc: '感覚や根性論ではなく、行動データの統計解析と構造化ヒアリングで成果の再現性を科学的に解明。実行できる仕組みとして組織に定着させます。',
+  },
+  {
+    icon: <Layers size={22} className="text-brand-orange" />,
+    title: '戦略立案から現場定着まで一気通貫',
+    desc: '計画書を作って終わりではありません。実行・運用定着・データによる改善サイクルまで、成果が出るまで伴走します。',
+  },
+  {
+    icon: <Building2 size={22} className="text-brand-orange" />,
+    title: '中小企業専門のコスト設計',
+    desc: '大企業向けコンサルのような高額固定費はありません。中小企業の現実的な予算感の中で、投資対効果の最大化を追求するサービス設計です。',
+  },
+];
+
+const ACHIEVEMENTS = [
+  {
+    icon: <Building2 size={18} className="text-brand-orange" />,
     num: '01',
     category: '経営・事業戦略',
-    title: 'ビジョンを組織構造に落とし込む',
-    items: ['中期経営計画・推進ガイドラインの策定', '事業ポートフォリオ戦略の構築', '組織マネジメントの進化戦略策定'],
+    achievement: '中期経営計画の策定と実行管理を一体で支援。「作って終わり」にならない推進ガイドラインを構築し、事業ポートフォリオの見直しと組織再編を実現。',
+    tags: ['中期経営計画', '組織設計', 'ポートフォリオ戦略'],
   },
   {
-    icon: <LineChart size={20} className="text-brand-orange" />,
+    icon: <LineChart size={18} className="text-brand-orange" />,
     num: '02',
     category: '営業・セールスプロセス',
-    title: '属人化を排除し、再現性を確立する',
-    items: ['営業プロセス標準化ガイドラインの策定', 'KFS・KPIの設計と運用定着', 'セールスプレイブックの作成'],
+    achievement: 'トップセールスの行動データを解析しKFS（センターピン）を特定。セールスプレイブックを全社展開し、中堅メンバーの成約率改善と新人の早期戦力化を実現。',
+    tags: ['KFS特定', 'プレイブック策定', '属人化排除'],
   },
   {
-    icon: <Users size={20} className="text-brand-orange" />,
+    icon: <Users size={18} className="text-brand-orange" />,
     num: '03',
     category: '採用・人材育成',
-    title: '次代のリーダーを育て、採用力を強化する',
-    items: ['採用ペルソナ&運用レギュレーションの構築', '経営人材育成プロジェクトの設計', '経営幹部向け評価制度の設計'],
+    achievement: '採用ペルソナと評価基準を再設計し、定着率の高い採用フローを構築。経営人材育成プロジェクトにより、次世代リーダーの計画的育成を複数社で実現。',
+    tags: ['採用ペルソナ設計', '人材育成', '評価制度構築'],
   },
   {
-    icon: <Megaphone size={20} className="text-brand-orange" />,
+    icon: <Megaphone size={18} className="text-brand-orange" />,
     num: '04',
     category: 'マーケティング体制',
-    title: 'データと顧客インサイトでプロセスを設計する',
-    items: ['マーケティングチーム構築支援', 'トップパフォーマーの提案ロジック可視化', 'マーケティングオペレーター研修ガイド作成'],
+    achievement: 'ゼロからのマーケティングチーム組成と運用ガイド整備を支援。トップパフォーマーの提案ロジックを可視化し、商談転換率の向上に貢献。',
+    tags: ['チーム組成', '顧客インサイト分析', 'マーケOps'],
   },
   {
-    icon: <BookOpen size={20} className="text-brand-orange" />,
+    icon: <BookOpen size={18} className="text-brand-orange" />,
     num: '05',
-    category: 'マニュアル作成',
-    title: '熟練者のノウハウを形式知に変える',
-    items: ['業務オペレーション基本マニュアルの整備', '部門別・特定業務別手順書の作成', 'カスタマーサポートマニュアルの構築'],
+    category: 'マニュアル・ナレッジ整備',
+    achievement: '複数名に属人化していた業務ノウハウを言語化・標準化。部門別マニュアルと引き継ぎ手順書を整備し、新人が独力で業務遂行できる体制を構築。',
+    tags: ['業務マニュアル整備', 'ナレッジ管理', '引き継ぎ標準化'],
   },
   {
-    icon: <Database size={20} className="text-brand-orange" />,
+    icon: <Database size={18} className="text-brand-orange" />,
     num: '06',
     category: 'DX推進・データ経営',
-    title: '勘と経験から、データに基づく意思決定へ',
-    items: ['SheetViz CRM開発・導入支援', 'BIダッシュボード構築・運用支援', '経営DX推進ロードマップの策定'],
+    achievement: 'ExcelとカンによるKPI管理からSheetViz CRM導入でデータ経営に移行。BIダッシュボードにより、経営判断のスピードと根拠の精度が大幅に向上。',
+    tags: ['CRM開発・導入', 'BIダッシュボード', 'データドリブン経営'],
   },
 ];
 
@@ -305,42 +323,57 @@ const PROCESS_STEPS = [
   },
 ];
 
-function TrackRecord() {
+function WhyChosen() {
   return (
     <section className="py-20">
       <div className="container-inner">
         {/* ヘッダー */}
         <div className="text-center mb-14">
-          <span className="section-label">実行支援実績</span>
-          <h2 className="section-title">
-            戦略から、現場の実行まで。
-          </h2>
+          <span className="section-label">なぜ選ばれるのか</span>
+          <h2 className="section-title">弊社が選ばれる理由</h2>
           <p className="section-sub mt-3 max-w-2xl mx-auto">
-            単なる計画策定にとどまらず、現場の行動を変容させる具体的な「仕組み」として業務に落とし込み、
-            組織の再現性を高める支援を行ってきました。
+            業種・規模を問わず、数多くのクライアント様の経営課題に向き合ってきました。<br className="hidden md:block" />
+            その中で積み上げてきた実績と、選ばれ続ける理由をご紹介します。
           </p>
         </div>
 
-        {/* 6領域グリッド */}
+        {/* 3つの理由 */}
+        <div className="grid md:grid-cols-3 gap-5 mb-16">
+          {WHY_REASONS.map((r) => (
+            <div key={r.title} className="card border-t-4 border-t-brand-orange text-center">
+              <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                {r.icon}
+              </div>
+              <h3 className="font-black text-brand-navy text-base mb-3 leading-snug">{r.title}</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">{r.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* 具体支援実績 ラベル */}
+        <div className="flex items-center gap-4 mb-8">
+          <div className="flex-1 h-px bg-slate-200" />
+          <span className="text-xs font-bold uppercase tracking-widest text-slate-400">具体的な支援実績</span>
+          <div className="flex-1 h-px bg-slate-200" />
+        </div>
+
+        {/* 実績グリッド */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
-          {TRACK_RECORDS.map((r) => (
-            <div key={r.num} className="card group hover:border-brand-orange/30 transition-colors">
+          {ACHIEVEMENTS.map((a) => (
+            <div key={a.num} className="card group hover:border-brand-orange/30 transition-colors flex flex-col">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-9 h-9 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">
-                  {r.icon}
+                  {a.icon}
                 </div>
-                <span className="text-xs font-bold text-slate-400 tracking-widest">{r.num}</span>
+                <span className="text-xs font-bold text-slate-400 tracking-widest">{a.num}</span>
               </div>
-              <div className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-1">{r.category}</div>
-              <h3 className="font-black text-brand-navy text-base mb-3 leading-snug">{r.title}</h3>
-              <ul className="space-y-1.5">
-                {r.items.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-xs text-slate-500 leading-relaxed">
-                    <span className="text-brand-orange mt-0.5 shrink-0">–</span>
-                    {item}
-                  </li>
+              <div className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-2">{a.category}</div>
+              <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">{a.achievement}</p>
+              <div className="flex flex-wrap gap-1.5 mt-auto">
+                {a.tags.map((tag) => (
+                  <span key={tag} className="text-xs bg-slate-100 text-slate-500 font-semibold px-2 py-0.5 rounded-full">{tag}</span>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
@@ -404,7 +437,7 @@ export default async function HomePage() {
       <PainSection />
       <ValueSection />
       <Services />
-      <TrackRecord />
+      <WhyChosen />
       <CtaSection />
     </>
   );
