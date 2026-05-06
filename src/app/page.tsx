@@ -245,8 +245,8 @@ function Services() {
 const WHY_REASONS = [
   {
     icon: <Target size={22} className="text-brand-orange" />,
-    title: '精神論ゼロ、データで検証された「型」',
-    desc: '感覚や根性論ではなく、行動データの統計解析と構造化ヒアリングで成果の再現性を科学的に解明。実行できる仕組みとして組織に定着させます。',
+    title: '精神論ゼロ、人間の思考を整理した「型」',
+    desc: '感覚や根性論ではなく、構造化ヒアリングによる人間の思考の整理と行動データの統計解析で成果の再現性を科学的に解明。実行できる仕組みとして組織に定着させます。',
   },
   {
     icon: <Layers size={22} className="text-brand-orange" />,
