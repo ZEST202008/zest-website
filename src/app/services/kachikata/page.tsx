@@ -773,9 +773,9 @@ export default function KachikataPage() {
           <div className="bg-brand-bg border border-slate-200 rounded-2xl p-5 flex gap-3 items-start">
             <Shield size={18} className="text-brand-orange shrink-0 mt-0.5" />
             <p className="text-sm text-slate-600 leading-relaxed">
-              <strong className="text-brand-navy">回答の安全性について：</strong>
-              カチカタAIへの回答は人事評価には一切影響しないことを担保し、現場のリアルな実態をありのままに引き出します。
-              収集されたデータは御社のKFS特定にのみ使用されます。
+              <strong className="text-brand-navy">データセキュリティについて：</strong>
+              ご提供いただいた情報は適切なセキュリティ環境のもとで管理し、御社の支援目的以外には使用しません。
+              第三者への提供・販売も一切行いませんので、安心してご活用ください。
             </p>
           </div>
         </div>
