@@ -411,6 +411,7 @@ export default function ChatWidget() {
               width={150}
               height={150}
               priority
+              className="w-[110px] h-[110px] md:w-[150px] md:h-[150px]"
             />
           </button>
         </div>

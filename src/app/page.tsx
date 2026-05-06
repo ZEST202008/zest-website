@@ -30,11 +30,11 @@ function Hero() {
 
       {/* テキスト */}
       <div className="container-inner relative">
-        <div className="md:max-w-[52%] py-20 md:py-28 md:pr-10">
+        <div className="md:max-w-[52%] py-20 md:py-28 md:pr-2 lg:pr-10">
           <span className="inline-block text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-950/40 border border-orange-900/40 rounded-full px-3 py-1 mb-8">
             Sales Enablement for SMB
           </span>
-          <h1 className="text-4xl md:text-4xl lg:text-5xl font-black text-white leading-[1.15] mb-6">
+          <h1 className="text-3xl lg:text-4xl font-black text-white leading-[1.2] mb-6 [word-break:keep-all]">
             売上を伸ばしながら、<br />
             <span className="text-brand-orange">営業コストを削減する。</span>
           </h1>
@@ -66,23 +66,23 @@ function Hero() {
 
 // ── 数字で示す価値 ─────────────────────────────────────
 const METRICS = [
-  { value: '1/10', unit: 'のコスト', label: 'IS代行と比較した\nランニングコスト' },
+  { value: '1/10', unit: 'のコスト', label: 'IS代行比の\nランニング費用' },
   { value: '90', unit: '日', label: '実稼働まで\n最短ロードマップ' },
-  { value: '100', unit: '%', label: '自社に残る\n顧客データ・ノウハウ' },
+  { value: '100', unit: '%', label: '自社に残る\nデータ・ノウハウ' },
 ];
 
 function Metrics() {
   return (
     <section className="bg-white border-b border-slate-100 py-12">
       <div className="container-inner">
-        <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-2xl mx-auto text-center">
+        <div className="grid grid-cols-3 gap-1 sm:gap-4 md:gap-12 max-w-2xl mx-auto text-center px-1 sm:px-0">
           {METRICS.map((m) => (
             <div key={m.label}>
-              <div className="flex items-end justify-center gap-1 mb-1">
-                <span className="text-3xl md:text-4xl font-black text-brand-navy">{m.value}</span>
-                <span className="text-brand-orange font-bold text-sm md:text-base pb-1">{m.unit}</span>
+              <div className="flex items-end justify-center gap-0.5 md:gap-1 mb-1">
+                <span className="text-xl sm:text-3xl md:text-4xl font-black text-brand-navy leading-none">{m.value}</span>
+                <span className="text-brand-orange font-bold text-[10px] sm:text-sm md:text-base pb-0.5 sm:pb-1">{m.unit}</span>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed whitespace-pre-line">{m.label}</p>
+              <p className="text-[10px] sm:text-xs text-slate-500 leading-snug whitespace-pre-line">{m.label}</p>
             </div>
           ))}
         </div>
