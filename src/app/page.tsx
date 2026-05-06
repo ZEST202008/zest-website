@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, TrendingUp, BadgePercent, ShieldCheck } from 'lucide-react';
+import { ArrowRight, TrendingUp, BadgePercent, ShieldCheck, Building2, LineChart, Users, Megaphone, BookOpen, Database } from 'lucide-react';
 import { getServices, getBlogPosts } from '@/lib/notion';
 
 // ── Hero ───────────────────────────────────────────────
@@ -241,6 +241,136 @@ function Services() {
   );
 }
 
+// ── 実行支援実績 ───────────────────────────────────────
+const TRACK_RECORDS = [
+  {
+    icon: <Building2 size={20} className="text-brand-orange" />,
+    num: '01',
+    category: '経営・事業戦略',
+    title: 'ビジョンを組織構造に落とし込む',
+    items: ['中期経営計画・推進ガイドラインの策定', '事業ポートフォリオ戦略の構築', '組織マネジメントの進化戦略策定'],
+  },
+  {
+    icon: <LineChart size={20} className="text-brand-orange" />,
+    num: '02',
+    category: '営業・セールスプロセス',
+    title: '属人化を排除し、再現性を確立する',
+    items: ['営業プロセス標準化ガイドラインの策定', 'KFS・KPIの設計と運用定着', 'セールスプレイブックの作成'],
+  },
+  {
+    icon: <Users size={20} className="text-brand-orange" />,
+    num: '03',
+    category: '採用・人材育成',
+    title: '次代のリーダーを育て、採用力を強化する',
+    items: ['採用ペルソナ&運用レギュレーションの構築', '経営人材育成プロジェクトの設計', '経営幹部向け評価制度の設計'],
+  },
+  {
+    icon: <Megaphone size={20} className="text-brand-orange" />,
+    num: '04',
+    category: 'マーケティング体制',
+    title: 'データと顧客インサイトでプロセスを設計する',
+    items: ['マーケティングチーム構築支援', 'トップパフォーマーの提案ロジック可視化', 'マーケティングオペレーター研修ガイド作成'],
+  },
+  {
+    icon: <BookOpen size={20} className="text-brand-orange" />,
+    num: '05',
+    category: 'マニュアル作成',
+    title: '熟練者のノウハウを形式知に変える',
+    items: ['業務オペレーション基本マニュアルの整備', '部門別・特定業務別手順書の作成', 'カスタマーサポートマニュアルの構築'],
+  },
+  {
+    icon: <Database size={20} className="text-brand-orange" />,
+    num: '06',
+    category: 'DX推進・データ経営',
+    title: '勘と経験から、データに基づく意思決定へ',
+    items: ['SheetViz CRM開発・導入支援', 'BIダッシュボード構築・運用支援', '経営DX推進ロードマップの策定'],
+  },
+];
+
+const PROCESS_STEPS = [
+  {
+    step: '01',
+    title: '現状分析と要件定義',
+    desc: '経営層・現場への入念なヒアリングで本質的な課題を抽出。目指すべき指標（KPI）を明確に定義します。',
+  },
+  {
+    step: '02',
+    title: '仕組みのドキュメント化',
+    desc: '暗黙知となっていた業務フローや属人的なノウハウを言語化し、誰もが再現・実行できるガイドラインとして策定します。',
+  },
+  {
+    step: '03',
+    title: '現場定着・運用支援',
+    desc: '作成して終わりではなく、データに基づく効果測定と改善を繰り返しながら、組織の文化として根付くまで伴走します。',
+  },
+];
+
+function TrackRecord() {
+  return (
+    <section className="py-20">
+      <div className="container-inner">
+        {/* ヘッダー */}
+        <div className="text-center mb-14">
+          <span className="section-label">実行支援実績</span>
+          <h2 className="section-title">
+            戦略から、現場の実行まで。
+          </h2>
+          <p className="section-sub mt-3 max-w-2xl mx-auto">
+            単なる計画策定にとどまらず、現場の行動を変容させる具体的な「仕組み」として業務に落とし込み、
+            組織の再現性を高める支援を行ってきました。
+          </p>
+        </div>
+
+        {/* 6領域グリッド */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+          {TRACK_RECORDS.map((r) => (
+            <div key={r.num} className="card group hover:border-brand-orange/30 transition-colors">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-9 h-9 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">
+                  {r.icon}
+                </div>
+                <span className="text-xs font-bold text-slate-400 tracking-widest">{r.num}</span>
+              </div>
+              <div className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-1">{r.category}</div>
+              <h3 className="font-black text-brand-navy text-base mb-3 leading-snug">{r.title}</h3>
+              <ul className="space-y-1.5">
+                {r.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-xs text-slate-500 leading-relaxed">
+                    <span className="text-brand-orange mt-0.5 shrink-0">–</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* 支援プロセス */}
+        <div className="bg-brand-bg rounded-2xl p-8 md:p-12">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-orange text-center mb-2">Support Process</p>
+          <h3 className="text-xl font-black text-brand-navy text-center mb-8">実績を生み出してきた3つの支援プロセス</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            {PROCESS_STEPS.map((p, i) => (
+              <div key={p.step} className="relative">
+                {i < PROCESS_STEPS.length - 1 && (
+                  <div className="hidden md:block absolute top-5 left-full w-full h-px bg-slate-200 z-0" style={{ width: 'calc(100% - 2rem)', transform: 'translateX(1rem)' }} />
+                )}
+                <div className="flex items-center gap-3 mb-3 relative z-10">
+                  <div className="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center text-white font-black text-sm shrink-0">
+                    {p.step}
+                  </div>
+                  <h4 className="font-black text-brand-navy text-base">{p.title}</h4>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed pl-13">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── CTA ───────────────────────────────────────────────
 function CtaSection() {
   return (
@@ -274,6 +404,7 @@ export default async function HomePage() {
       <PainSection />
       <ValueSection />
       <Services />
+      <TrackRecord />
       <CtaSection />
     </>
   );
