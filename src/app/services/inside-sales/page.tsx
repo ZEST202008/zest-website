@@ -452,6 +452,14 @@ export default function InsideSalesPage() {
             KFS（勝ちパターン）を抽出。SheetVizで組織全体に展開することで、
             営業力が組織の永続的な「資産」になります。
           </p>
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
+            <Link href="/services/kachikata" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors text-white text-sm font-bold px-4 py-2.5 rounded-xl">
+              カチカタについて詳しく <ArrowRight size={15} />
+            </Link>
+            <Link href="/services/sheetziv" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors text-white text-sm font-bold px-4 py-2.5 rounded-xl">
+              SheetVizについて詳しく <ArrowRight size={15} />
+            </Link>
+          </div>
           <Link href="/contact" className="btn-primary">
             <ArrowRight size={18} /> まずは無料相談から
           </Link>

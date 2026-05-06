@@ -13,7 +13,7 @@ const COMPANY_INFO = [
   { label: '設立', value: '2020年8月' },
   { label: '資本金', value: '15,000,000円' },
   { label: '所在地', value: '〒107-0061 東京都港区北青山3-6-7' },
-  { label: '事業内容', value: '型化プラットフォーム事業 / 成長支援プログラム事業' },
+  { label: '事業内容', value: '型化プラットフォーム事業（カチカタ / SheetViz）/ 成長支援プログラム事業（インサイドセールス内製化）' },
   { label: 'メンバー', value: '20名（業務委託・アドバイザー含む）' },
 ];
 
@@ -68,9 +68,10 @@ export default function AboutPage() {
           <span className="section-label">会社概要</span>
           <h1 className="section-title">「勝ち」と「価値」を型化する</h1>
           <p className="section-sub">
-            ZESTは、トップセールスが持つ暗黙知をデータとして可視化し、
-            組織全体で再現できる「型」として定着させることで、
-            営業組織の生産性向上を支援しています。
+            ZESTは、中小企業の営業組織が<strong className="text-brand-navy">売上を伸ばしながらコストを削減する</strong>ために、
+            データと独自メソッドで「型」をつくり実装する会社です。
+            カチカタ・SheetViz・インサイドセールス内製化支援の3つのサービスで、
+            営業組織の再現性と自走力を高めます。
           </p>
         </div>
       </section>
@@ -150,6 +151,13 @@ export default function AboutPage() {
                   「熟練の知見」と「行動データ科学」を融合させ、
                   組織のセンターピン——KFS（Key Factor for Success）——を特定するサービスです。
                   精神論ゼロ。行動の言葉だけで定義された、誰もが実践できる営業の型を、現場に渡す。
+                </p>
+                <p>
+                  現在、ZESTは3つのサービスでこの信念を実践しています。
+                  <strong className="text-brand-navy">カチカタ</strong>でKFS（センターピン）を特定し、
+                  <strong className="text-brand-navy">SheetViz</strong>でその型をCRMに実装し、
+                  <strong className="text-brand-navy">インサイドセールス内製化</strong>で休眠顧客を確実な商談機会へ変える。
+                  3つが連動することで、「売上UP × コスト削減 × 組織の自走化」を同時に実現します。
                 </p>
                 <p>
                   データを「経営の力」として活用することで、

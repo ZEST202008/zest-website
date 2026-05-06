@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { ArrowRight, BarChart2, Users, FileText, RefreshCw, Bell } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'SheetViz | AppSheetベース営業支援プラットフォーム',
+  title: 'SheetViz | Google Sheetsベース営業支援プラットフォーム',
   description: 'Google Sheetsを基盤にした営業支援プラットフォーム。フィールドセールス・インサイドセールス・管理職の3役割に最適化された3アプリ構成で、営業組織全体の生産性を向上します。',
 };
 
@@ -160,6 +160,35 @@ export default function SheetVizPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* IS内製化連携 */}
+      <section className="bg-blue-50 py-20">
+        <div className="container-inner max-w-3xl">
+          <span className="section-label">関連サービス</span>
+          <h2 className="section-title">SheetViz ISは、インサイドセールス内製化の<br />専用CRM基盤です</h2>
+          <p className="section-sub mb-8">
+            ZESTの<strong className="text-brand-navy">インサイドセールス内製化プログラム</strong>では、SheetViz ISを中核ツールとして活用します。
+            休眠顧客リストの管理から架電記録・アポ引き継ぎまで、ISチームの動きをすべて一元管理。
+            代行ではなく「自走するIS組織」を90日で立ち上げるためのデータ基盤として機能します。
+          </p>
+          <div className="bg-white rounded-2xl border border-blue-200 p-6 grid md:grid-cols-3 gap-5 mb-8">
+            {[
+              { num: '01', title: '休眠顧客を可視化', desc: '最終商談から180日以上経過した顧客を自動抽出。架電リストをSheetViz ISが常に最新化' },
+              { num: '02', title: 'KPIをリアルタイム管理', desc: 'コンタクト件数・アポ率・目標達成率を日次で追跡。改善すべきポイントが即わかる' },
+              { num: '03', title: 'アポをCRMへ自動引き継ぎ', desc: 'アポ獲得と同時にSheetViz CRMに商談を自動作成。FSとの情報共有がゼロ手間で完結' },
+            ].map((item) => (
+              <div key={item.num} className="flex flex-col gap-2">
+                <span className="text-blue-600 font-black text-xs">{item.num}</span>
+                <div className="font-bold text-brand-navy text-sm">{item.title}</div>
+                <div className="text-slate-600 text-xs leading-relaxed">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+          <Link href="/services/inside-sales" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
+            インサイドセールス内製化プログラムの詳細を見る <ArrowRight size={16} />
+          </Link>
         </div>
       </section>
 
