@@ -6,42 +6,57 @@ import { getServices, getBlogPosts } from '@/lib/notion';
 // ── Hero ───────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="bg-brand-navy py-24 md:py-32 relative overflow-hidden">
-      {/* 装飾 */}
+    <section className="bg-brand-navy relative overflow-hidden">
+      {/* 装飾グラデーション */}
       <div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-10"
         style={{
-          backgroundImage: 'radial-gradient(circle at 70% 50%, #e04102 0%, transparent 60%)',
+          backgroundImage: 'radial-gradient(circle at 30% 60%, #e04102 0%, transparent 55%)',
         }}
       />
       <div className="container-inner relative">
-        <div className="max-w-3xl">
-          <span className="inline-block text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-950/40 border border-orange-900/40 rounded-full px-3 py-1 mb-8">
-            Sales Enablement for SMB
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black text-white leading-[1.1] mb-6">
-            売上を伸ばしながら、<br />
-            <span className="text-brand-orange">営業コストを削減する。</span>
-          </h1>
-          <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-4 max-w-2xl">
-            「人に頼らず、仕組みで売れる組織」をつくる。
-            休眠顧客の掘り起こしから、トップセールスの型化まで。
-            中小企業の営業力を、根本から底上げします。
-          </p>
-          <p className="text-slate-500 text-sm mb-10">
-            IS代行と比較してランニングコスト<strong className="text-white">最大90%削減</strong>・最短<strong className="text-white">90日</strong>で自走する組織を構築
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/contact" className="btn-primary">
-              <ArrowRight size={18} />
-              無料相談を予約する
-            </Link>
-            <Link
-              href="/services/inside-sales"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-600 text-slate-300 hover:border-slate-400 hover:text-white transition-colors text-sm font-bold"
-            >
-              サービスを見る
-            </Link>
+        <div className="grid md:grid-cols-2 gap-0 items-center min-h-[560px] md:min-h-[620px]">
+          {/* テキスト */}
+          <div className="py-20 md:py-28 pr-0 md:pr-10">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-950/40 border border-orange-900/40 rounded-full px-3 py-1 mb-8">
+              Sales Enablement for SMB
+            </span>
+            <h1 className="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-6">
+              売上を伸ばしながら、<br />
+              <span className="text-brand-orange">営業コストを削減する。</span>
+            </h1>
+            <p className="text-slate-300 text-base md:text-lg leading-relaxed mb-4">
+              「人に頼らず、仕組みで売れる組織」をつくる。
+              休眠顧客の掘り起こしから、トップセールスの型化まで。
+              中小企業の営業力を、根本から底上げします。
+            </p>
+            <p className="text-slate-500 text-sm mb-10">
+              IS代行と比較してランニングコスト<strong className="text-white">最大90%削減</strong>・最短<strong className="text-white">90日</strong>で自走する組織を構築
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/contact" className="btn-primary">
+                <ArrowRight size={18} />
+                無料相談を予約する
+              </Link>
+              <Link
+                href="/services/inside-sales"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-600 text-slate-300 hover:border-slate-400 hover:text-white transition-colors text-sm font-bold"
+              >
+                サービスを見る
+              </Link>
+            </div>
+          </div>
+          {/* 画像 */}
+          <div className="hidden md:block relative h-full">
+            <Image
+              src="/hero-team.jpg"
+              alt="データを活用して成果を出すビジネスチーム"
+              fill
+              className="object-cover object-center"
+              priority
+            />
+            {/* 左端をnavyにフェード */}
+            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-brand-navy to-transparent" />
           </div>
         </div>
       </div>
