@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, BarChart2, Users, TrendingUp } from 'lucide-react';
+import { ArrowRight, BarChart2, Users, TrendingUp, PhoneCall } from 'lucide-react';
 import { getServices, getBlogPosts } from '@/lib/notion';
 
 // ── Hero Section ──────────────────────────────────────
@@ -15,11 +15,11 @@ function Hero() {
             <span className="text-brand-orange">組織全体の力</span>に変える。
           </h1>
           <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            トップセールスの行動パターンをデータで解析し、<br className="hidden md:block" />
-            誰もが再現できる「型」として定着させる。<br />
-            <strong className="text-slate-800">SheetViz</strong> ×{' '}
-            <strong className="text-brand-orange">カチカタ</strong>で、
-            営業組織のデータ活用を支援します。
+            既存休眠顧客の掘り起こしから、トップセールスの行動パターン解析まで。<br className="hidden md:block" />
+            <strong className="text-brand-orange">インサイドセールス内製化</strong> ×{' '}
+            <strong className="text-slate-800">カチカタ</strong> ×{' '}
+            <strong className="text-slate-800">SheetViz</strong>の3つのアプローチで、
+            売上を組織の「仕組み」に変えます。
           </p>
           <div className="flex flex-wrap gap-4">
             <Link href="/contact" className="btn-primary">
@@ -39,20 +39,28 @@ function Hero() {
 // ── Services Section ──────────────────────────────────
 const SERVICES_STATIC = [
   {
+    slug: 'inside-sales',
+    name: 'インサイドセールス内製化',
+    tagline: 'Step 01 — 顧客資産の掘り起こし',
+    description: '眠っている既存休眠顧客を確実な商談機会へ。月額6万円〜の圧倒的ローコストで、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
+    icon: <PhoneCall size={28} className="text-brand-orange" />,
+    color: 'orange',
+  },
+  {
     slug: 'kachikata',
     name: 'カチカタ',
-    tagline: 'KFS特定・営業の型化',
+    tagline: 'Step 02 — 勝ちパターンの型化',
     description: 'トップセールスの行動データを解析し、組織全体で再現できる「センターピン（KFS）」を特定。誰もが成果を出せる営業の型を作ります。',
     logo: '/kachikata-logo.png',
     logoClass: 'h-14 w-auto object-contain',
     color: 'orange',
   },
   {
-    slug: 'sheetziv',
+    slug: 'sheetziz',
     name: 'SheetViz',
-    tagline: 'AppSheetベースの営業CRM',
+    tagline: 'Step 03 — データ蓄積・可視化',
     description: 'Google SheetsとAppSheetを使った、導入コストゼロの営業支援プラットフォーム。フィールド・インサイド・管理職の3役割に最適化。',
-    logo: '/sheetviz-logo.png',
+    logo: '/sheetziz-logo.png',
     logoClass: 'h-10 w-auto object-contain',
     color: 'navy',
   },
@@ -64,9 +72,12 @@ function Services() {
       <div className="container-inner">
         <div className="text-center mb-12">
           <span className="section-label">サービス</span>
-          <h2 className="section-title">2つのサービスで営業組織を変える</h2>
+          <h2 className="section-title">3つのアプローチで売上を組織の仕組みに変える</h2>
+          <p className="section-sub mt-3 max-w-xl mx-auto">
+            掘り起こし → 型化 → データ蓄積。3ステップを一気通貫で支援します。
+          </p>
         </div>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {SERVICES_STATIC.map((s) => (
             <Link
               key={s.slug}
@@ -74,7 +85,13 @@ function Services() {
               className="card group no-underline"
             >
               <div className="h-14 mb-4 flex items-center">
-                <Image src={s.logo} alt={s.name} width={200} height={56} className={s.logoClass} />
+                {s.logo ? (
+                  <Image src={s.logo} alt={s.name} width={200} height={56} className={s.logoClass} />
+                ) : (
+                  <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
+                    {s.icon}
+                  </div>
+                )}
               </div>
               <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${
                 s.color === 'orange' ? 'text-brand-orange' : 'text-brand-navy'
