@@ -1,32 +1,45 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, BarChart2, Users, TrendingUp, PhoneCall } from 'lucide-react';
+import { ArrowRight, TrendingUp, BadgePercent, ShieldCheck } from 'lucide-react';
 import { getServices, getBlogPosts } from '@/lib/notion';
 
-// ── Hero Section ──────────────────────────────────────
+// ── Hero ───────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="bg-brand-bg border-b border-slate-200 py-20 md:py-28">
-      <div className="container-inner">
-        <div className="max-w-2xl">
-          <span className="section-label">Sales Enablement</span>
-          <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-6">
-            「なぜ売れたのか」を、<br />
-            <span className="text-brand-orange">組織全体の力</span>に変える。
+    <section className="bg-brand-navy py-24 md:py-32 relative overflow-hidden">
+      {/* 装飾 */}
+      <div
+        className="absolute inset-0 opacity-5"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 70% 50%, #e04102 0%, transparent 60%)',
+        }}
+      />
+      <div className="container-inner relative">
+        <div className="max-w-3xl">
+          <span className="inline-block text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-950/40 border border-orange-900/40 rounded-full px-3 py-1 mb-8">
+            Sales Enablement for SMB
+          </span>
+          <h1 className="text-4xl md:text-6xl font-black text-white leading-[1.1] mb-6">
+            売上を伸ばしながら、<br />
+            <span className="text-brand-orange">営業コストを削減する。</span>
           </h1>
-          <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            既存休眠顧客の掘り起こしから、トップセールスの行動パターン解析まで。<br className="hidden md:block" />
-            <strong className="text-brand-orange">インサイドセールス内製化</strong> ×{' '}
-            <strong className="text-slate-800">カチカタ</strong> ×{' '}
-            <strong className="text-slate-800">SheetViz</strong>の3つのアプローチで、
-            売上を組織の「仕組み」に変えます。
+          <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-4 max-w-2xl">
+            「人に頼らず、仕組みで売れる組織」をつくる。
+            休眠顧客の掘り起こしから、トップセールスの型化まで。
+            中小企業の営業力を、根本から底上げします。
+          </p>
+          <p className="text-slate-500 text-sm mb-10">
+            IS代行と比較してランニングコスト<strong className="text-white">最大90%削減</strong>・最短<strong className="text-white">90日</strong>で自走する組織を構築
           </p>
           <div className="flex flex-wrap gap-4">
             <Link href="/contact" className="btn-primary">
               <ArrowRight size={18} />
               無料相談を予約する
             </Link>
-            <Link href="/services/kachikata" className="btn-secondary">
+            <Link
+              href="/services/inside-sales"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-600 text-slate-300 hover:border-slate-400 hover:text-white transition-colors text-sm font-bold"
+            >
               サービスを見る
             </Link>
           </div>
@@ -36,72 +49,188 @@ function Hero() {
   );
 }
 
-// ── Services Section ──────────────────────────────────
-const SERVICES_STATIC = [
+// ── 数字で示す価値 ─────────────────────────────────────
+const METRICS = [
+  { value: '1/10', unit: 'のコスト', label: 'IS代行と比較した\nランニングコスト' },
+  { value: '90', unit: '日', label: '実稼働まで\n最短ロードマップ' },
+  { value: '100', unit: '%', label: '自社に残る\n顧客データ・ノウハウ' },
+];
+
+function Metrics() {
+  return (
+    <section className="bg-white border-b border-slate-100 py-12">
+      <div className="container-inner">
+        <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-2xl mx-auto text-center">
+          {METRICS.map((m) => (
+            <div key={m.label}>
+              <div className="flex items-end justify-center gap-1 mb-1">
+                <span className="text-3xl md:text-4xl font-black text-brand-navy">{m.value}</span>
+                <span className="text-brand-orange font-bold text-sm md:text-base pb-1">{m.unit}</span>
+              </div>
+              <p className="text-xs text-slate-500 leading-relaxed whitespace-pre-line">{m.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── 課題提起 ───────────────────────────────────────────
+const PAINS = [
+  { q: '営業の成果が、特定の人に依存していませんか？', desc: 'エースが退職したとたん売上が激減。「あの人だから売れた」では組織が育たない。' },
+  { q: '休眠顧客を、放置したままにしていませんか？', desc: '過去に接点があった顧客は最大の金脈。しかし多忙な営業マンは新規に走り、休眠は誰も追わない。' },
+  { q: '外部代行に、毎月数十万を払い続けていませんか？', desc: '契約を切ればノウハウも人材もすべて消える「永遠のレンタルモデル」。自社に何も残らない。' },
+];
+
+function PainSection() {
+  return (
+    <section className="py-20 bg-brand-bg">
+      <div className="container-inner max-w-4xl">
+        <div className="text-center mb-12">
+          <span className="section-label">こんな課題ありませんか？</span>
+          <h2 className="section-title">
+            営業組織の「3つの壁」が<br className="hidden md:block" />
+            成長にブレーキをかけている
+          </h2>
+        </div>
+        <div className="space-y-4">
+          {PAINS.map((p) => (
+            <div key={p.q} className="card flex gap-4 items-start">
+              <div className="text-brand-orange font-black text-2xl shrink-0 mt-0.5">?</div>
+              <div>
+                <p className="font-black text-brand-navy mb-1">{p.q}</p>
+                <p className="text-slate-600 text-sm leading-relaxed">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── 価値提案 ───────────────────────────────────────────
+const VALUES = [
+  {
+    icon: <TrendingUp size={24} className="text-brand-orange" />,
+    title: '売上を伸ばす',
+    desc: '休眠顧客の掘り起こしと、トップセールスの「型化」で、組織全体の商談創出力を底上げ。属人的な営業から、仕組みによる安定した売上成長へ。',
+  },
+  {
+    icon: <BadgePercent size={24} className="text-brand-orange" />,
+    title: 'コストを削減する',
+    desc: '月額6万円〜のパートタイムモデルで、代行費用の最大90%をカット。しかも自社にノウハウとデータが丸ごと残り、永続的な資産になる。',
+  },
+  {
+    icon: <ShieldCheck size={24} className="text-brand-orange" />,
+    title: '再現性を担保する',
+    desc: '「エースが辞めると売上が落ちる」リスクを根本から排除。科学的に検証されたプレイブックと専用CRMで、誰でも同じ成果を出せる仕組みを構築。',
+  },
+];
+
+function ValueSection() {
+  return (
+    <section className="py-20">
+      <div className="container-inner">
+        <div className="text-center mb-12">
+          <span className="section-label">ZESTが提供する価値</span>
+          <h2 className="section-title">
+            売上アップとコスト削減を、<br className="hidden md:block" />
+            同時に実現する
+          </h2>
+          <p className="section-sub mt-3 max-w-xl mx-auto">
+            どちらかを犠牲にするのではなく、仕組みの力で両方を手に入れる。
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {VALUES.map((v) => (
+            <div key={v.title} className="card text-center">
+              <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                {v.icon}
+              </div>
+              <h3 className="font-black text-brand-navy text-xl mb-3">{v.title}</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── サービス ───────────────────────────────────────────
+type Service = {
+  slug: string;
+  step: string;
+  name: string;
+  tagline: string;
+  description: string;
+  logo?: string;
+  logoClass?: string;
+  logoAlt?: string;
+};
+
+const SERVICES: Service[] = [
   {
     slug: 'inside-sales',
+    step: 'Step 01',
     name: 'インサイドセールス内製化',
-    tagline: 'Step 01 — 顧客資産の掘り起こし',
-    description: '眠っている既存休眠顧客を確実な商談機会へ。月額6万円〜の圧倒的ローコストで、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
-    icon: <PhoneCall size={28} className="text-brand-orange" />,
-    color: 'orange',
+    tagline: '休眠顧客を商談機会に変える',
+    description: '眠っている既存顧客を確実な商談へ。月額6万円〜の圧倒的ローコストで、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
   },
   {
     slug: 'kachikata',
+    step: 'Step 02',
     name: 'カチカタ',
-    tagline: 'Step 02 — 勝ちパターンの型化',
-    description: 'トップセールスの行動データを解析し、組織全体で再現できる「センターピン（KFS）」を特定。誰もが成果を出せる営業の型を作ります。',
+    tagline: 'トップセールスの勝ち方を組織の型に',
+    description: 'トップセールスの行動データを解析し、「なぜ売れたのか」を組織の共有知に変換。誰もが再現できる営業の型で、属人依存から脱却します。',
     logo: '/kachikata-logo.png',
     logoClass: 'h-14 w-auto object-contain',
-    color: 'orange',
+    logoAlt: 'カチカタ',
   },
   {
-    slug: 'sheetziz',
+    slug: 'sheetziv',
+    step: 'Step 03',
     name: 'SheetViz',
-    tagline: 'Step 03 — データ蓄積・可視化',
-    description: 'Google SheetsとAppSheetを使った、導入コストゼロの営業支援プラットフォーム。フィールド・インサイド・管理職の3役割に最適化。',
-    logo: '/sheetziz-logo.png',
+    tagline: '営業データをリアルタイムで可視化',
+    description: 'Google SheetsとAppSheetを使った、導入コストゼロの営業支援CRM。フィールド・インサイド・管理職の3役割に最適化し、データを自社資産に変えます。',
+    logo: '/sheetviz-logo.png',
     logoClass: 'h-10 w-auto object-contain',
-    color: 'navy',
+    logoAlt: 'SheetViz',
   },
 ];
 
 function Services() {
   return (
-    <section className="py-20">
+    <section className="py-20 bg-brand-bg">
       <div className="container-inner">
         <div className="text-center mb-12">
           <span className="section-label">サービス</span>
-          <h2 className="section-title">3つのアプローチで売上を組織の仕組みに変える</h2>
+          <h2 className="section-title">3つのアプローチで、<br className="hidden md:block" />営業力を組織の仕組みに変える</h2>
           <p className="section-sub mt-3 max-w-xl mx-auto">
-            掘り起こし → 型化 → データ蓄積。3ステップを一気通貫で支援します。
+            掘り起こし → 型化 → データ蓄積。一気通貫で支援します。
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {SERVICES_STATIC.map((s) => (
+          {SERVICES.map((s) => (
             <Link
               key={s.slug}
               href={`/services/${s.slug}`}
-              className="card group no-underline"
+              className="card group no-underline flex flex-col"
             >
-              <div className="h-14 mb-4 flex items-center">
+              <div className="h-12 mb-4 flex items-center">
                 {s.logo ? (
-                  <Image src={s.logo} alt={s.name} width={200} height={56} className={s.logoClass} />
+                  <Image src={s.logo} alt={s.logoAlt ?? s.name} width={180} height={48} className={s.logoClass} />
                 ) : (
-                  <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
-                    {s.icon}
-                  </div>
+                  <span className="text-lg font-black text-brand-navy">{s.name}</span>
                 )}
               </div>
-              <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${
-                s.color === 'orange' ? 'text-brand-orange' : 'text-brand-navy'
-              }`}>
-                {s.tagline}
-              </div>
-              <h3 className="text-xl font-black text-brand-navy mb-2">{s.name}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">{s.description}</p>
+              <div className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-0.5">{s.step}</div>
+              <div className="text-xs text-slate-500 font-semibold mb-2">{s.tagline}</div>
+              <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{s.description}</p>
               <div className="flex items-center gap-1 text-brand-orange text-sm font-bold
-                              group-hover:gap-2 transition-all">
+                              group-hover:gap-2 transition-all mt-auto">
                 詳しく見る <ArrowRight size={14} />
               </div>
             </Link>
@@ -112,53 +241,25 @@ function Services() {
   );
 }
 
-// ── Why ZEST ──────────────────────────────────────────
-const FEATURES = [
-  { icon: <BarChart2 size={22} className="text-brand-orange" />, title: 'データドリブン', desc: '感覚や経験則ではなく、実際の営業データから再現性の高い「型」を導き出します。' },
-  { icon: <Users size={22} className="text-brand-orange" />, title: '組織全体に展開', desc: '特定の個人に依存しない営業組織へ。ナレッジを資産として蓄積・共有します。' },
-  { icon: <TrendingUp size={22} className="text-brand-orange" />, title: 'シンプルな導入', desc: 'GoogleスプレッドシートとAppSheetベースなので、既存ツールから大きな変更なしに導入可能。' },
-];
-
-function WhyZest() {
-  return (
-    <section className="bg-brand-bg py-20">
-      <div className="container-inner">
-        <div className="text-center mb-12">
-          <span className="section-label">選ばれる理由</span>
-          <h2 className="section-title">なぜZESTが選ばれるのか</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {FEATURES.map((f) => (
-            <div key={f.title} className="card">
-              <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mb-4">
-                {f.icon}
-              </div>
-              <h3 className="font-black text-brand-navy mb-2">{f.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ── CTA ───────────────────────────────────────────────
 function CtaSection() {
   return (
-    <section className="bg-brand-navy py-20">
+    <section className="bg-brand-navy py-24">
       <div className="container-inner text-center">
-        <h2 className="text-3xl font-black text-white mb-4">
-          まずは話すだけで大丈夫です。
+        <p className="text-brand-orange text-sm font-bold uppercase tracking-widest mb-4">First Step</p>
+        <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">
+          「何から始めればいいかわからない」<br />
+          その段階からご相談ください。
         </h2>
-        <p className="text-slate-400 mb-8 leading-relaxed">
-          「何から始めればよいかわからない」という段階からお気軽にご相談ください。<br />
-          現状のCRM・データ体制は問いません。
+        <p className="text-slate-400 mb-10 leading-relaxed max-w-lg mx-auto">
+          現状の営業体制・CRM・データ環境は問いません。
+          課題を整理するところから、ZESTが一緒に考えます。
         </p>
-        <Link href="/contact" className="btn-primary">
+        <Link href="/contact" className="btn-primary text-base px-8 py-4">
           <ArrowRight size={18} />
           無料相談を予約する
         </Link>
+        <p className="text-slate-600 text-xs mt-4">完全無料・セールスなし・オンライン対応可</p>
       </div>
     </section>
   );
@@ -169,8 +270,10 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <Metrics />
+      <PainSection />
+      <ValueSection />
       <Services />
-      <WhyZest />
       <CtaSection />
     </>
   );
