@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'メッセージが空です。' }, { status: 400 });
     }
 
-    const { reply, escalated } = await sendMessage(messages, sessionId);
+    const { reply, escalated, contactInfo } = await sendMessage(messages, sessionId);
 
     // エスカレーション時にセッションをKVに保存（KVが設定されている場合のみ）
     if (escalated && sessionId && isKvConfigured()) {
@@ -48,14 +48,18 @@ export async function POST(req: NextRequest) {
         await saveSession({
           sessionId,
           escalated: true,
-          contactInfo: {},
+          contactInfo: contactInfo ?? {},
           staffMessages: [],
           visitorMessages: [],
           createdAt: new Date().toISOString(),
           lastActivityAt: new Date().toISOString(),
         });
-      } else if (!existing.escalated) {
+      } else {
         existing.escalated = true;
+        // 連絡先情報をマージ（既存データを上書きしない）
+        if (contactInfo) {
+          existing.contactInfo = { ...contactInfo, ...existing.contactInfo };
+        }
         existing.lastActivityAt = new Date().toISOString();
         await saveSession(existing);
       }

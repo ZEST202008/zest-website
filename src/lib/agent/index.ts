@@ -21,6 +21,7 @@ export async function sendMessage(
 ): Promise<{
   reply: string;
   escalated: boolean;
+  contactInfo?: { name?: string; email?: string; company?: string };
 }> {
   // コスト最適化：直近N件のみ保持
   const trimmedMessages = messages.slice(-DEFAULT_CONFIG.maxHistoryLength);
@@ -41,13 +42,25 @@ export async function sendMessage(
     const toolUse = response.content.find((c) => c.type === 'tool_use');
 
     if (toolUse && toolUse.type === 'tool_use' && toolUse.name === 'escalate_to_slack') {
-      const input = toolUse.input as { reason: string };
+      const input = toolUse.input as {
+        reason: string;
+        name?: string;
+        email?: string;
+        company?: string;
+      };
       await sendEscalationToSlack(trimmedMessages, input.reason, sessionId);
+
+      const contactInfo = {
+        ...(input.name ? { name: input.name } : {}),
+        ...(input.email ? { email: input.email } : {}),
+        ...(input.company ? { company: input.company } : {}),
+      };
 
       return {
         reply:
           'ありがとうございます。担当者よりこのチャットまたはメールにてご連絡いたします。少々お待ちください。',
         escalated: true,
+        contactInfo,
       };
     }
   }
