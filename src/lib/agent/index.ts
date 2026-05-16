@@ -1,8 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { Message, DEFAULT_CONFIG } from './types';
-import { SYSTEM_PROMPT } from './system-prompt';
+import { buildSystemPrompt } from './system-prompt';
 import { TOOLS } from './tools';
 import { sendEscalationToSlack } from '../slack';
+import { getKnowledge, isKvConfigured } from '../kv';
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
@@ -26,10 +27,14 @@ export async function sendMessage(
   // コスト最適化：直近N件のみ保持
   const trimmedMessages = messages.slice(-DEFAULT_CONFIG.maxHistoryLength);
 
+  // KVから最新の知識を取得してシステムプロンプトに注入
+  const knowledge = isKvConfigured() ? await getKnowledge() : null;
+  const systemPrompt = buildSystemPrompt(knowledge);
+
   const response = await client.messages.create({
     model: DEFAULT_CONFIG.model,
     max_tokens: DEFAULT_CONFIG.maxTokens,
-    system: SYSTEM_PROMPT,
+    system: systemPrompt,
     tools: TOOLS,
     messages: trimmedMessages.map((m) => ({
       role: m.role,

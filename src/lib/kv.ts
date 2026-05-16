@@ -112,3 +112,92 @@ export async function addVisitorMessage(
 export function isKvConfigured(): boolean {
   return !!(KV_URL && KV_TOKEN);
 }
+
+// ── レート制限 ────────────────────────────────────────
+
+/**
+ * KVベースのレート制限（サーバーレス環境対応）
+ *
+ * INCR + EXPIRE NX を使い、windowSec 秒間に limit 回を超えたら true を返す。
+ * KV未設定時は常に false（制限しない）を返す。
+ *
+ * @param ip          クライアントIPアドレス
+ * @param prefix      用途ごとのキープレフィックス（例: "rl:chat", "rl:visitor"）
+ * @param limit       windowSec 秒間の最大リクエスト数
+ * @param windowSec   カウントウィンドウ（秒）
+ * @returns true = レート制限超過（リクエストを拒否すべき）
+ */
+export async function checkRateLimit(
+  ip: string,
+  prefix = 'rl:chat',
+  limit = 10,
+  windowSec = 10
+): Promise<boolean> {
+  if (!KV_URL || !KV_TOKEN) return false;
+  try {
+    const key = `${prefix}:${ip}`;
+    // INCR でカウントアップ → EXPIRE NX で初回のみ TTL をセット
+    const res = await fetch(`${KV_URL}/pipeline`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify([
+        ['INCR', key],
+        ['EXPIRE', key, windowSec, 'NX'],
+      ]),
+    });
+    const data = await res.json();
+    const count: number = data.result?.[0] ?? 1;
+    return count > limit;
+  } catch {
+    return false; // KV エラー時は制限しない（フェイルオープン）
+  }
+}
+
+// ── AI 知識ベース ────────────────────────────────────
+
+/** AIの知識文字列を取得する */
+export async function getKnowledge(): Promise<string | null> {
+  if (!KV_URL || !KV_TOKEN) return null;
+  try {
+    const res = await fetch(`${KV_URL}/get/ai:knowledge`, {
+      headers: headers(),
+      cache: 'no-store',
+    });
+    const data = await res.json();
+    return data.result ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** 最後に同期した日時を取得する */
+export async function getKnowledgeSyncedAt(): Promise<string | null> {
+  if (!KV_URL || !KV_TOKEN) return null;
+  try {
+    const res = await fetch(`${KV_URL}/get/ai:knowledge:synced_at`, {
+      headers: headers(),
+      cache: 'no-store',
+    });
+    const data = await res.json();
+    return data.result ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** AIの知識文字列と同期日時をまとめて保存する */
+export async function saveKnowledge(knowledge: string, syncedAt: string): Promise<void> {
+  if (!KV_URL || !KV_TOKEN) return;
+  try {
+    await fetch(`${KV_URL}/pipeline`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify([
+        ['SET', 'ai:knowledge', knowledge],
+        ['SET', 'ai:knowledge:synced_at', syncedAt],
+      ]),
+    });
+  } catch (err) {
+    console.error('KV saveKnowledge error:', err);
+  }
+}

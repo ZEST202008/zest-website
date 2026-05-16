@@ -1,24 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendMessage } from '@/lib/agent';
 import { Message } from '@/lib/agent/types';
-import { getSession, saveSession, isKvConfigured } from '@/lib/kv';
-
-// レート制限（簡易版：本番ではRedis等を推奨）
-const requestTimestamps = new Map<string, number>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const last = requestTimestamps.get(ip) ?? 0;
-  if (now - last < 1000) return true; // 1秒に1回まで
-  requestTimestamps.set(ip, now);
-  return false;
-}
+import { getSession, saveSession, isKvConfigured, checkRateLimit } from '@/lib/kv';
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get('x-forwarded-for') ?? 'unknown';
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown';
 
-    if (isRateLimited(ip)) {
+    // KVベースのレート制限（10秒間に10回まで）
+    if (await checkRateLimit(ip, 'rl:chat', 10, 10)) {
       return NextResponse.json(
         { error: 'リクエストが多すぎます。少し待ってから再送信してください。' },
         { status: 429 }

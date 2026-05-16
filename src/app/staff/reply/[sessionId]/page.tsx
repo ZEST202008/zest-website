@@ -28,9 +28,10 @@ export default function StaffReplyPage() {
   useEffect(() => {
     async function poll() {
       try {
-        const res = await fetch(`/api/chat/poll?sessionId=${sessionId}&role=staff`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(
+          `/api/chat/poll?sessionId=${sessionId}&role=staff&token=${encodeURIComponent(token)}`,
+          { cache: 'no-store' }
+        );
         const data = await res.json();
 
         const staffEntries: ChatEntry[] = (data.messages ?? []).map(
