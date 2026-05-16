@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { notion } from '@/lib/notion';
+import { Client } from '@notionhq/client';
 import { getKnowledgeSyncedAt, saveKnowledge } from '@/lib/kv';
+
+// notion-to-md を使わず Client を直接生成（バンドル問題を回避）
+const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 /**
  * Notion → KV 知識同期エンドポイント
