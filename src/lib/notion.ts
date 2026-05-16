@@ -1,5 +1,6 @@
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
+import { marked } from 'marked';
 
 // Notion クライアント初期化
 export const notion = new Client({
@@ -53,12 +54,12 @@ export async function getBlogPosts(limit?: number) {
 export async function getBlogPostContent(pageId: string) {
   const mdBlocks = await n2m.pageToMarkdown(pageId);
   const mdString = n2m.toMarkdownString(mdBlocks);
-  return mdString.parent;
+  return marked(mdString.parent) as string;
 }
 
 // ── ページIDからNotion本文を取得 ───────────────────
 export async function getPageContent(pageId: string) {
   const mdBlocks = await n2m.pageToMarkdown(pageId);
   const mdString = n2m.toMarkdownString(mdBlocks);
-  return mdString.parent;
+  return marked(mdString.parent) as string;
 }
