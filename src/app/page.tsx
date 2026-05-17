@@ -1,5 +1,10 @@
 import Link from 'next/link';
-import { ArrowRight, TrendingUp, BadgePercent, Sparkles, Database, Layers, Users } from 'lucide-react';
+import Image from 'next/image';
+import {
+  ArrowRight, TrendingUp, BadgePercent, Sparkles,
+  Database, Layers, Users, Building2, LineChart,
+  Megaphone, BookOpen,
+} from 'lucide-react';
 
 // ── Hero ──────────────────────────────────────────────────
 function Hero() {
@@ -104,6 +109,81 @@ function Outcomes() {
   );
 }
 
+// ── Services ──────────────────────────────────────────────
+const SERVICES = [
+  {
+    slug: 'inside-sales',
+    name: 'インサイドセールス内製化',
+    tagline: '休眠顧客を商談機会に変える',
+    description:
+      '眠っている既存顧客を確実な商談へ。月額6万円〜の圧倒的ローコストで、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
+    logo: null as string | null,
+  },
+  {
+    slug: 'kachikata',
+    name: 'カチカタ',
+    tagline: 'トップセールスの勝ち方を組織の型に',
+    description:
+      'トップセールスの行動データを解析し、「なぜ売れたのか」を組織の共有知に変換。誰もが再現できる営業の型で、属人依存から脱却します。',
+    logo: '/kachikata-logo.png' as string | null,
+  },
+  {
+    slug: 'sheetziv',
+    name: 'SheetViz',
+    tagline: '営業データをリアルタイムで可視化',
+    description:
+      'Google SheetsとAppSheetを使った、導入コストゼロの営業支援CRM。フィールド・インサイド・管理職の3役割に最適化し、データを自社資産に変えます。',
+    logo: '/sheetviz-logo.png' as string | null,
+  },
+];
+
+function Services() {
+  return (
+    <section className="py-20 bg-white">
+      <div className="container-inner">
+        <div className="text-center mb-12">
+          <span className="section-label">サービス</span>
+          <h2 className="section-title">
+            3つのアプローチで、<br className="hidden md:block" />
+            営業力を組織の仕組みに変える。
+          </h2>
+          <p className="section-sub mt-3 max-w-xl mx-auto">
+            掘り起こし → 型化 → データ蓄積。一気通貫で支援します。
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {SERVICES.map((s) => (
+            <Link
+              key={s.slug}
+              href={`/services/${s.slug}`}
+              className="card group no-underline flex flex-col hover:border-brand-orange/30 transition-colors"
+            >
+              <div className="h-10 mb-4 flex items-center">
+                {s.logo ? (
+                  <Image
+                    src={s.logo}
+                    alt={s.name}
+                    width={160}
+                    height={40}
+                    className="h-9 w-auto object-contain"
+                  />
+                ) : (
+                  <span className="text-base font-black text-brand-navy">{s.name}</span>
+                )}
+              </div>
+              <div className="text-xs text-slate-500 font-semibold mb-2">{s.tagline}</div>
+              <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{s.description}</p>
+              <div className="flex items-center gap-1 text-brand-orange text-sm font-bold group-hover:gap-2 transition-all mt-auto">
+                詳しく見る <ArrowRight size={14} />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Approach ─────────────────────────────────────────────
 const PILLARS = [
   {
@@ -128,7 +208,7 @@ const PILLARS = [
 
 function Approach() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-brand-bg">
       <div className="container-inner">
         <div className="text-center mb-14">
           <span className="section-label">アプローチ</span>
@@ -152,6 +232,96 @@ function Approach() {
               </div>
               <h3 className="font-black text-brand-navy text-lg mb-3 leading-snug">{p.title}</h3>
               <p className="text-slate-600 text-sm leading-relaxed">{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Achievements ─────────────────────────────────────────
+const ACHIEVEMENTS = [
+  {
+    Icon: Building2,
+    category: '経営・事業戦略',
+    achievement:
+      '中期経営計画の策定と実行管理を一体で支援。事業ポートフォリオの見直しと組織再編を実現。',
+    tags: ['中期経営計画', '組織設計', 'ポートフォリオ戦略'],
+  },
+  {
+    Icon: LineChart,
+    category: '営業・セールスプロセス',
+    achievement:
+      'KFS（センターピン）の特定とセールスプレイブック全社展開で、成約率改善・新人の早期戦力化を実現。',
+    tags: ['KFS特定', 'プレイブック策定', '属人化排除'],
+  },
+  {
+    Icon: Users,
+    category: '採用・人材育成',
+    achievement:
+      '採用ペルソナと評価基準を再設計し、定着率の高い採用フローと次世代リーダー育成を複数社で実現。',
+    tags: ['採用ペルソナ設計', '人材育成', '評価制度構築'],
+  },
+  {
+    Icon: Megaphone,
+    category: 'マーケティング体制',
+    achievement:
+      'ゼロからのマーケティングチーム組成と運用ガイド整備で、商談転換率の向上に貢献。',
+    tags: ['チーム組成', '顧客インサイト分析', 'マーケOps'],
+  },
+  {
+    Icon: BookOpen,
+    category: 'マニュアル・ナレッジ整備',
+    achievement:
+      '属人化していた業務ノウハウを言語化・標準化。新人が独力で業務遂行できる体制を構築。',
+    tags: ['業務マニュアル整備', 'ナレッジ管理', '引き継ぎ標準化'],
+  },
+  {
+    Icon: Database,
+    category: 'DX推進・データ経営',
+    achievement:
+      'SheetViz CRM導入でデータ経営に移行。経営判断のスピードと根拠の精度が大幅に向上。',
+    tags: ['CRM開発・導入', 'BIダッシュボード', 'データドリブン経営'],
+  },
+];
+
+function AchievementsSection() {
+  return (
+    <section className="py-20 bg-white">
+      <div className="container-inner">
+        <div className="text-center mb-12">
+          <span className="section-label">支援実績</span>
+          <h2 className="section-title">
+            業種・規模を問わず、<br className="hidden md:block" />
+            経営課題の本質に向き合ってきました。
+          </h2>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {ACHIEVEMENTS.map((a) => (
+            <div
+              key={a.category}
+              className="card hover:border-brand-orange/30 transition-colors flex flex-col"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-9 h-9 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">
+                  <a.Icon size={18} className="text-brand-orange" />
+                </div>
+                <span className="text-xs font-bold text-brand-orange tracking-wider">
+                  {a.category}
+                </span>
+              </div>
+              <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">{a.achievement}</p>
+              <div className="flex flex-wrap gap-1.5 mt-auto">
+                {a.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs bg-slate-100 text-slate-500 font-semibold px-2 py-0.5 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -211,7 +381,9 @@ export default function HomePage() {
       <Hero />
       <Belief />
       <Outcomes />
+      <Services />
       <Approach />
+      <AchievementsSection />
       <Manifesto />
       <CtaSection />
     </>
