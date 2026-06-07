@@ -135,6 +135,14 @@ const SERVICES = [
       'Google SheetsとAppSheetを使った、導入コストゼロの営業支援CRM。フィールド・インサイド・管理職の3役割に最適化し、データを自社資産に変えます。',
     logo: '/sheetviz-logo.png' as string | null,
   },
+  {
+    slug: 'ai-chat-assistant',
+    name: 'AIチャットアシスタント',
+    tagline: '見えない機会損失を商談機会へ',
+    description:
+      'Webサイトに眠る機会損失を確実な商談へ。AIが24時間訪問者の問い合わせに対応し、自然な会話でリードを獲得。初期費用50万円・月額5万円のフルマネージド。',
+    logo: '/ai_chat_assistant-logo.png' as string | null,
+  },
 ];
 
 function Services() {
@@ -144,11 +152,11 @@ function Services() {
         <div className="text-center mb-12">
           <span className="section-label">サービス</span>
           <h2 className="section-title">
-            3つのアプローチで、<br className="hidden md:block" />
+            4つのアプローチで、<br className="hidden md:block" />
             営業力を組織の仕組みに変える。
           </h2>
           <p className="section-sub mt-3 max-w-xl mx-auto">
-            掘り起こし → 型化 → データ蓄積。一気通貫で支援します。
+            掘り起こし → 型化 → データ蓄積 → AI自動化。一気通貫で支援します。
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
