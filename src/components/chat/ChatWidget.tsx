@@ -292,8 +292,9 @@ export default function ChatWidget() {
   }, [input, loading, escalated, messages, sessionId]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Enter単体は改行（デフォルト動作のまま）。送信は Cmd/Ctrl+Enter のみ。
     // isComposing が true の間は日本語IMEの変換確定中なので送信しない
-    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && !e.nativeEvent.isComposing) {
       e.preventDefault();
       sendMessage();
     }
@@ -379,7 +380,7 @@ export default function ChatWidget() {
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
-                placeholder={escalated ? '担当者へメッセージを送る… (Enter で送信)' : 'メッセージを入力… (Enter で送信)'}
+                placeholder={escalated ? '担当者へメッセージを送る…' : 'メッセージを入力…'}
                 disabled={loading}
                 rows={1}
                 className="flex-1 resize-none rounded-xl border border-slate-300 px-3 py-2.5 text-sm leading-6 outline-none disabled:bg-slate-50 disabled:text-slate-400 placeholder:text-slate-400 transition-colors"
@@ -397,7 +398,10 @@ export default function ChatWidget() {
                 <IconSend />
               </button>
             </div>
-            <p className="text-[10px] text-slate-400 text-center mt-2">AIの回答は参考情報です。重要事項はお問い合わせください。</p>
+            <p className="text-[10px] text-slate-400 text-center mt-2">
+              AIの回答は参考情報です。重要事項はお問い合わせください。
+              <span className="hidden sm:inline"> ／ Enterで改行、⌘+Enter（Windowsは Ctrl+Enter）で送信</span>
+            </p>
           </div>
         </div>
       )}
