@@ -55,6 +55,32 @@ function getSessionIdFromUrl(): string | null {
 }
 
 // ────────────────────────────────────────────────────────────────
+// 会話履歴のローカル保存（ブラウザを閉じて再訪問しても続きから話せるように）
+// ────────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'zest-chat-history';
+const STORAGE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // KVのセッションTTL（7日）に合わせる
+
+interface StoredSession {
+  sessionId: string;
+  messages: Message[];
+  updatedAt: number;
+}
+
+function loadStoredSession(): StoredSession | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as StoredSession;
+    if (!parsed?.sessionId || !Array.isArray(parsed.messages) || parsed.messages.length === 0) return null;
+    if (Date.now() - parsed.updatedAt > STORAGE_MAX_AGE_MS) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────
 // Small avatar for chat header / message bubbles
 // background-image で顔エリアにズームイン表示
 // backgroundSize で倍率、backgroundPosition で位置を調整
@@ -141,13 +167,16 @@ function TypingIndicator() {
 // ────────────────────────────────────────────────────────────────
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (getSessionIdFromUrl()) return [INITIAL_MESSAGE]; // メールリンク復帰時は下のuseEffectで復元
+    return loadStoredSession()?.messages ?? [INITIAL_MESSAGE];
+  });
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [escalated, setEscalated] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showBubble, setShowBubble] = useState(false);
-  const [sessionId] = useState(() => getSessionIdFromUrl() ?? generateSessionId());
+  const [sessionId] = useState(() => getSessionIdFromUrl() ?? loadStoredSession()?.sessionId ?? generateSessionId());
   const [isRestoredSession] = useState(() => !!getSessionIdFromUrl());
 
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -206,6 +235,19 @@ export default function ChatWidget() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
+
+  // 会話履歴をlocalStorageに保存し、再訪問時に続きから話せるようにする
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ sessionId, messages, updatedAt: Date.now() })
+      );
+    } catch {
+      // プライベートブラウズ等でlocalStorageが使えない場合は無視
+    }
+  }, [sessionId, messages]);
 
   useEffect(() => {
     if (open) {
