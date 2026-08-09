@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendMessage } from '@/lib/agent';
 import { Message } from '@/lib/agent/types';
-import { getSession, saveSession, isKvConfigured, checkRateLimit } from '@/lib/kv';
+import { getSession, saveSession, isKvConfigured, checkRateLimit, addSessionToDailyIndex, getJstDateKey } from '@/lib/kv';
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,28 +31,37 @@ export async function POST(req: NextRequest) {
 
     const { reply, escalated, contactInfo } = await sendMessage(messages, sessionId);
 
-    // エスカレーション時にセッションをKVに保存（KVが設定されている場合のみ）
-    if (escalated && sessionId && isKvConfigured()) {
+    // 全会話をKVに保存（日次Slackダイジェスト用。エスカレーション有無に関わらず記録）
+    if (sessionId && isKvConfigured()) {
       const existing = await getSession(sessionId);
+      const transcript = [...messages, { role: 'assistant' as const, content: reply }];
+      const now = new Date().toISOString();
+
       if (!existing) {
         await saveSession({
           sessionId,
-          escalated: true,
+          escalated,
           contactInfo: contactInfo ?? {},
           staffMessages: [],
           visitorMessages: [],
-          createdAt: new Date().toISOString(),
-          lastActivityAt: new Date().toISOString(),
+          messages: transcript,
+          createdAt: now,
+          lastActivityAt: now,
         });
       } else {
-        existing.escalated = true;
-        // 連絡先情報をマージ（既存データを上書きしない）
-        if (contactInfo) {
-          existing.contactInfo = { ...contactInfo, ...existing.contactInfo };
+        existing.messages = transcript;
+        existing.lastActivityAt = now;
+        if (escalated) {
+          existing.escalated = true;
+          // 連絡先情報をマージ（既存データを上書きしない）
+          if (contactInfo) {
+            existing.contactInfo = { ...contactInfo, ...existing.contactInfo };
+          }
         }
-        existing.lastActivityAt = new Date().toISOString();
         await saveSession(existing);
       }
+
+      await addSessionToDailyIndex(sessionId, getJstDateKey());
     }
 
     return NextResponse.json({ reply, escalated });

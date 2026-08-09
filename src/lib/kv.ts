@@ -24,6 +24,11 @@ export interface VisitorMessage {
   sentAt: string;
 }
 
+export interface TranscriptMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 export interface ChatSession {
   sessionId: string;
   escalated: boolean;
@@ -34,6 +39,7 @@ export interface ChatSession {
   };
   staffMessages: StaffMessage[];
   visitorMessages: VisitorMessage[]; // エスカレーション後の訪問者メッセージ
+  messages: TranscriptMessage[]; // AIとのやり取り全文（エスカレーション有無に関わらず記録）
   createdAt: string;
   lastActivityAt: string;
 }
@@ -56,8 +62,9 @@ export async function getSession(sessionId: string): Promise<ChatSession | null>
     const data = await res.json();
     if (!data.result) return null;
     const session = JSON.parse(data.result) as ChatSession;
-    // 旧セッションに visitorMessages がない場合の互換対応
+    // 旧セッションに visitorMessages / messages がない場合の互換対応
     if (!session.visitorMessages) session.visitorMessages = [];
+    if (!session.messages) session.messages = [];
     return session;
   } catch {
     return null;
@@ -199,5 +206,44 @@ export async function saveKnowledge(knowledge: string, syncedAt: string): Promis
     });
   } catch (err) {
     console.error('KV saveKnowledge error:', err);
+  }
+}
+
+// ── 会話ログ（日次Slackダイジェスト用） ────────────────────────
+
+/** 日本時間（JST）基準の日付キー（YYYY-MM-DD）を返す */
+export function getJstDateKey(date: Date = new Date()): string {
+  return date.toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+}
+
+/** その日にやり取りがあったセッションIDの一覧に追加する（TTL 2日） */
+export async function addSessionToDailyIndex(sessionId: string, dateKey: string): Promise<void> {
+  if (!KV_URL || !KV_TOKEN) return;
+  try {
+    await fetch(`${KV_URL}/pipeline`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify([
+        ['SADD', `chatlog:${dateKey}`, sessionId],
+        ['EXPIRE', `chatlog:${dateKey}`, 172800, 'NX'],
+      ]),
+    });
+  } catch (err) {
+    console.error('KV addSessionToDailyIndex error:', err);
+  }
+}
+
+/** 指定日にやり取りがあったセッションIDの一覧を取得する */
+export async function getDailySessionIds(dateKey: string): Promise<string[]> {
+  if (!KV_URL || !KV_TOKEN) return [];
+  try {
+    const res = await fetch(`${KV_URL}/smembers/chatlog:${dateKey}`, {
+      headers: headers(),
+      cache: 'no-store',
+    });
+    const data = await res.json();
+    return Array.isArray(data.result) ? data.result : [];
+  } catch {
+    return [];
   }
 }
