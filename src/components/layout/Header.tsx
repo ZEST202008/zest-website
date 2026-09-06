@@ -45,6 +45,8 @@ export default function Header() {
                   className="flex items-center gap-1 text-sm font-medium text-slate-700
                              hover:text-brand-orange transition-colors"
                   onClick={() => setServicesOpen(!servicesOpen)}
+                  aria-haspopup="true"
+                  aria-expanded={servicesOpen}
                 >
                   {item.label}
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
@@ -88,6 +90,8 @@ export default function Header() {
         <button
           className="md:hidden p-2 text-slate-700"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? 'メニューを閉じる' : 'メニューを開く'}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
