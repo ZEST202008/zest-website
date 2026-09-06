@@ -10,7 +10,7 @@ export default function PrivacyPage() {
     <section className="py-20">
       <div className="container-inner max-w-3xl">
         <h1 className="text-3xl font-black text-brand-navy mb-2">プライバシーポリシー</h1>
-        <p className="text-sm text-slate-500 mb-12">制定日：2020年8月　最終改定日：2026年5月</p>
+        <p className="text-sm text-slate-500 mb-12">制定日：2020年8月　最終改定日：2026年9月</p>
 
         <div className="space-y-10 text-slate-700 leading-8">
 
@@ -31,6 +31,7 @@ export default function PrivacyPage() {
               <li>メールアドレス・電話番号</li>
               <li>お問い合わせ内容</li>
               <li>当社サービスのご利用に伴い生じる情報（アクセスログ、Cookie情報等）</li>
+              <li>企業のウェブサイト等、一般に公開されている情報から取得した法人の連絡先情報（第7条に定めます）</li>
             </ul>
           </div>
 
@@ -41,6 +42,7 @@ export default function PrivacyPage() {
               <li>お問い合わせ・ご相談への回答</li>
               <li>当社サービスの提供・運営</li>
               <li>サービスに関する情報のご案内（メールマガジン等）</li>
+              <li>当社サービスのご提案・営業に関するご連絡</li>
               <li>サービスの改善・新機能開発のための分析</li>
               <li>法令に基づく対応</li>
             </ul>
@@ -77,7 +79,26 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-black text-brand-navy mb-3">第7条（開示・訂正・削除）</h2>
+            <h2 className="text-lg font-black text-brand-navy mb-3">第7条（公開情報から取得した連絡先の利用）</h2>
+            <p>
+              当社は、当社サービスのご提案を目的として、企業のウェブサイトや公開名簿等、
+              一般に公開されている情報から、法人の連絡先情報（会社名、部署名、メールアドレス、電話番号、所在地等）を取得し、
+              営業に関するご連絡のために利用することがあります。
+            </p>
+            <ul className="list-disc pl-6 mt-3 space-y-1 text-sm">
+              <li>取得する情報は、事業者が自ら公開している連絡先に限ります。</li>
+              <li>ウェブサイト等に営業目的の連絡をお断りする旨の表示がある場合、当社はご連絡を差し控えます。</li>
+              <li>取得した情報を第三者に提供・販売することはありません。</li>
+              <li>
+                ご連絡の停止をご希望の場合は、当社からのメールに記載の配信停止先、または
+                <a href="mailto:shunpei.tanzawa@zest2020.com" className="text-brand-orange hover:underline">shunpei.tanzawa@zest2020.com</a>
+                までご連絡ください。速やかに送信を停止し、以後ご連絡いたしません。
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-black text-brand-navy mb-3">第8条（開示・訂正・削除）</h2>
             <p>
               お客様は、当社が保有するご自身の個人情報について、開示・訂正・削除・利用停止を請求することができます。
               請求の際は下記お問い合わせ先までご連絡ください。本人確認の上、合理的な期間内に対応いたします。
@@ -85,7 +106,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-black text-brand-navy mb-3">第8条（安全管理措置）</h2>
+            <h2 className="text-lg font-black text-brand-navy mb-3">第9条（安全管理措置）</h2>
             <p>
               当社は、個人情報の漏えい・滅失・毀損の防止のため、適切な安全管理措置を講じます。
               また、個人情報を取り扱う従業員に対して必要な教育・監督を行います。
@@ -93,7 +114,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-black text-brand-navy mb-3">第9条（本ポリシーの変更）</h2>
+            <h2 className="text-lg font-black text-brand-navy mb-3">第10条（本ポリシーの変更）</h2>
             <p>
               当社は、必要に応じて本ポリシーを変更することがあります。
               変更後のポリシーは当ウェブサイト上に掲示した時点から効力を生じるものとします。
@@ -101,7 +122,7 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-black text-brand-navy mb-3">第10条（お問い合わせ）</h2>
+            <h2 className="text-lg font-black text-brand-navy mb-3">第11条（お問い合わせ）</h2>
             <p>個人情報の取り扱いに関するお問い合わせは、以下までご連絡ください。</p>
             <div className="mt-3 text-sm space-y-1">
               <p><span className="font-bold">会社名</span>：株式会社ZEST</p>
