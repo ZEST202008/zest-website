@@ -1,17 +1,42 @@
 /**
  * GA4 イベント送信ユーティリティ
  *
+ * 【測定IDの管理方針】
+ * GA4の測定IDは配信HTMLに出力される公開値であり秘匿情報ではないため、
+ * 環境変数ではなくコードで管理する。これにより「mainにマージ＝本番で計測開始」となり、
+ * デプロイのたびに管理画面での設定作業が発生しない。
+ *
+ * 計測されるのは本番ドメイン（PRODUCTION_HOST）でアクセスされたときだけなので、
+ * ローカル開発・Vercelのプレビューデプロイのアクセスは本番データに混ざらない。
+ *
  * 【セットアップ手順】
  * 1. https://analytics.google.com → 管理 → データストリーム → ウェブ で
  *    www.zest2020.com のストリームを作成し、測定ID（G-XXXXXXXXXX）を取得
- * 2. Vercel の環境変数（Production / Preview / Development）に追加：
- *    NEXT_PUBLIC_GA_ID = G-XXXXXXXXXX
- * 3. 再デプロイすると計測が開始される
- *    （未設定の環境ではタグ自体を読み込まないので、ローカル開発が汚れない）
+ * 2. 下の PRODUCTION_GA_ID に貼り付けてmainにマージする（未設定の間はタグを読み込まない）
+ * 3. GA4 → 管理 → イベント で contact_form_click と chat_lead_captured を
+ *    キーイベントとしてマークする
+ *
+ * プレビュー環境で一時的に計測を試したい場合のみ、環境変数 NEXT_PUBLIC_GA_ID で上書きできる。
  */
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? '';
-export const isAnalyticsEnabled = GA_ID.length > 0;
+/** 本番の測定ID。GA4で取得したら 'G-XXXXXXXXXX' の形式でここに設定する */
+const PRODUCTION_GA_ID = '';
+
+/** この host でアクセスされたときだけ計測する */
+const PRODUCTION_HOST = 'www.zest2020.com';
+
+/** 環境変数による上書き（プレビュー環境での検証用。通常は未設定） */
+const GA_ID_OVERRIDE = process.env.NEXT_PUBLIC_GA_ID ?? '';
+
+/**
+ * 現在のホスト名で使うべき測定IDを返す。計測しない場合は null。
+ * ホスト名の判定が必要なため、クライアント側でのみ呼ぶこと。
+ */
+export function resolveGaId(hostname: string): string | null {
+  if (GA_ID_OVERRIDE) return GA_ID_OVERRIDE;
+  if (!PRODUCTION_GA_ID) return null;
+  return hostname === PRODUCTION_HOST ? PRODUCTION_GA_ID : null;
+}
 
 type GtagParams = Record<string, string | number | boolean | undefined>;
 
@@ -22,15 +47,18 @@ declare global {
   }
 }
 
-/** 任意のGA4イベントを送信する（GA未設定時は何もしない） */
+/**
+ * 任意のGA4イベントを送信する。
+ * gtagが読み込まれていない環境（開発・プレビュー・測定ID未設定）では何もしない。
+ */
 export function trackEvent(name: string, params: GtagParams = {}): void {
-  if (typeof window === 'undefined' || !window.gtag || !isAnalyticsEnabled) return;
+  if (typeof window === 'undefined' || !window.gtag) return;
   window.gtag('event', name, params);
 }
 
 /** ページビューを手動送信する（App Router のクライアント遷移用） */
 export function trackPageview(path: string): void {
-  if (typeof window === 'undefined' || !window.gtag || !isAnalyticsEnabled) return;
+  if (typeof window === 'undefined' || !window.gtag) return;
   window.gtag('event', 'page_view', {
     page_path: path,
     page_location: window.location.href,
