@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: '会社概要 | ZEST Inc.',
+  title: '会社概要',
   description: 'ZESTのVision・Mission・Value、代表メッセージ、会社情報をご紹介します。',
 };
 

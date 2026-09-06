@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'AIチャットアシスタント | 株式会社ZEST',
+  title: 'AIチャットアシスタント｜Webサイトの離脱を商談機会に変えるAI接客',
   description: 'Webサイトに眠る「見えない機会損失」を確実な「商談機会」へ。フォーム入力の手間や営業への警戒感から離脱していた訪問者へ、AIが自然な会話の中でリードを獲得し売上機会を最大化。初期費用50万円・月額5万円のフルマネージド。',
 };
 

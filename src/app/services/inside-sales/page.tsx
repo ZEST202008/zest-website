@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'インサイドセールス内製化プログラム | 株式会社ZEST',
+  title: 'インサイドセールス内製化プログラム｜90日で自走するIS組織へ',
   description: '眠っている既存休眠顧客を確実な商談機会へ。月額6万円〜の圧倒的ローコストで、持続可能なIS組織を90日で社内に完全内製化するプログラム。',
 };
 
