@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { trackEvent, AnalyticsEvent } from '@/lib/analytics';
 
 // ────────────────────────────────────────────────────────────────
 // Types
@@ -174,6 +175,9 @@ export default function ChatWidget() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [escalated, setEscalated] = useState(false);
+  // GA4イベントの二重送信を防ぐフラグ
+  const hasTrackedFirstMessage = useRef(false);
+  const hasTrackedLead = useRef(false);
   const [error, setError] = useState<string | null>(null);
   const [showBubble, setShowBubble] = useState(false);
   const [sessionId] = useState(() => getSessionIdFromUrl() ?? loadStoredSession()?.sessionId ?? generateSessionId());
@@ -284,9 +288,21 @@ export default function ChatWidget() {
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, [escalated, sessionId]);
 
+  /** ランチャーからチャットを開く（GA4: chat_open） */
+  const openChat = useCallback(() => {
+    setOpen(true);
+    trackEvent(AnalyticsEvent.ChatOpen, { page_path: window.location.pathname });
+  }, []);
+
   const sendMessage = useCallback(async () => {
     const text = input.trim();
     if (!text || loading) return;
+
+    // 会話開始（最初の訪問者メッセージ）を1回だけ計測
+    if (!hasTrackedFirstMessage.current) {
+      hasTrackedFirstMessage.current = true;
+      trackEvent(AnalyticsEvent.ChatFirstMessage, { page_path: window.location.pathname });
+    }
 
     const userMsg: Message = { role: 'user', content: text };
     const nextMessages = [...messages, userMsg];
@@ -325,7 +341,14 @@ export default function ChatWidget() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? 'エラーが発生しました。');
       setMessages([...nextMessages, { role: 'assistant', content: data.reply }]);
-      if (data.escalated) setEscalated(true);
+      if (data.escalated) {
+        setEscalated(true);
+        // 担当者への引き継ぎ＝リード獲得。GA4でキーイベントに設定する
+        if (!hasTrackedLead.current) {
+          hasTrackedLead.current = true;
+          trackEvent(AnalyticsEvent.ChatLeadCaptured, { page_path: window.location.pathname });
+        }
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : '送信に失敗しました。');
     } finally {
@@ -494,7 +517,7 @@ export default function ChatWidget() {
 
           {/* キャラクター画像ボタン */}
           <button
-            onClick={() => setOpen(true)}
+            onClick={openChat}
             className="flex-shrink-0 transition-transform duration-200 hover:scale-105 active:scale-95 focus:outline-none"
             aria-label="チャットで問い合わせ"
           >

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { ArrowRight, Clock, MessageCircle, CheckCircle } from 'lucide-react';
+import TrackedLink from '@/components/analytics/TrackedLink';
+import { AnalyticsEvent } from '@/lib/analytics';
 
 export const metadata: Metadata = {
   title: 'お問い合わせ・無料相談',
@@ -40,15 +41,17 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <Link
+          <TrackedLink
             href={FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary text-lg px-10 py-4"
+            event={AnalyticsEvent.ContactFormClick}
+            eventParams={{ location: 'contact_page' }}
           >
             <ArrowRight size={20} />
             お問い合わせフォームへ
-          </Link>
+          </TrackedLink>
 
           <p className="text-xs text-slate-400 mt-6">
             ※ 別タブでGoogleフォームが開きます

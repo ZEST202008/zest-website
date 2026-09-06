@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { trackEvent, AnalyticsEvent } from '@/lib/analytics';
 import Link from 'next/link';
 import { AlertTriangle, Info, CheckCircle, ChevronRight, ArrowRight } from 'lucide-react';
 
@@ -60,6 +61,17 @@ const CATEGORY_OFFSETS = CATEGORIES.reduce<Record<string, number>>((acc, cat, i)
 export default function DiagnosisSection() {
   const [answers, setAnswers] = useState<Record<string, boolean | undefined>>({});
   const [showResult, setShowResult] = useState(false);
+  // 診断開始（最初の回答）を1回だけ計測する
+  const hasTrackedStart = useRef(false);
+
+  /** 設問への回答を記録し、初回のみ diagnosis_start を送る */
+  const answer = (qId: string, value: boolean) => {
+    if (!hasTrackedStart.current) {
+      hasTrackedStart.current = true;
+      trackEvent(AnalyticsEvent.DiagnosisStart);
+    }
+    setAnswers((prev) => ({ ...prev, [qId]: value }));
+  };
 
   const allQIds = CATEGORIES.flatMap((c) => c.qIds);
   const answeredCount = allQIds.filter((id) => answers[id] !== undefined).length;
@@ -118,7 +130,7 @@ export default function DiagnosisSection() {
                       <p className="text-sm font-medium text-slate-800 leading-relaxed mb-2">{q}</p>
                       <div className="flex gap-2">
                         <button
-                          onClick={() => setAnswers((prev) => ({ ...prev, [qId]: true }))}
+                          onClick={() => answer(qId, true)}
                           className={`px-4 py-1.5 rounded-lg border text-sm font-semibold transition-colors ${
                             answers[qId] === true
                               ? 'bg-red-50 border-brand-orange text-brand-orange'
@@ -128,7 +140,7 @@ export default function DiagnosisSection() {
                           はい
                         </button>
                         <button
-                          onClick={() => setAnswers((prev) => ({ ...prev, [qId]: false }))}
+                          onClick={() => answer(qId, false)}
                           className={`px-4 py-1.5 rounded-lg border text-sm font-semibold transition-colors ${
                             answers[qId] === false
                               ? 'bg-green-50 border-green-500 text-green-700'
@@ -148,7 +160,10 @@ export default function DiagnosisSection() {
 
         <div className="text-center pt-2">
           <button
-            onClick={() => setShowResult(true)}
+            onClick={() => {
+              setShowResult(true);
+              trackEvent(AnalyticsEvent.DiagnosisComplete, { score, risk_level: riskLevel });
+            }}
             disabled={!allAnswered}
             className={`btn-primary ${!allAnswered ? 'opacity-40 cursor-not-allowed' : ''}`}
           >
