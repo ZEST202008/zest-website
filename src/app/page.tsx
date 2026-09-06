@@ -17,12 +17,12 @@ function Hero() {
             'radial-gradient(circle at 15% 70%, #e04001 0%, transparent 50%), radial-gradient(circle at 80% 20%, #1a2744 0%, transparent 60%)',
         }}
       />
-      <div className="container-inner relative py-24 md:py-32">
+      <div className="container-inner relative w-full min-w-0 py-24 md:py-32">
         <div className="max-w-3xl">
           <span className="inline-block text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-950/40 border border-orange-900/40 rounded-full px-3 py-1 mb-8">
             ZEST Inc.
           </span>
-          <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.2] mb-8 [word-break:keep-all]">
+          <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.2] mb-8 md:[word-break:keep-all]">
             あなたの会社にしかできないことを、<br />
             <span className="text-brand-orange">最大化する。</span>
           </h1>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'プライバシーポリシー | 株式会社ZEST',
+  title: 'プライバシーポリシー',
   description: '株式会社ZESTのプライバシーポリシーです。',
 };
 
