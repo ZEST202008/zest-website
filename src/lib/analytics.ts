@@ -19,8 +19,8 @@
  * プレビュー環境で一時的に計測を試したい場合のみ、環境変数 NEXT_PUBLIC_GA_ID で上書きできる。
  */
 
-/** 本番の測定ID。GA4で取得したら 'G-XXXXXXXXXX' の形式でここに設定する */
-const PRODUCTION_GA_ID = '';
+/** 本番の測定ID（GA4プロパティ「ZEST Inc.」の www.zest2020.com ウェブストリーム） */
+const PRODUCTION_GA_ID = 'G-YVTJXSLHDD';
 
 /** この host でアクセスされたときだけ計測する */
 const PRODUCTION_HOST = 'www.zest2020.com';
