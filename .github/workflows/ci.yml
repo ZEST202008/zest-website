@@ -1,0 +1,31 @@
+# 本番・プレビューへのデプロイは Vercel の GitHub 連携が行うため、
+# このワークフローはデプロイせず、マージ前の品質ゲートだけを担う。
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: 型チェックとビルド
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: 依存関係のインストール
+        run: npm ci
+
+      - name: 型チェック
+        run: npx tsc --noEmit
+
+      - name: ビルド
+        # Notion等の外部APIキーは不要（取得失敗時はフォールバックする実装）
+        run: npm run build
