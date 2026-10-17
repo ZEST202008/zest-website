@@ -427,13 +427,13 @@ export default function InsideSalesPage() {
             </div>
             <div className="card border border-red-200 bg-red-50/30">
               <div className="text-xs font-bold text-red-400 uppercase tracking-wider mb-2">
-                VS インサイドセールス代行（月額固定型）— 毎月 80〜150万円
+                VS インサイドセールス代行（月額固定型）— 毎月 40〜80万円
               </div>
               <p className="text-slate-600 text-sm leading-relaxed">
-                1年で1,000万円以上のキャッシュが消滅。契約終了と同時にノウハウも人材もすべて失われる
-                「永遠のレンタルモデル」。本プログラムなら
-                <strong className="text-slate-800">わずか1.5〜2ヶ月で初期投資を完全回収</strong>でき、
-                以降は毎月数百万円単位のコスト削減効果が生まれ続けます。
+                年間480〜960万円が外部に流出し続けます。契約終了と同時にノウハウも人材も失われる
+                「永遠のレンタルモデル」で、自社には何も残りません。本プログラムは
+                <strong className="text-slate-800">初期費用と自社スタッフの人件費が中心</strong>のため、
+                続けるほど差が開き、蓄積した顧客データとノウハウは自社の資産として残ります。
               </p>
             </div>
           </div>
