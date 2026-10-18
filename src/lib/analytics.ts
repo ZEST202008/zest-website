@@ -80,7 +80,20 @@ export const AnalyticsEvent = {
   ChatFirstMessage: 'chat_first_message',
   /** チャットから担当者へエスカレーション＝リード獲得 */
   ChatLeadCaptured: 'chat_lead_captured',
-  /** 属人化診断の開始・完了 */
+  /** 属人化診断の開始・完了（カチカタ） */
   DiagnosisStart: 'diagnosis_start',
   DiagnosisComplete: 'diagnosis_complete',
+
+  // ── インサイドセールス内製化の入口診断 ──
+  // 設計書のKPI（診断の開始率・完了率、資料DL数、打ち合わせ申込数〈診断経由かどうか別〉）に対応する
+  /** 着地ページの表示 */
+  IsEntryView: 'is_entry_view',
+  /** 診断の開始（最初の回答） */
+  IsDiagnosisStart: 'is_diagnosis_start',
+  /** 診断の完了（判定A/B/Cをパラメータで送る） */
+  IsDiagnosisComplete: 'is_diagnosis_complete',
+  /** 資料ダウンロードの申込 */
+  IsDocumentRequest: 'is_document_request',
+  /** オンライン打ち合わせの申込（診断経由かどうかを via で送る） */
+  IsMeetingRequest: 'is_meeting_request',
 } as const;
