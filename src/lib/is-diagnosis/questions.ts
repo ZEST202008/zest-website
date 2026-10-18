@@ -8,8 +8,18 @@
  * 設計書に「境目の点数は仮置き。実際の導入企業の感覚に合わせて調整します」とあるため、
  * 調整が前提の構造にしている。
  *
- * ⚠️ 設問の文言は設計書の「聞く理由」から起こした草案。
- *    丹澤直紀さんのレビューで差し替えること。配点と判定の構造は設計書どおり。
+ * ⚠️ 設問の文言は草案。丹澤直紀さんのレビューで確定させること。
+ *
+ * 【文言の根拠】
+ * 11問の逐語テキストは、設計書（診断書）にも9月版の設問ファイルにも存在しない。
+ * そこで以下を突き合わせて起こしている。
+ *   - 設計書の「質問項目と、聞く理由」「判定と目盛りの作り方」（配点・判定の構造はこれに準拠）
+ *   - 9月版の12問（`wiki/sources/zest-2026-09-inside-sales-diagnosis-12q.md`）
+ *     設計書に「9月Q1〜4→今回Q9／9月Q5→今回Q4・Q5／9月Q8→今回Q7／
+ *     9月Q10→今回Q10／9月Q12→今回Q11」という対応が明記されており、
+ *     引き継がれた設問は9月版の文体・選択肢に合わせてある。
+ *
+ * 文体は9月版に合わせて問いかけ（「〜ますか？」）で統一している。
  */
 
 export type QuestionId = 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'q6' | 'q7' | 'q8' | 'q9' | 'q10' | 'q11';
@@ -36,7 +46,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q1',
     block: '売上への意識',
-    text: '今後1年、売上を上げることは経営の優先事項ですか。',
+    text: '今後1年、売上を上げることは経営の優先事項ですか？',
     type: 'single',
     choices: [
       { value: 'top', label: '最優先の課題です', score: 3 },
@@ -48,7 +58,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q2',
     block: '売上への意識',
-    text: 'この1年で、売上を上げるために時間や費用を実際に使いましたか。',
+    text: 'この1年で、売上を上げるために時間や費用を実際に使いましたか？',
     note: '「上げたい」と考えているかではなく、実際に動かしたかをお聞きしています。',
     type: 'single',
     choices: [
@@ -61,7 +71,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q3',
     block: '方法論',
-    text: '売上を上げるために、いま取り組んでいることをすべてお選びください。',
+    text: '売上を上げるために、いま取り組んでいることはどれですか？',
     type: 'multiple',
     choices: [
       { value: 'new_sales', label: '新規開拓の営業' },
@@ -75,7 +85,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q4',
     block: '方法論',
-    text: 'その取り組みは、誰が・いつまでに・何をするかが決まっていますか。',
+    text: 'その取り組みは、誰が・いつまでに・何をするかが決まっていますか？',
     type: 'single',
     choices: [
       { value: 'all', label: '担当・期限・やることが決まっています', score: 3 },
@@ -87,7 +97,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q5',
     block: '方法論',
-    text: 'その取り組みは、実際に動いていますか。',
+    text: 'その取り組みは、実際に動いていますか？',
     type: 'single',
     choices: [
       { value: 'on_track', label: '計画どおり動いています', score: 3 },
@@ -99,7 +109,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q6',
     block: '実績',
-    text: 'ここ3〜5年の売上は、どのように推移していますか。',
+    text: 'ここ3〜5年の売上は、どのように推移していますか？',
     type: 'single',
     choices: [
       { value: 'up', label: '増加しています' },
@@ -111,19 +121,21 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q7',
     block: '実績',
-    text: '売上のうち、既存のお取引先が占める割合はどのくらいですか。',
+    text: '直近1年間の売上のうち、既存のお取引先からの売上はおおよそ何割だと思いますか？',
     type: 'single',
+    // 選択肢の刻みは9月版Q8に準拠。「わからない」を残しているのは、
+    // 答えられない人に無理な自己申告をさせないため（9月版の設計）
     choices: [
-      { value: 'over80', label: '8割以上' },
-      { value: '50to80', label: '5割〜8割' },
-      { value: '30to50', label: '3割〜5割' },
-      { value: 'under30', label: '3割未満' },
+      { value: 'over70', label: '7割以上' },
+      { value: '50to70', label: '5割〜7割' },
+      { value: 'under50', label: '5割未満' },
+      { value: 'unknown', label: 'わからない' },
     ],
   },
   {
     id: 'q8',
     block: '実績',
-    text: '売上の伸び悩みを感じる場面があれば、あてはまるものをすべてお選びください。',
+    text: '売上の伸び悩みを感じるのは、どのような場面ですか？',
     type: 'multiple',
     choices: [
       { value: 'no_new', label: '新規のお取引先が増えない' },
@@ -137,12 +149,12 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q9',
     block: 'お取引先',
-    text: '取引が止まっているお取引先へ、連絡はされていますか。',
+    text: '取引が止まっているお取引先へ、連絡・フォローはされていますか？',
     note: '以前は取引があり、いまは止まっているお取引先のことです。',
     type: 'single',
     choices: [
-      { value: 'regular', label: '決まった担当者が、定期的に連絡しています' },
-      { value: 'occasional', label: '気の向いたときに連絡しています' },
+      { value: 'regular', label: '決まった担当者が、定期的に連絡しています（月1回以上）' },
+      { value: 'occasional', label: 'たまに連絡しています（数ヶ月に1回程度）' },
       { value: 'rare', label: 'ほとんど連絡していません' },
       { value: 'unknown', label: 'どこが止まっているか、把握できていません' },
     ],
@@ -150,7 +162,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q10',
     block: 'お取引先',
-    text: 'これまでの取引の記録は、どのように残っていますか。',
+    text: 'お取引先の情報は、誰が見ても分かるリストや台帳になっていますか？',
     type: 'single',
     choices: [
       { value: 'system', label: 'システムで一元管理しています' },
@@ -162,7 +174,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q11',
     block: 'お取引先',
-    text: 'お取引先へ継続的に連絡する役割は、どなたが担う想定ですか。',
+    text: 'お取引先へ継続的に連絡する役割は、どなたが担う想定ですか？',
     type: 'single',
     choices: [
       { value: 'dedicated', label: '専任を置く想定です' },
