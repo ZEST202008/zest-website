@@ -8,8 +8,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // スタッフ返信画面・API・短縮リンクはインデックスさせない
-        disallow: ['/api/', '/staff/', '/r/'],
+        // スタッフ返信画面・API・短縮リンク・配信停止はインデックスさせない
+        disallow: ['/api/', '/staff/', '/r/', '/u/'],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
