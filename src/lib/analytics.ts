@@ -98,4 +98,6 @@ export const AnalyticsEvent = {
   IsDocumentDownload: 'is_document_download',
   /** オンライン打ち合わせの申込（診断経由かどうかを via で送る） */
   IsMeetingRequest: 'is_meeting_request',
+  /** 申込後に予約ページを開いた。申込と分けるのは、日程選びで離脱する割合を見るため */
+  IsMeetingBookingOpen: 'is_meeting_booking_open',
 } as const;

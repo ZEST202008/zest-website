@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Download } from 'lucide-react';
+import { CalendarDays, Download } from 'lucide-react';
 import { trackEvent, AnalyticsEvent } from '@/lib/analytics';
 
 type LeadType = 'document' | 'meeting';
@@ -18,6 +18,16 @@ interface ServiceConfig {
   documentUrl: string;
   documentDone: string;
   meetingDone: string;
+  /**
+   * Googleカレンダーの予約スケジュールのURL。案件ごとに担当が違うため、サービス単位で持つ。
+   *
+   * 空文字のあいだは、申込を受けて人が日程を調整する従来の動きのままになる。
+   * URLを入れた時点で、送信後の画面に「空いている日時を選ぶ」が出る。
+   * フォームを残すのは、会社名と事前質問の回答を取りこぼさないため。
+   * 予約ページだけにすると、この情報が手に入らない。
+   */
+  bookingUrl: string;
+  bookingOwner: string;
   /** 打ち合わせ前に相手の状況をつかむための設問。多くすると送信率が落ちるので2問まで */
   meetingQuestions: Question[];
 }
@@ -27,6 +37,8 @@ const SERVICE: Record<ServiceId, ServiceConfig> = {
     documentUrl: '/documents/zest-inside-sales-overview.pdf',
     documentDone: 'この場でダウンロードいただけます。',
     meetingDone: 'ありがとうございます。日程の候補をメールでお送りします。',
+    bookingUrl: '', // 丹澤 直紀のアカウントで作成した予約スケジュールのURLを入れる
+    bookingOwner: '丹澤 直紀',
     meetingQuestions: [
       {
         id: 'ledger',
@@ -54,6 +66,8 @@ const SERVICE: Record<ServiceId, ServiceConfig> = {
     documentUrl: '/documents/zest-ai-chat-overview.pdf',
     documentDone: 'この場でダウンロードいただけます。',
     meetingDone: 'ありがとうございます。日程の候補をメールでお送りします。',
+    bookingUrl: 'https://calendar.app.google/yUbDSmdBf12wAmv7A',
+    bookingOwner: '丹澤 俊平',
     meetingQuestions: [
       {
         id: 'inquiryVolume',
@@ -141,12 +155,36 @@ export default function LeadForm({
   }
 
   if (done) {
+    const canBook = type === 'meeting' && cfg.bookingUrl !== '';
     return (
       <div className="card text-center py-10">
         <p className="text-brand-navy font-bold mb-2">送信しました</p>
         <p className="text-slate-600 text-sm leading-relaxed">
-          {type === 'document' ? cfg.documentDone : cfg.meetingDone}
+          {type === 'document'
+            ? cfg.documentDone
+            : canBook
+              ? 'このまま、空いている日時をお選びいただけます。'
+              : cfg.meetingDone}
         </p>
+        {canBook && (
+          // 申込を受けてから人が日程を出すと、往復のあいだに熱が冷める。
+          // 送信直後にその場で確定できるようにする。
+          <>
+            <a
+              href={cfg.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent(AnalyticsEvent.IsMeetingBookingOpen, { service })}
+              className="btn-primary inline-flex items-center gap-2 mt-6 no-underline"
+            >
+              <CalendarDays size={16} /> 空いている日時を選ぶ
+            </a>
+            <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+              {cfg.bookingOwner}のカレンダーの空き状況が表示されます。<br />
+              都合のよい時間が見つからない場合は、このままお待ちください。改めてご連絡します。
+            </p>
+          </>
+        )}
         {type === 'document' && (
           // 送信後に待たせない。メール送付を約束すると、届くまでの間に関心が冷め、
           // 送信処理が落ちていた場合は約束が果たされないまま終わる。
