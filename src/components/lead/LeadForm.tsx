@@ -66,7 +66,7 @@ const SERVICE: Record<ServiceId, ServiceConfig> = {
     documentUrl: '/documents/zest-ai-chat-overview.pdf',
     documentDone: 'この場でダウンロードいただけます。',
     meetingDone: 'ありがとうございます。日程の候補をメールでお送りします。',
-    bookingUrl: '', // 丹澤 俊平のアカウントで作成した予約スケジュールのURLを入れる
+    bookingUrl: 'https://calendar.app.google/yUbDSmdBf12wAmv7A',
     bookingOwner: '丹澤 俊平',
     meetingQuestions: [
       {
