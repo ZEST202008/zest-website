@@ -92,8 +92,10 @@ export const AnalyticsEvent = {
   IsDiagnosisStart: 'is_diagnosis_start',
   /** 診断の完了（判定A/B/Cをパラメータで送る） */
   IsDiagnosisComplete: 'is_diagnosis_complete',
-  /** 資料ダウンロードの申込 */
+  /** 資料ダウンロードの申込（フォーム送信） */
   IsDocumentRequest: 'is_document_request',
+  /** 資料PDFの実ダウンロード。申込と分けるのは、申込だけして受け取らない離脱を見るため */
+  IsDocumentDownload: 'is_document_download',
   /** オンライン打ち合わせの申込（診断経由かどうかを via で送る） */
   IsMeetingRequest: 'is_meeting_request',
 } as const;
