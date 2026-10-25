@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
-import LeadForm from '@/components/is/LeadForm';
+import LeadForm from '@/components/lead/LeadForm';
 import { readPersonalization } from '@/lib/is-diagnosis/personalize';
 
 function Content() {

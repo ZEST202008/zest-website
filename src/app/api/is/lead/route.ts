@@ -2,19 +2,31 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit } from '@/lib/kv';
 
 /**
- * インサイドセールス入口の問い合わせ受け口。
+ * 営業入口（着地ページ）の問い合わせ受け口。
  *
  * 資料請求・オンライン打ち合わせの申込・診断からのホット案件を1本で受け、Slackへ通知する。
  * 設計書では「『担当者と話したい』の押下と、診断を経ないオンライン申込を
  * ホット案件の合図にする」とされているため、どちらの経路かを必ず通知に含める。
+ *
+ * パスに is が残っているのは、インサイドセールス向けに先に作ったため。
+ * いまは AIチャットアシスタントの着地ページからも同じ口に送っており、
+ * どちらの案件かは service フィールドで区別する。
  */
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_IS_WEBHOOK_URL ?? process.env.SLACK_WEBHOOK_URL ?? '';
 
 type LeadType = 'document' | 'meeting';
+type ServiceId = 'inside-sales' | 'ai-chat';
+
+const SERVICE_LABEL: Record<ServiceId, string> = {
+  'inside-sales': 'インサイドセールス内製化',
+  'ai-chat': 'AIチャットアシスタント',
+};
 
 interface LeadPayload {
   type: LeadType;
+  /** どちらの案件か。未指定なら先に作ったインサイドセールスとみなす */
+  service?: ServiceId;
   company?: string;
   name?: string;
   email?: string;
@@ -22,9 +34,8 @@ interface LeadPayload {
   viaDiagnosis?: boolean;
   /** 診断の判定（経由した場合） */
   verdict?: string;
-  /** 予約時に聞く項目 */
-  hasLedger?: string;
-  dormantContact?: string;
+  /** 予約時に聞く項目。設問はサービスごとに違うため、ラベルと回答の組で受ける */
+  answers?: { label: string; value: string }[];
   note?: string;
 }
 
@@ -59,19 +70,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'メールアドレスの形式をご確認ください。' }, { status: 400 });
   }
 
+  const service: ServiceId = body.service === 'ai-chat' ? 'ai-chat' : 'inside-sales';
   const hot = body.type === 'meeting';
   const route = body.viaDiagnosis
     ? `診断経由${body.verdict ? `（判定${body.verdict}）` : ''}`
     : '診断を経ずに直接';
 
   const fields = [
+    `*案件:*\n${SERVICE_LABEL[service]}`,
     `*種別:*\n${TYPE_LABEL[body.type]}`,
     `*経路:*\n${route}`,
     `*会社名:*\n${body.company}`,
     `*メールアドレス:*\n${body.email}`,
     body.name ? `*お名前:*\n${body.name}` : null,
-    body.hasLedger ? `*取引履歴:*\n${body.hasLedger}` : null,
-    body.dormantContact ? `*休眠先への連絡:*\n${body.dormantContact}` : null,
+    ...(body.answers ?? []).map((a) => `*${a.label}:*\n${a.value}`),
   ].filter(Boolean) as string[];
 
   if (SLACK_WEBHOOK_URL) {
@@ -80,11 +92,15 @@ export async function POST(req: NextRequest) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          text: `${hot ? '🔥 ' : ''}インサイドセールス入口：${TYPE_LABEL[body.type]}`,
+          text: `${hot ? '🔥 ' : ''}${SERVICE_LABEL[service]}：${TYPE_LABEL[body.type]}`,
           blocks: [
             {
               type: 'header',
-              text: { type: 'plain_text', text: hot ? '🔥 打ち合わせの申込' : '📄 資料請求', emoji: true },
+              text: {
+                type: 'plain_text',
+                text: `${hot ? '🔥 打ち合わせの申込' : '📄 資料請求'}（${SERVICE_LABEL[service]}）`,
+                emoji: true,
+              },
             },
             { type: 'section', fields: fields.map((text) => ({ type: 'mrkdwn', text })) },
             ...(body.note
