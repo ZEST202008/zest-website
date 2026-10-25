@@ -19,8 +19,8 @@ function Content() {
           className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-brand-orange no-underline mb-8">
           <ArrowLeft size={16} /> 戻る
         </Link>
-        <h1 className="section-title">サービス概要の資料をお送りします</h1>
-        <p className="section-sub mb-8">休眠のお取引先から売上をつくる仕組みについて、考え方と進め方をまとめた資料です。ご入力のメールアドレス宛にお送りします。</p>
+        <h1 className="section-title">サービス概要の資料</h1>
+        <p className="section-sub mb-8">休眠のお取引先から売上をつくる仕組みについて、考え方と進め方をまとめた資料です（A4横・13ページ）。ご入力のあと、その場でダウンロードいただけます。</p>
         <LeadForm
           type="document"
           viaDiagnosis={params.get('via') === 'diagnosis'}

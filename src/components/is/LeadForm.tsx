@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Download } from 'lucide-react';
 import { trackEvent, AnalyticsEvent } from '@/lib/analytics';
 
 type LeadType = 'document' | 'meeting';
@@ -13,10 +14,17 @@ interface Props {
   defaultCompany?: string;
 }
 
+/**
+ * 資料の実体。public/documents に置いた静的ファイルなので、
+ * メール本文からこのURLを直接案内しても同じものが開ける。
+ * 添付ファイルにしないのは、添付のある営業メールは迷惑メール判定を受けやすいため。
+ */
+export const DOCUMENT_URL = '/documents/zest-inside-sales-overview.pdf';
+
 const COPY: Record<LeadType, { submit: string; done: string; consent: string }> = {
   document: {
     submit: '資料を受け取る',
-    done: 'ありがとうございます。ご入力のメールアドレス宛に、サービス概要の資料をお送りします。',
+    done: 'この場でダウンロードいただけます。',
     consent:
       'ご入力いただいた情報は、資料の送付と、今後のご案内のために利用します。配信の停止はいつでも承ります。',
   },
@@ -70,6 +78,18 @@ export default function LeadForm({ type, viaDiagnosis = false, verdict, defaultC
       <div className="card text-center py-10">
         <p className="text-brand-navy font-bold mb-2">送信しました</p>
         <p className="text-slate-600 text-sm leading-relaxed">{copy.done}</p>
+        {type === 'document' && (
+          // 送信後に待たせない。メール送付を約束すると、届くまでの間に関心が冷め、
+          // 送信処理が落ちていた場合は約束が果たされないまま終わる。
+          <a
+            href={DOCUMENT_URL}
+            download
+            onClick={() => trackEvent(AnalyticsEvent.IsDocumentDownload, { via: viaDiagnosis ? 'diagnosis' : 'direct' })}
+            className="btn-primary inline-flex items-center gap-2 mt-6 no-underline"
+          >
+            <Download size={16} /> 資料をダウンロード（PDF）
+          </a>
+        )}
       </div>
     );
   }
