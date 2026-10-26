@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken, recordOptOut, listOptOuts } from '@/lib/unsubscribe';
+import { verifyToken, recordOptOut, listOptOuts, removeOptOut } from '@/lib/unsubscribe';
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL ?? '';
 const CRON_SECRET = process.env.CRON_SECRET ?? '';
@@ -81,4 +81,32 @@ async function notifySlack(domain: string, campaign: string): Promise<void> {
   } catch (err) {
     console.error('Slack notify error:', err);
   }
+}
+
+/**
+ * DELETE /api/unsubscribe?domain=example.co.jp
+ * Header: Authorization: Bearer <CRON_SECRET>
+ *
+ * 誤って記録された配信停止を取り消す管理用の口。
+ * 相手の意思で入った停止を消すためのものではない（RUNBOOK の「配信停止は永久」）。
+ * テスト送信で入った行を残すと sync-optout のたびに復活し、本物と混ざるため用意している。
+ */
+export async function DELETE(req: NextRequest) {
+  const auth = req.headers.get('authorization') ?? '';
+  if (!CRON_SECRET || auth !== `Bearer ${CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const domain = new URL(req.url).searchParams.get('domain');
+  if (!domain) {
+    return NextResponse.json({ error: 'domain is required' }, { status: 400 });
+  }
+
+  const removed = await removeOptOut(domain);
+  if (!removed) {
+    return NextResponse.json({ error: 'Storage unavailable' }, { status: 503 });
+  }
+
+  console.warn(`[unsubscribe] opt-out removed by admin: ${domain}`);
+  return NextResponse.json({ ok: true, domain });
 }

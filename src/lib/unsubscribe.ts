@@ -179,3 +179,30 @@ export async function listOptOuts(): Promise<OptOutRecord[]> {
     return [];
   }
 }
+
+/**
+ * 配信停止の記録を取り消す。
+ *
+ * 配信停止は本来「永久」であり、消す手段は本来いらない。それでも用意するのは、
+ * テスト送信や誤記録で入った行を残すと、`sync-optout` が走るたびに手元の
+ * 抑止リストへ復活し、本物の配信停止と混ざって数字が読めなくなるため。
+ *
+ * 相手の意思で入った停止をこれで消してはいけない。管理用（CRON_SECRET 認証）。
+ */
+export async function removeOptOut(domain: string): Promise<boolean> {
+  if (!KV_URL || !KV_TOKEN || !domain) return false;
+  try {
+    const res = await fetch(`${KV_URL}/pipeline`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify([
+        ['SREM', 'optout:domains', domain],
+        ['DEL', `optout:${domain}`],
+      ]),
+    });
+    return res.ok;
+  } catch (err) {
+    console.error('KV removeOptOut error:', err);
+    return false;
+  }
+}
