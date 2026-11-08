@@ -14,10 +14,30 @@
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.3;
     text-wrap: balance;
+    letter-spacing: -0.01em;
   }
   p {
     @apply leading-8;
     text-wrap: pretty;
+  }
+  /* キーボード操作時だけ見えるフォーカスリング */
+  :focus-visible {
+    outline: 2px solid #e04102;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: #fbd9cb;
+    color: #1a2744;
+  }
+  /* 端末側で「視差効果を減らす」が有効なときは、動きを止める */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -26,29 +46,108 @@
     @apply inline-flex items-center gap-2 bg-brand-orange text-white font-bold
            px-6 py-3 rounded-xl border-none cursor-pointer
            transition-all duration-200 hover:bg-brand-orange-dark hover:-translate-y-0.5
+           hover:shadow-[0_14px_30px_-12px_rgba(224,65,2,0.55)] active:translate-y-0
            no-underline text-base;
   }
   .btn-secondary {
     @apply inline-flex items-center gap-2 bg-white text-brand-orange font-bold
            px-6 py-3 rounded-xl border-2 border-brand-orange cursor-pointer
-           transition-all duration-200 hover:bg-orange-50
-           no-underline text-base;
+           transition-all duration-200 hover:bg-orange-50 hover:-translate-y-0.5
+           active:translate-y-0 no-underline text-base;
   }
+  /* セクションの見出しラベル。オレンジのドット＋大文字詰めの小見出し */
   .section-label {
-    @apply inline-block bg-brand-orange text-white text-xs font-bold
-           px-3 py-1 rounded-full tracking-wider uppercase mb-4;
+    @apply inline-flex items-center gap-2 text-brand-orange text-xs font-bold
+           tracking-[0.16em] uppercase mb-4;
+  }
+  .section-label::before {
+    content: '';
+    @apply inline-block w-1.5 h-1.5 rounded-full bg-brand-orange;
   }
   .section-title {
-    @apply text-3xl font-black text-brand-navy leading-tight mb-5;
+    @apply text-3xl md:text-[2.1rem] font-black text-brand-navy leading-tight mb-5;
   }
   .section-sub {
     @apply text-slate-600 leading-8 text-base;
   }
   .card {
-    @apply bg-white rounded-2xl border border-slate-200 p-6
-           shadow-sm hover:shadow-md transition-shadow duration-200;
+    @apply bg-white rounded-2xl border border-slate-200 p-6 shadow-card
+           transition-[transform,box-shadow,border-color] duration-300
+           hover:shadow-card-hover hover:-translate-y-1;
   }
   .container-inner {
     @apply max-w-5xl mx-auto px-6;
   }
+}
+
+/* ── スクロール連動の表示 ───────────────────────────────── */
+/* reveal-ready は layout.tsx のインラインスクリプトが付ける。
+   付かない場合（JS無効・動きを減らす設定）は、下の初期状態が効かず常に表示される。 */
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+}
+html.reveal-ready [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s ease-out var(--reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+/* ── 読み込み時のアニメーション（ヒーロー） ─────────────── */
+@keyframes zest-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes zest-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.anim-fade-up {
+  animation: zest-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* ヒーロー背景の光。ゆっくり漂わせて、静止画に見えないようにする */
+@keyframes zest-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2.5%, -3.5%, 0) scale(1.1); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+.hero-orb {
+  animation: zest-drift 20s ease-in-out infinite;
+  will-change: transform;
+}
+.hero-orb-slow {
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+
+/* ── リボン図のパーツを順に出す ─────────────────────────── */
+html.reveal-ready .rb-part { opacity: 0; }
+html.reveal-ready [data-reveal].is-revealed .rb-part {
+  animation: zest-fade-in 0.7s ease-out both;
+  animation-delay: var(--rb, 0ms);
+}
+
+/* ── ヘッダーのナビゲーション下線 ───────────────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 2px;
+  background: #e04102;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
 }

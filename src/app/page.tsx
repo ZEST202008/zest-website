@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -5,39 +6,64 @@ import {
   Database, Users, Building2, LineChart, Megaphone, BookOpen,
 } from 'lucide-react';
 
+// 読み込み時アニメーションの遅延（ヒーロー）
+const load = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
+// スクロールで表示されるときの遅延（data-reveal と組で使う）
+const rev = (ms: number) => ({ '--reveal-delay': `${ms}ms` }) as CSSProperties;
+// リボン図のパーツが出てくる順番
+const rb = (ms: number) => ({ '--rb': `${ms}ms` }) as CSSProperties;
+
 // ── Hero ──────────────────────────────────────────────────
 function Hero() {
   return (
     <section className="bg-brand-navy relative overflow-hidden min-h-[600px] md:min-h-[680px] flex items-center">
-      <div
-        className="absolute inset-0 opacity-15"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 15% 70%, #e04001 0%, transparent 50%), radial-gradient(circle at 80% 20%, #1a2744 0%, transparent 60%)',
-        }}
-      />
+      {/* ゆっくり漂う光。静止画に見えないようにするための装飾 */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div
+          className="hero-orb absolute -left-[12%] top-[30%] w-[60%] aspect-square rounded-full blur-3xl opacity-25"
+          style={{ background: 'radial-gradient(circle, #e04001 0%, transparent 70%)' }}
+        />
+        <div
+          className="hero-orb hero-orb-slow absolute -right-[8%] -top-[18%] w-[50%] aspect-square rounded-full blur-3xl opacity-20"
+          style={{ background: 'radial-gradient(circle, #3b5fa4 0%, transparent 70%)' }}
+        />
+      </div>
       <div className="container-inner relative w-full min-w-0 py-24 md:py-32">
         <div className="max-w-3xl">
-          <span className="inline-block text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-950/40 border border-orange-900/40 rounded-full px-3 py-1 mb-8">
+          <span
+            className="anim-fade-up inline-block text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-950/40 border border-orange-900/40 rounded-full px-3 py-1 mb-8"
+            style={load(0)}
+          >
             ZEST Inc.
           </span>
-          <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.2] mb-8 md:[word-break:keep-all]">
+          <h1
+            className="anim-fade-up text-3xl md:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.2] mb-8 md:[word-break:keep-all]"
+            style={load(120)}
+          >
             あなたの会社にしかできないことを、<br />
             <span className="text-brand-orange">最大化する。</span>
           </h1>
-          <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
+          <p
+            className="anim-fade-up text-slate-300 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl"
+            style={load(260)}
+          >
             AIは、やがて誰もが同じものを使う。<br className="hidden md:block" />
             差がつくのは、その会社にしかないデータと、<br className="hidden md:block" />
             それを使いこなす組織です。
           </p>
-          <p className="text-slate-400 text-base leading-relaxed mb-10 max-w-2xl">
+          <p
+            className="anim-fade-up text-slate-400 text-base leading-relaxed mb-10 max-w-2xl"
+            style={load(380)}
+          >
             ZESTは「勘と経験」と「データ」の2本柱で、<br className="hidden md:block" />
             中小企業の稼ぐ力そのものをつくります。
           </p>
-          <Link href="/contact" className="btn-primary text-base px-8 py-4">
-            <ArrowRight size={18} />
-            まずは話してみてください
-          </Link>
+          <div className="anim-fade-up" style={load(500)}>
+            <Link href="/contact" className="btn-primary text-base px-8 py-4">
+              <ArrowRight size={18} />
+              まずは話してみてください
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -49,7 +75,7 @@ const ERA = [
   {
     num: '01',
     title: 'インターネットの30年は、\n「置き換え」にとどまった',
-    desc: 'ホームページ、ネット通販、予約サイト。窓口は移っても、稼ぎ方そのものは変わりませんでした。利益の多くは広告費や手数料としてプラットフォームへ流れ、顧客のデータも自社には残らなかった。',
+    desc: 'ホームページ、ネット通販、予約サイト。窓口は移っても、稼ぎ方そのものは変わりませんでした。利益の多くは広告費や手数料として外へ流れ、顧客のデータも、アクセス解析や取引の記録として手元にはあるのに、散らばったままで使える資産にはなりませんでした。',
   },
   {
     num: '02',
@@ -73,7 +99,7 @@ function Era() {
   return (
     <section className="py-24 bg-white">
       <div className="container-inner">
-        <div className="text-center mb-14 max-w-3xl mx-auto">
+        <div className="text-center mb-14 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">私たちの時代認識</span>
           <h2 className="section-title">
             AIの時代に、<br className="hidden md:block" />
@@ -84,8 +110,8 @@ function Era() {
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-8 md:gap-10">
-          {ERA.map((e) => (
-            <div key={e.num} className="flex flex-col">
+          {ERA.map((e, i) => (
+            <div key={e.num} className="flex flex-col" data-reveal style={rev(i * 120)}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center text-white font-black text-sm shrink-0">
                   {e.num}
@@ -100,7 +126,7 @@ function Era() {
           ))}
         </div>
 
-        <div className="mt-16 max-w-4xl mx-auto bg-brand-bg rounded-2xl p-8 md:p-10">
+        <div className="mt-16 max-w-4xl mx-auto bg-brand-bg rounded-2xl p-8 md:p-10" data-reveal>
           <h3 className="font-black text-brand-navy text-xl mb-6 text-center">
             だからZESTは、ここから始めます。
           </h3>
@@ -129,7 +155,7 @@ function Era() {
 // ── 2本柱（リボン図） ──────────────────────────────────────
 function RibbonDiagram() {
   return (
-    <div className="hidden md:block overflow-x-auto py-2">
+    <div className="hidden md:block overflow-x-auto py-2" data-reveal>
       <svg
         viewBox="0 0 1040 500"
         role="img"
@@ -146,41 +172,53 @@ function RibbonDiagram() {
         </defs>
 
         {/* 循環：コンサル → データ活用 */}
-        <text x="520" y="96" textAnchor="middle" fontSize="13" fontWeight="700" fill="#e04102">
-          決めたことを、仕組みとして社内に残す
-        </text>
-        <path d="M 292,192 Q 520,24 748,192" fill="none" stroke="#e04102" strokeWidth="2" markerEnd="url(#hp-arrow-orange)" />
+        <g className="rb-part" style={rb(560)}>
+          <text x="520" y="96" textAnchor="middle" fontSize="13" fontWeight="700" fill="#e04102">
+            決めたことを、仕組みとして社内に残す
+          </text>
+          <path d="M 292,192 Q 520,24 748,192" fill="none" stroke="#e04102" strokeWidth="2" markerEnd="url(#hp-arrow-orange)" />
+        </g>
 
         {/* 左の柱 */}
-        <path d="M 70,140 L 420,235 L 420,325 L 70,420 L 118,280 Z" fill="#fff5f0" stroke="#e04102" strokeWidth="1.5" />
-        <text x="240" y="232" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#e04102">勘と経験 ／ 人の知恵</text>
-        <text x="240" y="263" textAnchor="middle" fontSize="19" fontWeight="700" fill="#1a2744">経営コンサルティング</text>
-        <text x="240" y="295" textAnchor="middle" fontSize="14" fill="#475569">「何をやるか」を決める</text>
-        <text x="240" y="319" textAnchor="middle" fontSize="14" fill="#475569">一社ごとに、一から設計する</text>
+        <g className="rb-part" style={rb(0)}>
+          <path d="M 70,140 L 420,235 L 420,325 L 70,420 L 118,280 Z" fill="#fff5f0" stroke="#e04102" strokeWidth="1.5" />
+          <text x="240" y="232" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#e04102">勘と経験 ／ 人の知恵</text>
+          <text x="240" y="263" textAnchor="middle" fontSize="19" fontWeight="700" fill="#1a2744">経営コンサルティング</text>
+          <text x="240" y="295" textAnchor="middle" fontSize="14" fill="#475569">「何をやるか」を決める</text>
+          <text x="240" y="319" textAnchor="middle" fontSize="14" fill="#475569">一社ごとに、一から設計する</text>
+        </g>
 
         {/* 右の柱 */}
-        <path d="M 970,140 L 620,235 L 620,325 L 970,420 L 922,280 Z" fill="#fff5f0" stroke="#e04102" strokeWidth="1.5" />
-        <text x="800" y="232" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#e04102">データ ／ 事実と仕組み</text>
-        <text x="800" y="263" textAnchor="middle" fontSize="19" fontWeight="700" fill="#1a2744">データ活用</text>
-        <text x="800" y="295" textAnchor="middle" fontSize="14" fill="#475569">「どう回し続けるか」を担う</text>
-        <text x="800" y="319" textAnchor="middle" fontSize="14" fill="#475569">完成した型を、再現できる形で渡す</text>
+        <g className="rb-part" style={rb(140)}>
+          <path d="M 970,140 L 620,235 L 620,325 L 970,420 L 922,280 Z" fill="#fff5f0" stroke="#e04102" strokeWidth="1.5" />
+          <text x="800" y="232" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#e04102">データ ／ 事実と仕組み</text>
+          <text x="800" y="263" textAnchor="middle" fontSize="19" fontWeight="700" fill="#1a2744">データ活用</text>
+          <text x="800" y="295" textAnchor="middle" fontSize="14" fill="#475569">「どう回し続けるか」を担う</text>
+          <text x="800" y="319" textAnchor="middle" fontSize="14" fill="#475569">完成した型を、再現できる形で渡す</text>
+        </g>
 
         {/* 結び目 */}
-        <rect x="408" y="218" width="224" height="124" rx="14" fill="#1a2744" />
-        <text x="520" y="252" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#ffffff" opacity="0.8">2本柱が結ばれる場所</text>
-        <text x="520" y="283" textAnchor="middle" fontSize="18" fontWeight="700" fill="#ffffff">あなたの現場</text>
-        <text x="520" y="307" textAnchor="middle" fontSize="12" fill="#ffffff" opacity="0.85">決めたことが実行され、</text>
-        <text x="520" y="325" textAnchor="middle" fontSize="12" fill="#ffffff" opacity="0.85">データが生まれる</text>
+        <g className="rb-part" style={rb(320)}>
+          <rect x="408" y="218" width="224" height="124" rx="14" fill="#1a2744" />
+          <text x="520" y="252" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#ffffff" opacity="0.8">2本柱が結ばれる場所</text>
+          <text x="520" y="283" textAnchor="middle" fontSize="18" fontWeight="700" fill="#ffffff">あなたの現場</text>
+          <text x="520" y="307" textAnchor="middle" fontSize="12" fill="#ffffff" opacity="0.85">決めたことが実行され、</text>
+          <text x="520" y="325" textAnchor="middle" fontSize="12" fill="#ffffff" opacity="0.85">データが生まれる</text>
+        </g>
 
         {/* 循環：現場の知見 → 新しい型 */}
-        <path d="M 388,352 Q 520,418 652,352" fill="none" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="6 5" markerEnd="url(#hp-arrow-slate)" />
-        <text x="520" y="404" textAnchor="middle" fontSize="12" fill="#64748b">現場で生まれた知見が、新しい型になる</text>
+        <g className="rb-part" style={rb(820)}>
+          <path d="M 388,352 Q 520,418 652,352" fill="none" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="6 5" markerEnd="url(#hp-arrow-slate)" />
+          <text x="520" y="404" textAnchor="middle" fontSize="12" fill="#64748b">現場で生まれた知見が、新しい型になる</text>
+        </g>
 
         {/* 循環：データ活用 → コンサル */}
-        <path d="M 748,368 Q 520,536 292,368" fill="none" stroke="#e04102" strokeWidth="2" markerEnd="url(#hp-arrow-orange)" />
-        <text x="520" y="478" textAnchor="middle" fontSize="13" fontWeight="700" fill="#e04102">
-          たまったデータが、次の経営判断の根拠になる
-        </text>
+        <g className="rb-part" style={rb(690)}>
+          <path d="M 748,368 Q 520,536 292,368" fill="none" stroke="#e04102" strokeWidth="2" markerEnd="url(#hp-arrow-orange)" />
+          <text x="520" y="478" textAnchor="middle" fontSize="13" fontWeight="700" fill="#e04102">
+            たまったデータが、次の経営判断の根拠になる
+          </text>
+        </g>
       </svg>
     </div>
   );
@@ -242,7 +280,7 @@ function TwoPillars() {
   return (
     <section className="py-24 bg-brand-bg border-y border-slate-200">
       <div className="container-inner">
-        <div className="text-center mb-10 max-w-3xl mx-auto">
+        <div className="text-center mb-10 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">事業構造</span>
           <h2 className="section-title">
             2本柱は、<br className="hidden md:block" />
@@ -255,8 +293,10 @@ function TwoPillars() {
           </p>
         </div>
         <RibbonDiagram />
-        <MobileRibbon />
-        <p className="text-slate-500 text-sm leading-relaxed text-center max-w-2xl mx-auto mt-6">
+        <div data-reveal>
+          <MobileRibbon />
+        </div>
+        <p className="text-slate-500 text-sm leading-relaxed text-center max-w-2xl mx-auto mt-6" data-reveal>
           2本柱は並んでいるのではなく、循環しています。どちらの柱から入っても、もう一方へ進む理由があります。
         </p>
       </div>
@@ -341,7 +381,7 @@ function WhyTwoPillars() {
   return (
     <section className="py-24 bg-white">
       <div className="container-inner">
-        <div className="text-center mb-12 max-w-3xl mx-auto">
+        <div className="text-center mb-12 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">なぜ2本柱なのか</span>
           <h2 className="section-title">片方だけでは、エンジンにならない。</h2>
           <p className="section-sub mt-3">
@@ -349,10 +389,12 @@ function WhyTwoPillars() {
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {WHY_TWO.map((w) => (
+          {WHY_TWO.map((w, i) => (
             <div
               key={w.title}
-              className={`rounded-2xl border overflow-hidden flex flex-col ${
+              data-reveal
+              style={rev(i * 130)}
+              className={`rounded-2xl border overflow-hidden flex flex-col transition-shadow duration-300 hover:shadow-card ${
                 w.accent ? 'border-brand-orange/40 bg-orange-50/40' : 'border-slate-200 bg-white'
               }`}
             >
@@ -397,13 +439,13 @@ function Cycle() {
   return (
     <section className="py-20 bg-brand-bg">
       <div className="container-inner">
-        <div className="text-center mb-12 max-w-3xl mx-auto">
+        <div className="text-center mb-12 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">2本柱の関係</span>
           <h2 className="section-title">片方の成果が、もう一方の入口になる。</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {CYCLE.map((c) => (
-            <div key={c.desc} className="card">
+          {CYCLE.map((c, i) => (
+            <div key={c.desc} className="card" data-reveal style={rev(i * 110)}>
               <div className="flex items-center gap-2 text-xs font-bold text-brand-orange mb-3 flex-wrap">
                 <span>{c.from}</span>
                 <ArrowRight size={14} />
@@ -468,7 +510,7 @@ function ConsultingPillar() {
   return (
     <section className="py-20 bg-white">
       <div className="container-inner">
-        <div className="text-center mb-12 max-w-3xl mx-auto">
+        <div className="text-center mb-12 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">柱① 経営コンサルティング</span>
           <h2 className="section-title">強い会社を、より強く。</h2>
           <p className="section-sub mt-3">
@@ -478,10 +520,12 @@ function ConsultingPillar() {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {ACHIEVEMENTS.map((a) => (
+          {ACHIEVEMENTS.map((a, i) => (
             <div
               key={a.category}
-              className="card hover:border-brand-orange/30 transition-colors flex flex-col"
+              data-reveal
+              style={rev((i % 3) * 90)}
+              className="card hover:border-brand-orange/30 flex flex-col"
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-9 h-9 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">
@@ -554,7 +598,7 @@ function DataPillar() {
   return (
     <section className="py-20 bg-brand-bg">
       <div className="container-inner">
-        <div className="text-center mb-12 max-w-3xl mx-auto">
+        <div className="text-center mb-12 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">柱② データ活用</span>
           <h2 className="section-title">
             現場をデータに変え、<br className="hidden md:block" />
@@ -566,11 +610,13 @@ function DataPillar() {
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
-          {SERVICES.map((s) => (
+          {SERVICES.map((s, i) => (
             <Link
               key={s.slug}
               href={`/services/${s.slug}`}
-              className="card group no-underline flex flex-col hover:border-brand-orange/30 transition-colors"
+              data-reveal
+              style={rev((i % 2) * 110)}
+              className="card group no-underline flex flex-col hover:border-brand-orange/30"
             >
               <div className="h-10 mb-4 flex items-center">
                 {s.logo ? (
@@ -630,7 +676,7 @@ function Outcomes() {
   return (
     <section className="py-24 bg-white">
       <div className="container-inner">
-        <div className="text-center mb-12 max-w-3xl mx-auto">
+        <div className="text-center mb-12 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">2本柱で実現すること</span>
           <h2 className="section-title">3つの成果を、同時に手に入れる。</h2>
           <p className="section-sub mt-3">
@@ -638,8 +684,8 @@ function Outcomes() {
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {OUTCOMES.map((o) => (
-            <div key={o.label} className="card text-center">
+          {OUTCOMES.map((o, i) => (
+            <div key={o.label} className="card text-center" data-reveal style={rev(i * 120)}>
               <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center mb-4 mx-auto">
                 <o.Icon size={24} className="text-brand-orange" />
               </div>
@@ -649,7 +695,12 @@ function Outcomes() {
           ))}
         </div>
 
-        <div className="mt-10 max-w-3xl mx-auto bg-brand-orange rounded-2xl px-8 py-10 text-center">
+        <div
+          className="mt-10 max-w-3xl mx-auto bg-brand-orange rounded-2xl px-8 py-10 text-center
+                     shadow-[0_24px_50px_-24px_rgba(224,65,2,0.6)]"
+          data-reveal
+          style={rev(160)}
+        >
           <p className="text-white/80 text-xs font-bold tracking-widest uppercase mb-3">
             その先にあるもの
           </p>
@@ -675,7 +726,7 @@ function Manifesto() {
           backgroundImage: 'radial-gradient(circle at 75% 50%, #e04001 0%, transparent 60%)',
         }}
       />
-      <div className="container-inner relative text-center max-w-3xl">
+      <div className="container-inner relative text-center max-w-3xl" data-reveal>
         <p className="text-brand-orange text-sm font-bold uppercase tracking-widest mb-10">
           Our Mission
         </p>
@@ -692,7 +743,7 @@ function Manifesto() {
 function CtaSection() {
   return (
     <section className="py-24 bg-white">
-      <div className="container-inner text-center max-w-2xl">
+      <div className="container-inner text-center max-w-2xl" data-reveal>
         <span className="section-label">お問い合わせ</span>
         <h2 className="section-title mb-4">まずは、話してみてください。</h2>
         <p className="text-slate-600 mb-10 leading-relaxed">

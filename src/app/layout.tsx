@@ -5,13 +5,19 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/chat/ChatWidget';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
+import ScrollReveal from '@/components/motion/ScrollReveal';
 
 const notoSansJP = Noto_Sans_JP({
-  weight: ['400', '700', '900'],
+  weight: ['400', '500', '700', '900'],
   subsets: ['latin'],
   display: 'swap',
   preload: false,
+  variable: '--font-noto-sans-jp',
 });
+
+// 描画が始まる前に reveal-ready を付けて、表示アニメーションの初期状態を有効にする。
+// 「視差効果を減らす」設定の端末では付けないため、アニメーションは無効のまま文字が見える。
+const REVEAL_READY_SCRIPT = `try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('reveal-ready')}}catch(e){}`;
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zest2020.com';
 
@@ -78,9 +84,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={notoSansJP.className}>
+    // reveal-ready はインラインスクリプトが描画前に付けるため、
+    // サーバー側のHTMLとは必ず差が出る。html要素のみ警告を抑止する。
+    <html lang="ja" className={notoSansJP.variable} suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_READY_SCRIPT }} />
         <GoogleAnalytics />
+        <ScrollReveal />
         <Header />
         <main>{children}</main>
         <Footer />

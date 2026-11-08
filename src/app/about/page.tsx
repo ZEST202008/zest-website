@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -20,15 +21,15 @@ const COMPANY_INFO = [
 const VMV = [
   {
     label: 'Mission',
-    title: '中小企業の「人の力」を、データで解き放つ',
-    desc: '日本経済を支える中小企業には、まだ引き出されていない営業力が眠っている。トップセールスの「属人的な勘」を行動データとして可視化し、組織全体で再現できる「型」に変えることで、すべての営業担当者が成果を出せる世界をつくる。',
+    title: '人間にしかできないことに、人間が集中できる世界をつくる',
+    desc: '中小企業の現場には、人にしか出せない価値がある。経営の判断、新しい工夫、相手との関係づくり。しかしその時間の多くが、記録・集計・探しものに奪われている。勘と経験に事実の裏付けを与え、繰り返しの作業は仕組みとAIが引き受ける。そうして人が人にしかできない仕事に集中できる状態を、一社ずつつくっていく。',
     border: 'border-brand-orange',
     labelColor: 'text-brand-orange',
   },
   {
     label: 'Vision',
-    title: '「隠れた価値」を、誰もが実行できる勝ちパターンへ',
-    desc: '熟練の知見と行動データ科学を融合し、自社では気づけない営業の「センターピン」を特定する。それを組織的な型として定着させることで、個人の才能に依存しない、持続可能な営業組織の構築を支援する。',
+    title: '中小企業の知恵が、いちばん強い武器になる世の中へ',
+    desc: '経済を動かしているのは、中小企業の現場で日々積み重ねられてきた判断と工夫だ。けれどそれは誰かの頭の中にあるかぎり、その人の才能のままで終わり、会社の力にはならない。工夫が形になり、受け継がれ、次の挑戦の元手になる。規模でもブランドでもなく、自分たちの勝ち方を知っていることが強さになる。そんな会社が増えていく先に、世の中の次の成長がある。',
     border: 'border-brand-navy',
     labelColor: 'text-brand-navy',
   },
@@ -64,9 +65,9 @@ export default function AboutPage() {
     <>
       {/* Hero */}
       <section className="bg-brand-bg border-b border-slate-200 py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">会社概要</span>
-          <h1 className="section-title">「勝ち」と「価値」を型化する</h1>
+          <h1 className="section-title">「勝ち」と「価値」を、組織の力に変える</h1>
           <p className="section-sub">
             ZESTは、勘と経験を担う<strong className="text-brand-navy">経営コンサルティング</strong>と、
             データを担う<strong className="text-brand-navy">データ活用</strong>の2本柱で、
@@ -78,12 +79,17 @@ export default function AboutPage() {
 
       {/* Vision / Mission / Value */}
       <section className="py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">Philosophy</span>
           <h2 className="section-title">私たちが大切にしていること</h2>
           <div className="space-y-5 mt-10">
-            {VMV.map((v) => (
-              <div key={v.label} className={`card border-l-4 ${v.border}`}>
+            {VMV.map((v, i) => (
+              <div
+                key={v.label}
+                data-reveal
+                style={{ ['--reveal-delay']: `${i * 120}ms` } as CSSProperties}
+                className={`card border-l-4 ${v.border}`}
+              >
                 <div className="mb-3">
                   <span className={`text-xs font-black uppercase tracking-widest ${v.labelColor}`}>
                     {v.label}
@@ -99,10 +105,10 @@ export default function AboutPage() {
 
       {/* 代表メッセージ */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">Message</span>
           <h2 className="section-title">代表メッセージ</h2>
-          <div className="card mt-8">
+          <div className="card mt-8" data-reveal>
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="md:w-40 shrink-0 text-center">
                 <div className="w-28 h-28 rounded-full mx-auto mb-3 overflow-hidden bg-slate-100">
@@ -119,53 +125,47 @@ export default function AboutPage() {
               </div>
               <div className="flex-1 space-y-5 text-slate-700 leading-8">
                 <p className="font-bold text-brand-navy text-lg leading-snug">
-                  中小企業の挑戦をデータで後押しし、<br />日本経済をより豊かにする。
+                  中小企業の現場にある強さを、<br />組織の力に変える。
                 </p>
                 <p>
-                  私は、日本経済はまだまだポテンシャルを秘めていると思っています。
-                  その鍵を握るのは、中小企業の現場に眠る「人の力」です。
-                  データは、その力を引き出すための最も強力なツールです。
+                  私は、中小企業にはまだ大きな伸びしろがあると思っています。
+                  その源泉は、現場で積み重ねられてきた判断と工夫です。
+                  新しい設備や大きな投資の前に、すでに社内にある強さを使い切れていない会社が、あまりにも多い。
                 </p>
                 <p>
                   私自身、営業・マーケティングの現場からキャリアをスタートし、
                   その後アナリティクスエンジニアとしてデータの専門領域へ。
-                  この両軸を歩む中で、多くの中小企業の営業組織を支援してきました。
+                  この両軸を歩む中で、多くの中小企業の現場を支援してきました。
                 </p>
                 <p>
                   その経験の中で、あることに気づきました。
-                  どの組織にも必ず、成果を出し続けるトップセールスがいる。
-                  しかし彼らが「なぜ売れているのか」を言語化できる組織は、ほとんど存在しない。
-                  そしてそのトップが抜けた瞬間、組織の成果は崩れ落ちる——。
+                  どの組織にも必ず、成果を出し続ける人がいる。
+                  しかし彼らが「なぜ成果が出ているのか」を言語化できる組織は、ほとんど存在しない。
+                  そしてその人が抜けた瞬間、組織の成果は崩れ落ちる——。
                 </p>
                 <p>
                   これは才能の問題ではありません。<strong className="text-brand-navy">「型化」の問題です。</strong>
                 </p>
                 <p>
-                  多くのクライアント企業のデータを深く分析し続ける中で、私たちはあることを確信しました。
-                  熟練営業の「属人的な勘」の裏には、必ず再現可能な行動パターンがある。
-                  それは表面的な数字では見えない「隠れた価値」ですが、
-                  行動データとして可視化すれば、誰もが実行できる勝ちパターンへと変換できる。
+                  一方で、数字だけを見ていても答えは出ません。
+                  データは何が起きたかを教えてくれますが、どこへ向かうかまでは決めてくれない。
+                  経営の意志が抜け落ちたまま分析を重ねれば、どの会社にも当てはまる、
+                  当たり障りのない打ち手にたどり着いてしまいます。
                 </p>
                 <p>
-                  この確信から生まれたのが、<strong className="text-brand-navy">カチカタ</strong>です。
-                  「熟練の知見」と「行動データ科学」を融合させ、
-                  組織のセンターピン——KFS（Key Factor for Success）——を特定するサービスです。
-                  精神論ゼロ。行動の言葉だけで定義された、誰もが実践できる営業の型を、現場に渡す。
-                </p>
-                <p>
-                  現在、ZESTはこの信念を2本柱で実践しています。
+                  だからZESTは、2本柱で経営に入ります。
                   <strong className="text-brand-navy">経営コンサルティング</strong>で「何をやるか」を決め、
-                  <strong className="text-brand-navy">データ活用</strong>でそれを回し続ける仕組みに変える。
-                  <strong className="text-brand-navy">カチカタ</strong>でKFS（センターピン）を特定し、
-                  <strong className="text-brand-navy">SheetViz</strong>でその型をCRMに実装し、
-                  <strong className="text-brand-navy">インサイドセールス内製化</strong>で休眠顧客を確実な商談機会へ変え、
-                  <strong className="text-brand-navy">AIチャットアシスタント</strong>がサイトの訪問者を商談につなぐ。
-                  2本柱が噛み合うことで、「売上UP × コスト削減 × 組織の自走化」を同時に実現します。
+                  <strong className="text-brand-navy">データ活用</strong>でそれを回り続ける仕組みに変える。
+                  <strong className="text-brand-navy">カチカタ</strong>で勝ち方の中心（KFS）を特定し、
+                  <strong className="text-brand-navy">SheetViz</strong>でその型を日々の業務に実装し、
+                  <strong className="text-brand-navy">インサイドセールス内製化</strong>で眠っている顧客を商談機会へ変え、
+                  <strong className="text-brand-navy">AIチャットアシスタント</strong>がサイトの訪問者を取りこぼさない。
                 </p>
                 <p>
-                  データを「経営の力」として活用することで、
-                  地域経済や社会全体がさらに豊かになると信じています。
-                  ZESTは、営業組織の隠れた可能性を引き出し、
+                  経験に裏付けを、数字に意志を。
+                  この2つが噛み合ったとき、勝ち方は個人の才能から組織の力に変わります。
+                  そうして自力で伸び続ける会社が増えることが、社会全体の豊かさにつながると信じています。
+                  ZESTは、現場に眠る可能性を引き出し、
                   中小企業が新しい一歩を踏み出せるよう、これからも寄り添い続けます。
                 </p>
                 <p className="text-sm text-slate-500 pt-2 border-t border-slate-100">
@@ -180,10 +180,10 @@ export default function AboutPage() {
 
       {/* 会社情報テーブル */}
       <section className="py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">Company</span>
           <h2 className="section-title">基本情報</h2>
-          <div className="card mt-8">
+          <div className="card mt-8" data-reveal>
             <dl className="divide-y divide-slate-100">
               {COMPANY_INFO.map((item) => (
                 <div key={item.label} className="flex flex-col md:flex-row py-4 gap-1 md:gap-6">
