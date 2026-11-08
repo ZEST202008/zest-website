@@ -324,7 +324,7 @@ export default function KachikataPage() {
     <>
       {/* ── Hero ── */}
       <section className="bg-brand-bg border-b border-slate-200 py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">Service</span>
           <div className="mb-5">
             <Image
@@ -359,7 +359,7 @@ export default function KachikataPage() {
 
       {/* ── 3つの悪循環 ── */}
       <section className="py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">課題の整理</span>
             <h2 className="section-title">多くの営業組織が陥る<br />「3つの悪循環」</h2>
@@ -392,7 +392,7 @@ export default function KachikataPage() {
 
       {/* ── 3つの構造的欠陥 ── */}
       <section className="bg-red-50 py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="inline-block bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase mb-4">
               根本原因
@@ -422,7 +422,7 @@ export default function KachikataPage() {
 
       {/* ── Solution (カチカタ + SheetViz) ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">ソリューション</span>
             <h2 className="section-title">「KFSの設計」で型を定め、<br />「使えるCRM」で型を実装する</h2>
@@ -490,7 +490,7 @@ export default function KachikataPage() {
 
       {/* ── 4つのソリューション ── */}
       <section className="py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">サービス詳細</span>
             <h2 className="section-title">カチカタが提供する<br />「4つのソリューション」</h2>
@@ -535,7 +535,7 @@ export default function KachikataPage() {
 
       {/* ── 競争優位性 ── */}
       <section className="bg-brand-navy py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="inline-block bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase mb-4">
               競争優位性
@@ -563,7 +563,7 @@ export default function KachikataPage() {
 
       {/* ── 他社比較 ── */}
       <section className="py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <div className="text-center mb-10">
             <span className="section-label">他社との比較</span>
             <h2 className="section-title">カチカタが選ばれる理由</h2>
@@ -612,7 +612,7 @@ export default function KachikataPage() {
 
       {/* ── Growth Cycle ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">連携の仕組み</span>
             <h2 className="section-title">カチカタ × SheetVizが実現する<br />「成長の循環」</h2>
@@ -656,7 +656,7 @@ export default function KachikataPage() {
 
       {/* ── Center Pin ── */}
       <section className="py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">中心概念</span>
             <h2 className="section-title">カチカタが特定する<br />「センターピン（KFS）」とは</h2>
@@ -718,7 +718,7 @@ export default function KachikataPage() {
 
       {/* ── カチカタAI ── */}
       <section className="py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">テクノロジー</span>
             <h2 className="section-title">カチカタAIとは</h2>
@@ -783,7 +783,7 @@ export default function KachikataPage() {
 
       {/* ── Roadmap ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">導入ロードマップ</span>
             <h2 className="section-title">連携が変える「組織の成長フェーズ」</h2>
@@ -808,7 +808,7 @@ export default function KachikataPage() {
 
       {/* ── Before / After ── */}
       <section className="py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">導入効果</span>
             <h2 className="section-title">組織の「OS」を書き換える</h2>
@@ -860,7 +860,7 @@ export default function KachikataPage() {
 
       {/* ── Pricing ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <div className="text-center mb-10">
             <span className="section-label">料金プラン</span>
             <h2 className="section-title">
@@ -930,7 +930,7 @@ export default function KachikataPage() {
 
       {/* ── Diagnosis ── */}
       <section className="py-20" id="diagnosis">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <div className="text-center mb-12">
             <span className="section-label">無料診断</span>
             <h2 className="section-title">営業組織の属人化リスク診断</h2>
@@ -945,7 +945,7 @@ export default function KachikataPage() {
 
       {/* ── FAQ ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-2xl">
+        <div className="container-inner max-w-2xl" data-reveal>
           <div className="text-center mb-10">
             <span className="section-label">よくある質問</span>
             <h2 className="section-title">FAQ</h2>
@@ -968,7 +968,7 @@ export default function KachikataPage() {
 
       {/* ── CTA ── */}
       <section className="bg-brand-navy py-20">
-        <div className="container-inner text-center">
+        <div className="container-inner text-center" data-reveal>
           <h2 className="text-2xl font-black text-white mb-4">
             まずは話すだけで大丈夫です。<br />
             <span className="text-brand-orange">センターピン特定のデモも可能です。</span>

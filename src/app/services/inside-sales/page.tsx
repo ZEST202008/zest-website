@@ -127,7 +127,7 @@ export default function InsideSalesPage() {
     <>
       {/* ── Hero ── */}
       <section className="bg-brand-bg border-b border-slate-200 py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">Service</span>
           <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
             インサイドセールス<br />
@@ -149,7 +149,7 @@ export default function InsideSalesPage() {
 
       {/* ── 休眠顧客という資産 ── */}
       <section className="py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Problem</span>
           <h2 className="section-title">放置した休眠顧客は、静かに競合へ流出する</h2>
           <p className="section-sub mb-10">
@@ -181,7 +181,7 @@ export default function InsideSalesPage() {
 
       {/* ── 従来型ISの3つの欠陥 ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Structural Defects</span>
           <h2 className="section-title">従来のIS・外部代行に潜む「3つの構造的欠陥」</h2>
           <p className="section-sub mb-10">
@@ -203,7 +203,7 @@ export default function InsideSalesPage() {
 
       {/* ── 4つのコアコンセプト ── */}
       <section className="py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">4 Core Concepts</span>
           <h2 className="section-title">欠陥を排除した「究極にシンプル」な4つのコア・コンセプト</h2>
           <p className="section-sub mb-12 max-w-2xl">
@@ -229,7 +229,7 @@ export default function InsideSalesPage() {
 
       {/* ── コスト比較 ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Cost Comparison</span>
           <h2 className="section-title">残酷なランニングコスト比較</h2>
           <p className="section-sub mb-10">
@@ -273,7 +273,7 @@ export default function InsideSalesPage() {
 
       {/* ── 4つの納品物 ── */}
       <section className="py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">Deliverables</span>
           <h2 className="section-title">貴社に完全移譲する「4つの営業資産」</h2>
           <p className="section-sub mb-12 max-w-2xl">
@@ -298,7 +298,7 @@ export default function InsideSalesPage() {
 
       {/* ── 90日ロードマップ ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Roadmap</span>
           <h2 className="section-title">最短90日（＋30日バッファ）ローンチ・ロードマップ</h2>
           <p className="section-sub mb-12">
@@ -334,7 +334,7 @@ export default function InsideSalesPage() {
 
       {/* ── エビデンス ── */}
       <section className="py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Evidence</span>
           <h2 className="section-title">「アポは必然としてこぼれ落ちてくる」と断言できる根拠</h2>
           <p className="section-sub mb-10">
@@ -386,7 +386,7 @@ export default function InsideSalesPage() {
 
       {/* ── 料金 ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">Pricing & ROI</span>
           <h2 className="section-title">料金と投資対効果</h2>
           <p className="section-sub mb-8">
@@ -442,7 +442,7 @@ export default function InsideSalesPage() {
 
       {/* ── 次のステップ（カチカタ・SheetViz連携） ── */}
       <section className="bg-brand-navy py-16">
-        <div className="container-inner max-w-3xl text-center">
+        <div className="container-inner max-w-3xl text-center" data-reveal>
           <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Next Step</div>
           <h2 className="text-2xl font-black text-white mb-4 leading-tight">
             内製化の先に、<span className="text-brand-orange">カチカタ × SheetViz</span> で<br />さらなる型化・データ活用を

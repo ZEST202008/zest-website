@@ -112,7 +112,7 @@ export default function AiChatAssistantPage() {
     <>
       {/* ── Hero ── */}
       <section className="bg-brand-bg border-b border-slate-200 py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">Service</span>
           <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
             AIチャットアシスタント
@@ -146,7 +146,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── 機会損失セクション ── */}
       <section className="py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Problem</span>
           <h2 className="section-title">御社のWebサイト、「見えない機会損失」が発生していませんか？</h2>
           <p className="section-sub mb-10">
@@ -175,7 +175,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── サービスフロー ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">How It Works</span>
           <h2 className="section-title">訪問者が商談になるまで、すべて自動で回る仕組み</h2>
           <p className="section-sub mb-12 max-w-2xl">
@@ -220,7 +220,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── 4 Benefits ── */}
       <section className="py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">4 Benefits</span>
           <h2 className="section-title">機能ではなく、ビジネス成果で選ぶ理由</h2>
           <p className="section-sub mb-12 max-w-2xl">
@@ -253,7 +253,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── 一般AIとの比較 ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">ZEST Design</span>
           <h2 className="section-title">「御社のAI」として動く。関係のない質問には答えない。</h2>
           <p className="section-sub mb-10">
@@ -284,7 +284,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── ROIロジック ── */}
       <section className="py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">ROI</span>
           <h2 className="section-title">「月額5万円」は圧倒的なコストパフォーマンス</h2>
           <p className="section-sub mb-10">
@@ -331,7 +331,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── 導入フロー ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-4xl">
+        <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Onboarding</span>
           <h2 className="section-title">最短2週間で稼働開始</h2>
           <p className="section-sub mb-12">
@@ -362,7 +362,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── 料金 ── */}
       <section className="py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">Pricing</span>
           <h2 className="section-title">シンプルな2段階構成</h2>
           <p className="section-sub mb-8">インフラ費用込みのフルマネージド提供。隠れたコストはありません。</p>
@@ -404,7 +404,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── FAQ ── */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">FAQ</span>
           <h2 className="section-title">よくある懸念にお答えします</h2>
           <div className="space-y-4 mt-10">
@@ -428,7 +428,7 @@ export default function AiChatAssistantPage() {
 
       {/* ── 次のステップ ── */}
       <section className="bg-brand-navy py-16">
-        <div className="container-inner max-w-3xl text-center">
+        <div className="container-inner max-w-3xl text-center" data-reveal>
           <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Next Step</div>
           <h2 className="text-2xl font-black text-white mb-4 leading-tight">
             まずは、御社のサービス・課題に合わせた<br />
