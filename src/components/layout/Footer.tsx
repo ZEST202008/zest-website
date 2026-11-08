@@ -42,6 +42,18 @@ export default function Footer() {
                   SheetViz
                 </Link>
               </li>
+              <li>
+                <Link href="/services/inside-sales"
+                  className="text-sm text-slate-300 hover:text-white no-underline transition-colors">
+                  インサイドセールス内製化
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/ai-chat-assistant"
+                  className="text-sm text-slate-300 hover:text-white no-underline transition-colors">
+                  AIチャットアシスタント
+                </Link>
+              </li>
             </ul>
           </div>
 
