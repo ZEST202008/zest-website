@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -20,10 +20,27 @@ const NAV_ITEMS = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // 少しスクロールしたらヘッダーを薄く縮め、本文との境界をはっきりさせる
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
-      <div className="container-inner flex items-center justify-between h-16">
+    <header
+      className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b transition-all duration-300 ${
+        scrolled ? 'border-slate-200 shadow-[0_4px_20px_-12px_rgba(26,39,68,0.3)]' : 'border-transparent'
+      }`}
+    >
+      <div
+        className={`container-inner flex items-center justify-between transition-all duration-300 ${
+          scrolled ? 'h-14' : 'h-16'
+        }`}
+      >
         {/* Logo */}
         <Link href="/" className="flex items-center no-underline">
           <Image
@@ -42,7 +59,7 @@ export default function Header() {
             item.children ? (
               <div key={item.label} className="relative group">
                 <button
-                  className="flex items-center gap-1 text-sm font-medium text-slate-700
+                  className="nav-link flex items-center gap-1 text-sm font-medium text-slate-700
                              hover:text-brand-orange transition-colors"
                   onClick={() => setServicesOpen(!servicesOpen)}
                   aria-haspopup="true"
@@ -74,7 +91,7 @@ export default function Header() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-slate-700 hover:text-brand-orange
+                className="nav-link text-sm font-medium text-slate-700 hover:text-brand-orange
                            transition-colors no-underline"
               >
                 {item.label}
