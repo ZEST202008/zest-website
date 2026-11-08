@@ -62,7 +62,7 @@ export default function SheetVizPage() {
     <>
       {/* Hero */}
       <section className="bg-brand-bg border-b border-slate-200 py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">Service</span>
           <div className="flex items-center gap-4 mb-4">
             <Image src="/sheetviz-logo.png" alt="SheetViz" width={160} height={48} className="h-12 w-auto object-contain" />
@@ -82,7 +82,7 @@ export default function SheetVizPage() {
 
       {/* 3アプリ構成 */}
       <section className="py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">3 Apps</span>
           <h2 className="section-title">1つのデータ、3つの役割に最適化</h2>
           <p className="section-sub mb-12 max-w-2xl">
@@ -112,7 +112,7 @@ export default function SheetVizPage() {
 
       {/* 自動化 */}
       <section className="bg-brand-bg py-20">
-        <div className="container-inner">
+        <div className="container-inner" data-reveal>
           <span className="section-label">Automation</span>
           <h2 className="section-title">4つの自動化で、手作業をゼロに</h2>
           <p className="section-sub mb-10 max-w-2xl">
@@ -137,7 +137,7 @@ export default function SheetVizPage() {
 
       {/* カチカタ連携 */}
       <section className="py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">Integration</span>
           <h2 className="section-title">カチカタとの連携で、データが「型」になる</h2>
           <p className="section-sub mb-10">
@@ -165,7 +165,7 @@ export default function SheetVizPage() {
 
       {/* IS内製化連携 */}
       <section className="bg-blue-50 py-20">
-        <div className="container-inner max-w-3xl">
+        <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">関連サービス</span>
           <h2 className="section-title">SheetViz ISは、インサイドセールス内製化の<br />専用CRM基盤です</h2>
           <p className="section-sub mb-8">
@@ -194,7 +194,7 @@ export default function SheetVizPage() {
 
       {/* CTA */}
       <section className="bg-brand-navy py-16">
-        <div className="container-inner text-center">
+        <div className="container-inner text-center" data-reveal>
           <h2 className="text-2xl font-black text-white mb-4">
             まずは現状のヒアリングから
           </h2>
