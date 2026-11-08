@@ -151,3 +151,16 @@ html.reveal-ready [data-reveal].is-revealed .rb-part {
 .nav-link:hover::after {
   transform: scaleX(1);
 }
+
+/* ── セクションの背景グラフィック ─────────────────────────── */
+/* 薄いドットグリッド。下へ向かうほど背景色に溶けるので、本文の読みやすさは変わらない。
+   疑似要素ではなく背景画像の重ね順で消しているため、本文の上に乗ることがない。 */
+.surface-grid {
+  background-image:
+    linear-gradient(to bottom, rgba(247, 247, 245, 0) 30%, #f7f7f5 88%),
+    radial-gradient(rgba(26, 39, 68, 0.17) 1.4px, transparent 1.4px);
+  background-size:
+    100% 100%,
+    24px 24px;
+  background-repeat: no-repeat, repeat;
+}

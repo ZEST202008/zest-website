@@ -5,10 +5,18 @@ import {
   CheckCircle, XCircle, MessageSquare, Bell, Briefcase, TrendingUp,
   Mail,
 } from 'lucide-react';
+import { AiChatArt } from '@/components/graphics/service-art';
+import { AiChatFlowDiagram } from '@/components/graphics/service-diagrams';
 
 export const metadata: Metadata = {
   title: 'AIチャットアシスタント｜Webサイトの離脱を商談機会に変えるAI接客',
   description: 'Webサイトに眠る「見えない機会損失」を確実な「商談機会」へ。フォーム入力の手間や営業への警戒感から離脱していた訪問者へ、AIが自然な会話の中でリードを獲得し売上機会を最大化。初期費用50万円・月額5万円のフルマネージド。',
+  openGraph: {
+    images: [{ url: '/og/ai-chat-assistant.png', width: 1200, height: 630, alt: 'AIチャットアシスタント' }],
+  },
+  twitter: {
+    images: ['/og/ai-chat-assistant.png'],
+  },
 };
 
 // ── データ定義 ────────────────────────────────────────
@@ -111,36 +119,43 @@ export default function AiChatAssistantPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-brand-bg border-b border-slate-200 py-20">
+      <section className="surface-grid bg-brand-bg border-b border-slate-200 py-20">
         <div className="container-inner" data-reveal>
-          <span className="section-label">Service</span>
-          <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
-            AIチャットアシスタント
-          </h1>
-          <p className="text-xl text-brand-orange font-bold mb-6">
-            Webサイトに眠る「見えない機会損失」を確実な「商談機会」へ。
-          </p>
-          <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
-            フォーム入力の手間や営業への警戒感から離脱していた訪問者へ、
-            AIが自然な会話の中でリードを獲得し、御社の売上機会を最大化します。
-            <strong className="text-slate-800">最短2週間で稼働開始</strong>、フルマネージドで運用負荷ゼロ。
-          </p>
-          <div className="flex flex-wrap gap-3 mb-8">
-            {[
-              { icon: <Clock size={14} />, label: '24時間対応' },
-              { icon: <MessagesSquare size={14} />, label: 'Slack連携' },
-              { icon: <Users size={14} />, label: 'リード収集' },
-              { icon: <Shield size={14} />, label: 'セキュア蓄積' },
-            ].map(({ icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-1.5 bg-white border border-slate-200 text-slate-600 text-sm font-medium px-3 py-1.5 rounded-full">
-                <span className="text-brand-orange">{icon}</span>
-                {label}
-              </span>
-            ))}
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_360px] md:items-center">
+            <div>
+              <span className="section-label">Service</span>
+              <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
+                AIチャットアシスタント
+              </h1>
+              <p className="text-xl text-brand-orange font-bold mb-6">
+                Webサイトに眠る「見えない機会損失」を確実な「商談機会」へ。
+              </p>
+              <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
+                フォーム入力の手間や営業への警戒感から離脱していた訪問者へ、
+                AIが自然な会話の中でリードを獲得し、御社の売上機会を最大化します。
+                <strong className="text-slate-800">最短2週間で稼働開始</strong>、フルマネージドで運用負荷ゼロ。
+              </p>
+              <div className="flex flex-wrap gap-3 mb-8">
+                {[
+                  { icon: <Clock size={14} />, label: '24時間対応' },
+                  { icon: <MessagesSquare size={14} />, label: 'Slack連携' },
+                  { icon: <Users size={14} />, label: 'リード収集' },
+                  { icon: <Shield size={14} />, label: 'セキュア蓄積' },
+                ].map(({ icon, label }) => (
+                  <span key={label} className="inline-flex items-center gap-1.5 bg-white border border-slate-200 text-slate-600 text-sm font-medium px-3 py-1.5 rounded-full">
+                    <span className="text-brand-orange">{icon}</span>
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <Link href="/contact" className="btn-primary">
+                <ArrowRight size={18} /> 無料デモを申し込む
+              </Link>
+            </div>
+            <div className="mx-auto w-full max-w-sm md:max-w-none">
+              <AiChatArt />
+            </div>
           </div>
-          <Link href="/contact" className="btn-primary">
-            <ArrowRight size={18} /> 無料デモを申し込む
-          </Link>
         </div>
       </section>
 
@@ -181,6 +196,7 @@ export default function AiChatAssistantPage() {
           <p className="section-sub mb-12 max-w-2xl">
             自社サービスに特化したAI知識を設計・実装。既存ウェブサイトへのスクリプト1行で組み込み対応します。
           </p>
+          <AiChatFlowDiagram />
           {/* フロー */}
           <div className="flex flex-col md:flex-row items-stretch gap-0 mb-12 overflow-x-auto">
             {FLOW.map((f, i) => (

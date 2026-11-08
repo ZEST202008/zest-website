@@ -2,10 +2,18 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, BarChart2, Users, FileText, RefreshCw, Bell } from 'lucide-react';
+import { SheetVizArt } from '@/components/graphics/service-art';
+import { SheetVizStructureDiagram } from '@/components/graphics/service-diagrams';
 
 export const metadata: Metadata = {
   title: 'SheetViz | Google Sheetsベース営業支援プラットフォーム',
   description: 'Google Sheetsを基盤にした営業支援プラットフォーム。フィールドセールス・インサイドセールス・管理職の3役割に最適化された3アプリ構成で、営業組織全体の生産性を向上します。',
+  openGraph: {
+    images: [{ url: '/og/sheetviz.png', width: 1200, height: 630, alt: 'SheetViz｜Google Sheetsベース営業支援プラットフォーム' }],
+  },
+  twitter: {
+    images: ['/og/sheetviz.png'],
+  },
 };
 
 const APPS = [
@@ -61,22 +69,29 @@ export default function SheetVizPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-brand-bg border-b border-slate-200 py-20">
+      <section className="surface-grid bg-brand-bg border-b border-slate-200 py-20">
         <div className="container-inner" data-reveal>
-          <span className="section-label">Service</span>
-          <div className="flex items-center gap-4 mb-4">
-            <Image src="/sheetviz-logo.png" alt="SheetViz" width={160} height={48} className="h-12 w-auto object-contain" />
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_360px] md:items-center">
+            <div>
+              <span className="section-label">Service</span>
+              <div className="flex items-center gap-4 mb-4">
+                <Image src="/sheetviz-logo.png" alt="SheetViz" width={160} height={48} className="h-12 w-auto object-contain" />
+              </div>
+              <p className="text-xl text-brand-orange font-bold mb-6">
+                Google Sheetsを基盤にした、営業組織まるごとDXプラットフォーム
+              </p>
+              <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
+                1つのGoogle Sheetsを共通データソースに、フィールドセールス・インサイドセールス・管理職の
+                3役割に最適化した3アプリで構成。導入の重さゼロ、現場の使いやすさ最大限を両立します。
+              </p>
+              <Link href="/contact" className="btn-primary">
+                <ArrowRight size={18} /> 無料相談を予約する
+              </Link>
+            </div>
+            <div className="mx-auto w-full max-w-sm md:max-w-none">
+              <SheetVizArt />
+            </div>
           </div>
-          <p className="text-xl text-brand-orange font-bold mb-6">
-            Google Sheetsを基盤にした、営業組織まるごとDXプラットフォーム
-          </p>
-          <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
-            1つのGoogle Sheetsを共通データソースに、フィールドセールス・インサイドセールス・管理職の
-            3役割に最適化した3アプリで構成。導入の重さゼロ、現場の使いやすさ最大限を両立します。
-          </p>
-          <Link href="/contact" className="btn-primary">
-            <ArrowRight size={18} /> 無料相談を予約する
-          </Link>
         </div>
       </section>
 
@@ -89,6 +104,7 @@ export default function SheetVizPage() {
             すべてのアプリが同一のGoogle Sheetsをデータソースとして共有。
             情報の二重入力をなくし、組織全体をリアルタイムで繋ぎます。
           </p>
+          <SheetVizStructureDiagram />
           <div className="grid md:grid-cols-3 gap-6">
             {APPS.map((app) => (
               <div key={app.id} className={`rounded-2xl border-2 p-6 ${app.color}`}>

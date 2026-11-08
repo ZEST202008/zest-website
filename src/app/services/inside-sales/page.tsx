@@ -4,10 +4,18 @@ import {
   ArrowRight, Target, Clock, Archive, TrendingUp,
   CheckCircle, AlertTriangle, PhoneOff, Repeat, Package,
 } from 'lucide-react';
+import { InsideSalesArt } from '@/components/graphics/service-art';
+import { InsideSales90Diagram } from '@/components/graphics/service-diagrams';
 
 export const metadata: Metadata = {
   title: 'インサイドセールス内製化プログラム｜90日で自走するIS組織へ',
   description: '眠っている既存休眠顧客を確実な商談機会へ。月額6万円〜の圧倒的ローコストで、持続可能なIS組織を90日で社内に完全内製化するプログラム。',
+  openGraph: {
+    images: [{ url: '/og/inside-sales.png', width: 1200, height: 630, alt: 'インサイドセールス内製化プログラム' }],
+  },
+  twitter: {
+    images: ['/og/inside-sales.png'],
+  },
 };
 
 // ── データ定義 ────────────────────────────────────────
@@ -126,24 +134,31 @@ export default function InsideSalesPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-brand-bg border-b border-slate-200 py-20">
+      <section className="surface-grid bg-brand-bg border-b border-slate-200 py-20">
         <div className="container-inner" data-reveal>
-          <span className="section-label">Service</span>
-          <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
-            インサイドセールス<br />
-            <span className="text-brand-orange">内製化プログラム</span>
-          </h1>
-          <p className="text-xl text-brand-orange font-bold mb-6">
-            〜自社に眠る「既存休眠顧客」を、確実な商談機会に変える〜
-          </p>
-          <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
-            企業が持続的にトップラインを拡大するための最適解は、疲弊を伴う焼き畑の新規営業ではなく、
-            すでに保有している顧客資産の<strong className="text-slate-800">LTV（顧客生涯価値）を最大化すること</strong>。
-            本プログラムは、月額6万円〜の圧倒的ローコストで、その仕組みを貴社社内に完全移譲します。
-          </p>
-          <Link href="/contact" className="btn-primary">
-            <ArrowRight size={18} /> 無料相談を予約する
-          </Link>
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_360px] md:items-center">
+            <div>
+              <span className="section-label">Service</span>
+              <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
+                インサイドセールス<br />
+                <span className="text-brand-orange">内製化プログラム</span>
+              </h1>
+              <p className="text-xl text-brand-orange font-bold mb-6">
+                〜自社に眠る「既存休眠顧客」を、確実な商談機会に変える〜
+              </p>
+              <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
+                企業が持続的にトップラインを拡大するための最適解は、疲弊を伴う焼き畑の新規営業ではなく、
+                すでに保有している顧客資産の<strong className="text-slate-800">LTV（顧客生涯価値）を最大化すること</strong>。
+                本プログラムは、月額6万円〜の圧倒的ローコストで、その仕組みを貴社社内に完全移譲します。
+              </p>
+              <Link href="/contact" className="btn-primary">
+                <ArrowRight size={18} /> 無料相談を予約する
+              </Link>
+            </div>
+            <div className="mx-auto w-full max-w-sm md:max-w-none">
+              <InsideSalesArt />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -305,6 +320,7 @@ export default function InsideSalesPage() {
             非現実的なスケジュールは約束しません。貴社内の意思決定リソースを吸収する
             ＋1ヶ月のバッファを設けた合計4ヶ月体制を推奨しています。
           </p>
+          <InsideSales90Diagram />
           <div className="space-y-6">
             {ROADMAP.map((r, i) => (
               <div key={r.month} className="card flex gap-6 items-start">

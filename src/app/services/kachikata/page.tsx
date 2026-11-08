@@ -9,10 +9,18 @@ import {
   Shield, Award, BookOpen, XCircle, MinusCircle,
 } from 'lucide-react';
 import DiagnosisSection from './DiagnosisSection';
+import { KachikataArt } from '@/components/graphics/service-art';
+import { KachikataCycleDiagram } from '@/components/graphics/service-diagrams';
 
 export const metadata: Metadata = {
   title: 'カチカタ | KFS特定・営業の型化サービス',
   description: 'トップセールスの行動パターンをデータで解析し、誰もが再現できる「型」として定着させる。センターピン特定サービス カチカタ × SheetViz で営業組織のデータ活用を支援します。',
+  openGraph: {
+    images: [{ url: '/og/kachikata.png', width: 1200, height: 630, alt: 'カチカタ｜KFS特定・営業の型化サービス' }],
+  },
+  twitter: {
+    images: ['/og/kachikata.png'],
+  },
 };
 
 // ── 3つの悪循環 ──
@@ -323,37 +331,44 @@ export default function KachikataPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-brand-bg border-b border-slate-200 py-20">
+      <section className="surface-grid bg-brand-bg border-b border-slate-200 py-20">
         <div className="container-inner" data-reveal>
-          <span className="section-label">Service</span>
-          <div className="mb-5">
-            <Image
-              src="/kachikata-logo.png"
-              alt="カチカタ"
-              width={220}
-              height={66}
-              className="h-14 w-auto object-contain"
-            />
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_360px] md:items-center">
+            <div>
+              <span className="section-label">Service</span>
+              <div className="mb-5">
+                <Image
+                  src="/kachikata-logo.png"
+                  alt="カチカタ"
+                  width={220}
+                  height={66}
+                  className="h-14 w-auto object-contain"
+                />
+              </div>
+              <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
+                属人性を排し、<br />
+                <span className="text-brand-orange">再現性を極める。</span>
+              </h1>
+              <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
+                トップセールスの行動パターンをデータで解析し、誰もが再現できる「型」として定着させる。
+                センターピン特定サービス <strong className="text-brand-orange">カチカタ</strong> と
+                シンプルなCRM基盤 <strong className="text-brand-navy">SheetViz</strong> を組み合わせた、
+                データドリブン営業支援サービスです。
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/contact" className="btn-primary">
+                  <ArrowRight size={18} /> 無料相談を予約する
+                </Link>
+                <Link href="#diagnosis" className="btn-secondary">
+                  属人化リスク診断を受ける
+                </Link>
+              </div>
+              <p className="text-xs text-slate-400 mt-4">診断は無料・所要5分 / 既存CRMとの連携も対応</p>
+            </div>
+            <div className="mx-auto w-full max-w-sm md:max-w-none">
+              <KachikataArt />
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-brand-navy leading-tight mb-4">
-            属人性を排し、<br />
-            <span className="text-brand-orange">再現性を極める。</span>
-          </h1>
-          <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
-            トップセールスの行動パターンをデータで解析し、誰もが再現できる「型」として定着させる。
-            センターピン特定サービス <strong className="text-brand-orange">カチカタ</strong> と
-            シンプルなCRM基盤 <strong className="text-brand-navy">SheetViz</strong> を組み合わせた、
-            データドリブン営業支援サービスです。
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/contact" className="btn-primary">
-              <ArrowRight size={18} /> 無料相談を予約する
-            </Link>
-            <Link href="#diagnosis" className="btn-secondary">
-              属人化リスク診断を受ける
-            </Link>
-          </div>
-          <p className="text-xs text-slate-400 mt-4">診断は無料・所要5分 / 既存CRMとの連携も対応</p>
         </div>
       </section>
 
@@ -621,6 +636,7 @@ export default function KachikataPage() {
               組織の営業力が継続的に高まっていきます。
             </p>
           </div>
+          <KachikataCycleDiagram />
           <div className="grid md:grid-cols-4 gap-4 mb-6">
             {CYCLE.map((c) => (
               <div key={c.num} className={`rounded-2xl p-5 ${c.bg}`}>
