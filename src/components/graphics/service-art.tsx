@@ -68,33 +68,31 @@ export function SheetVizArt() {
   return (
     <svg {...svgProps} viewBox="0 0 420 300">
       <g className="rb-part" style={part(0)}>
-        {cards.map((x) => (
-          <g key={x}>
-            <rect x={x} y="28" width="106" height="82" rx="12" fill="#ffffff" stroke={LINE} strokeWidth="1.5" />
-            <rect x={x + 16} y="46" width="34" height="7" rx="3.5" fill={ORANGE} />
-            <rect x={x + 16} y="64" width="74" height="6" rx="3" fill={FAINT} />
-            <rect x={x + 16} y="78" width="58" height="6" rx="3" fill={FAINT} />
-            <rect x={x + 16} y="92" width="66" height="6" rx="3" fill={FAINT} />
-          </g>
-        ))}
+        <rect x="108" y="20" width="204" height="82" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2" />
+        <rect x="108" y="20" width="204" height="24" rx="12" fill={NAVY} opacity="0.08" />
+        <line x1="108" y1="62" x2="312" y2="62" stroke={FAINT} strokeWidth="1.5" />
+        <line x1="108" y1="82" x2="312" y2="82" stroke={FAINT} strokeWidth="1.5" />
+        <line x1="159" y1="44" x2="159" y2="102" stroke={FAINT} strokeWidth="1.5" />
+        <line x1="210" y1="44" x2="210" y2="102" stroke={FAINT} strokeWidth="1.5" />
+        <line x1="261" y1="44" x2="261" y2="102" stroke={FAINT} strokeWidth="1.5" />
+        <circle cx="128" cy="32" r="5" fill={ORANGE} />
       </g>
 
-      <g className="rb-part" style={part(200)} stroke={ORANGE} strokeWidth="1.8" fill="none" opacity="0.8">
-        <path d="M 67 110 L 67 148 Q 67 162 83 162 L 210 162" />
-        <path d="M 210 110 L 210 162" />
-        <path d="M 353 110 L 353 148 Q 353 162 337 162 L 210 162" />
-        <path d="M 210 162 L 210 196" />
+      <g className="rb-part" style={part(200)} stroke={ORANGE} strokeWidth="1.8" fill="none" opacity="0.85">
+        <path d="M 210 102 L 210 146" />
+        <path d="M 67 186 L 67 162 Q 67 146 83 146 L 337 146 Q 353 146 353 162 L 353 186" />
       </g>
 
       <g className="rb-part" style={part(400)}>
-        <rect x="108" y="196" width="204" height="82" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2" />
-        <line x1="108" y1="220" x2="312" y2="220" stroke={FAINT} strokeWidth="1.5" />
-        <line x1="108" y1="245" x2="312" y2="245" stroke={FAINT} strokeWidth="1.5" />
-        <line x1="159" y1="196" x2="159" y2="278" stroke={FAINT} strokeWidth="1.5" />
-        <line x1="210" y1="196" x2="210" y2="278" stroke={FAINT} strokeWidth="1.5" />
-        <line x1="261" y1="196" x2="261" y2="278" stroke={FAINT} strokeWidth="1.5" />
-        <rect x="108" y="196" width="204" height="24" rx="12" fill={NAVY} opacity="0.08" />
-        <circle cx="128" cy="233" r="5" fill={ORANGE} />
+        {cards.map((x) => (
+          <g key={x}>
+            <rect x={x} y="190" width="106" height="82" rx="12" fill="#ffffff" stroke={LINE} strokeWidth="1.5" />
+            <rect x={x + 16} y="208" width="34" height="7" rx="3.5" fill={ORANGE} />
+            <rect x={x + 16} y="226" width="74" height="6" rx="3" fill={FAINT} />
+            <rect x={x + 16} y="240" width="58" height="6" rx="3" fill={FAINT} />
+            <rect x={x + 16} y="254" width="66" height="6" rx="3" fill={FAINT} />
+          </g>
+        ))}
       </g>
     </svg>
   );
