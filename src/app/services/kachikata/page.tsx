@@ -105,7 +105,7 @@ const ADVANTAGES = [
   {
     icon: <Database size={22} className="text-brand-orange" />,
     title: 'データ戦略家',
-    desc: 'SaaS・金融領域でのデータ解析実績を持つ専門家が在籍。統計分析から意思決定支援まで、データ活用のプロが営業組織を変える。',
+    desc: '大手人材サービス・インターネットメディア企業でアナリティクスエンジニアを務めた専門家が在籍。大規模な行動データの設計・分析から意思決定支援まで、データ活用のプロが営業組織を変える。',
   },
   {
     icon: <Shield size={22} className="text-brand-orange" />,
