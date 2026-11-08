@@ -889,26 +889,29 @@ export default function KachikataPage() {
             </p>
           </div>
           <div className="card border-2 border-brand-orange max-w-lg mx-auto mb-6">
-            <div className="flex flex-wrap justify-between gap-4 pb-5 mb-5 border-b border-slate-100">
-              <div>
-                <p className="text-xs font-bold text-slate-500 mb-1">集中支援期間</p>
-                <p className="text-2xl font-black text-brand-navy">6ヶ月間</p>
+            {/* ラベルは左、金額は右で3行とも揃える（折り返しで配置が崩れないようにする） */}
+            <dl className="divide-y divide-slate-100 border-b border-slate-100 pb-4 mb-5">
+              <div className="flex items-baseline justify-between gap-4 py-3 first:pt-0">
+                <dt className="text-xs font-bold text-slate-500">集中支援期間</dt>
+                <dd className="text-2xl font-black text-brand-navy leading-none">6ヶ月間</dd>
               </div>
-              <div className="text-right">
-                <p className="text-xs font-bold text-slate-500 mb-1">初期費用</p>
-                <p className="text-3xl font-black text-brand-orange leading-none">
+              <div className="flex items-baseline justify-between gap-4 py-3">
+                <dt className="text-xs font-bold text-slate-500">初期費用</dt>
+                <dd className="text-3xl font-black text-brand-orange leading-none">
                   300<span className="text-lg">万円</span>
                   <span className="text-sm font-normal text-slate-500">（税別）</span>
-                </p>
+                </dd>
               </div>
-              <div className="text-right">
-                <p className="text-xs font-bold text-slate-500 mb-1">月額費用</p>
-                <p className="text-2xl font-black text-brand-navy leading-none">
-                  15<span className="text-base">万円</span>
-                </p>
-                <p className="text-xs text-slate-400 mt-0.5">20ユーザーまで含む / 追加 +1,000円/名</p>
+              <div className="py-3">
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-xs font-bold text-slate-500">月額費用</dt>
+                  <dd className="text-2xl font-black text-brand-navy leading-none">
+                    15<span className="text-base">万円</span>
+                  </dd>
+                </div>
+                <p className="text-xs text-slate-400 mt-1.5 text-right">20ユーザーまで含む / 追加 +1,000円/名</p>
               </div>
-            </div>
+            </dl>
             <p className="font-bold text-brand-navy mb-4">パッケージに含まれるもの</p>
             <div className="space-y-3">
               {PLAN_ITEMS.map((item) => (
