@@ -106,68 +106,78 @@ export function SheetVizStructureDiagram() {
   ];
   return (
     <Figure
-      label="3つのアプリが1つのGoogle Sheetsを共通データソースとして読み書きし、二重入力が起きない構成を示した図。"
-      caption="図: 役割ごとに画面は分かれるが、データは1つ。どこで入力しても全員に反映される。"
+      label="1つのGoogle Sheetsを共通データソースとして、3つのアプリが読み書きし、二重入力が起きない構成を示した図。"
+      caption="図: データは1枚、画面は役割ごと。どこで入力しても全員に反映される。"
     >
-      {apps.map((a) => (
-        <Box key={a.x} x={a.x} y={34} w={200} h={74} title={a.title} sub={a.sub} />
-      ))}
+      <rect x="290" y="34" width="320" height="86" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2.5" />
+      <text x="450" y="66" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>共通データソース</text>
+      <text x="450" y="88" textAnchor="middle" fontSize="12" fill={MUTED}>1つのGoogle Sheets</text>
 
+      <path
+        d="M 450 124 L 450 166" fill="none" stroke={ORANGE} strokeWidth="2"
+        markerEnd="url(#dg-arrow)" markerStart="url(#dg-arrow)"
+      />
       <g fill="none" stroke={ORANGE} strokeWidth="2">
-        <path d="M 140 108 L 140 160 Q 140 176 156 176 L 450 176" />
-        <path d="M 450 108 L 450 176" />
-        <path d="M 760 108 L 760 160 Q 760 176 744 176 L 450 176" />
-        <path d="M 450 180 L 450 218" markerEnd="url(#dg-arrow)" markerStart="url(#dg-arrow)" />
+        <path d="M 450 170 L 156 170 Q 140 170 140 186 L 140 222" />
+        <path d="M 450 170 L 450 222" />
+        <path d="M 450 170 L 744 170 Q 760 170 760 186 L 760 222" />
       </g>
-      <EdgeLabel x={290} y={160} text="入力も閲覧も、同じ1枚を見る" />
+      <EdgeLabel x={290} y={158} text="入力も閲覧も、同じ1枚を見る" />
 
-      <rect x="290" y="222" width="320" height="86" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2.5" />
-      <text x="450" y="254" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>共通データソース</text>
-      <text x="450" y="276" textAnchor="middle" fontSize="12" fill={MUTED}>1つのGoogle Sheets</text>
-      <g stroke={LINE} strokeWidth="1.2">
-        <line x1="330" y1="288" x2="570" y2="288" />
-        <line x1="370" y1="282" x2="370" y2="300" />
-        <line x1="450" y1="282" x2="450" y2="300" />
-        <line x1="530" y1="282" x2="530" y2="300" />
-      </g>
+      {apps.map((a) => (
+        <Box key={a.x} x={a.x} y={226} w={200} h={74} title={a.title} sub={a.sub} />
+      ))}
     </Figure>
   );
 }
 
-/** インサイドセールス内製化: 90日で主導権が移る */
+/** インサイドセールス内製化: 90日で主導権が移り、+30日はバッファ */
 export function InsideSales90Diagram() {
+  // 横軸は120日。30日 = 205px（x=40 が Day0、x=860 が Day120）。
   const phases = [
-    { x: 40, title: 'Day 0–30', sub: '設計・リスト整備' },
-    { x: 350, title: 'Day 31–60', sub: 'ZESTが実行、社内が並走' },
-    { x: 660, title: 'Day 61–90', sub: '社内へ完全移譲' },
+    { x: 42, title: 'Day 0–30', sub: '設計・リスト整備' },
+    { x: 247, title: 'Day 31–60', sub: 'ZESTが実行、社内が並走' },
+    { x: 452, title: 'Day 61–90', sub: '社内へ完全移譲' },
   ];
+  const CROSS = 655; // Day 90 の位置
   return (
     <Figure
-      label="90日かけてZESTの関与が減り、社内の実行比率が増えていく内製化の進み方を示した図。"
-      caption="図: 外注のままにしない。90日で実行の主導権が社内へ移る。"
+      label="90日かけてZESTの関与が減り社内の実行が増える推移と、その後ろに置いた30日のバッファを示した図。"
+      caption="図: 90日で実行の主導権が社内へ移る。その後ろに意思決定用の30日バッファを置き、合計4ヶ月を推奨。"
     >
+      {/* バッファ期間の帯 */}
+      <rect x={CROSS} y="30" width="205" height="232" fill={NAVY} opacity="0.045" />
+      <line x1={CROSS} y1="30" x2={CROSS} y2="262" stroke={LINE} strokeWidth="1.5" strokeDasharray="5 5" />
+
       {phases.map((p) => (
-        <Box key={p.x} x={p.x} y={34} w={200} h={74} title={p.title} sub={p.sub} accent={p.x === 660} />
+        <Box key={p.x} x={p.x} y={34} w={195} h={74} title={p.title} sub={p.sub} accent={p.x === 452} />
       ))}
 
-      <g fill="none" stroke={LINE} strokeWidth="2" markerEnd="url(#dg-arrow-navy)">
-        <path d="M 244 71 L 344 71" />
-        <path d="M 554 71 L 654 71" />
-      </g>
+      {/* バッファのボックスだけ破線で区別する */}
+      <rect x={CROSS + 2} y="34" width="195" height="74" rx="12" fill="#ffffff" stroke={LINE} strokeWidth="1.5" strokeDasharray="6 5" />
+      <text x={CROSS + 100} y="63" textAnchor="middle" fontSize="15" fontWeight="700" fill={MUTED}>＋30日バッファ</text>
+      <text x={CROSS + 100} y="85" textAnchor="middle" fontSize="12" fill={MUTED}>意思決定リソースの確保</text>
 
-      <line x1="40" y1="250" x2="860" y2="250" stroke={LINE} strokeWidth="1.5" />
+      {/* ZESTの関与は減り、社内の実行は増える。90日で入れ替わり、以降は横ばい。 */}
+      <path d={`M 40 162 L ${CROSS} 240 L 860 240 L 40 240 Z`} fill={ORANGE} opacity="0.16" />
+      <path d={`M 40 240 L ${CROSS} 162 L 860 162 L 860 240 Z`} fill={NAVY} opacity="0.12" />
+      <path d={`M 40 162 L ${CROSS} 240 L 860 240`} fill="none" stroke={ORANGE} strokeWidth="2.5" />
+      <path d={`M 40 240 L ${CROSS} 162 L 860 162`} fill="none" stroke={NAVY} strokeWidth="2.5" />
 
-      {/* ZESTの関与は減り、社内の実行は増える */}
-      <path d="M 40 160 L 860 244 L 40 244 Z" fill={ORANGE} opacity="0.22" />
-      <path d="M 860 160 L 40 244 L 860 244 Z" fill={NAVY} opacity="0.18" />
-      <path d="M 40 160 L 860 244" fill="none" stroke={ORANGE} strokeWidth="2.5" />
-      <path d="M 40 244 L 860 160" fill="none" stroke={NAVY} strokeWidth="2.5" />
+      <text x="52" y="154" fontSize="12" fontWeight="700" fill={ORANGE}>ZESTの関与</text>
+      <text x="760" y="154" fontSize="12" fontWeight="700" fill={NAVY}>社内の実行</text>
 
-      <text x="96" y="152" fontSize="12" fontWeight="700" fill={ORANGE}>ZESTの関与</text>
-      <text x="716" y="152" fontSize="12" fontWeight="700" fill={NAVY}>社内の実行</text>
-      <text x="40" y="276" fontSize="12" fill={MUTED}>開始</text>
-      <text x="828" y="276" fontSize="12" fill={MUTED}>自走</text>
-      <text x="450" y="300" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>
+      {/* 時間軸 */}
+      <line x1="40" y1="262" x2="860" y2="262" stroke={LINE} strokeWidth="1.5" />
+      {[['40', 'Day 0'], ['245', '30'], ['450', '60'], ['655', '90'], ['860', '120']].map(([x, label]) => (
+        <g key={label}>
+          <line x1={x} y1="258" x2={x} y2="266" stroke={LINE} strokeWidth="1.5" />
+          <text x={x} y="282" textAnchor="middle" fontSize="11" fill={MUTED}>{label}</text>
+        </g>
+      ))}
+      <text x={CROSS + 100} y="282" textAnchor="middle" fontSize="11" fontWeight="600" fill={MUTED}>バッファ</text>
+
+      <text x="450" y="312" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>
         ノウハウ・リスト・スクリプト・データはすべて貴社に残る
       </text>
     </Figure>
@@ -192,7 +202,7 @@ export function AiChatFlowDiagram() {
       <path d="M 420 167 L 466 167" fill="none" stroke={ORANGE} strokeWidth="2" />
       <circle cx="470" cy="167" r="5" fill={ORANGE} />
 
-      <Box x={670} y={33} w={200} h={74} title="その場で自己解決" sub="問い合わせ数を抑える" />
+      <Box x={670} y={33} w={200} h={74} title="その場で自己解決" sub="問い合わせを取りこぼさない" />
       <Box x={670} y={227} w={200} h={74} title="担当者へエスカレーション" sub="Slackへ即時通知" accent />
 
       <EdgeLabel x={582} y={56} text="よくある質問" />
