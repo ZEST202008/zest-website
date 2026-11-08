@@ -19,8 +19,8 @@ export default function Footer() {
               />
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
-              営業組織の「型化」で、<br />
-              チーム全体の生産性を変える。
+              現場の勘と経験に、裏付けを。<br />
+              中小企業の稼ぐ力をつくる。
             </p>
           </div>
 
