@@ -6,6 +6,12 @@ import Image from 'next/image';
 export const metadata: Metadata = {
   title: '会社概要',
   description: 'ZESTのVision・Mission・Value、代表メッセージ、会社情報をご紹介します。',
+  openGraph: {
+    images: [{ url: '/og/about.png', width: 1200, height: 630, alt: '株式会社ZEST 会社概要' }],
+  },
+  twitter: {
+    images: ['/og/about.png'],
+  },
 };
 
 const COMPANY_INFO = [
@@ -64,7 +70,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-brand-bg border-b border-slate-200 py-20">
+      <section className="surface-grid bg-brand-bg border-b border-slate-200 py-20">
         <div className="container-inner max-w-3xl" data-reveal>
           <span className="section-label">会社概要</span>
           <h1 className="section-title">「勝ち」と「価値」を、組織の力に変える</h1>
