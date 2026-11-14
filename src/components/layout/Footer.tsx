@@ -31,6 +31,12 @@ export default function Footer() {
             </div>
             <ul className="space-y-2">
               <li>
+                <Link href="/services/soshikizukuri"
+                  className="text-sm text-slate-300 hover:text-white no-underline transition-colors">
+                  組織づくり支援
+                </Link>
+              </li>
+              <li>
                 <Link href="/services/kachikata"
                   className="text-sm text-slate-300 hover:text-white no-underline transition-colors">
                   カチカタ

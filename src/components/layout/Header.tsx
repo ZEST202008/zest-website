@@ -5,12 +5,22 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const NAV_ITEMS = [
-  { label: 'サービス', href: '#', children: [
-    { label: 'カチカタ', href: '/services/kachikata', desc: 'KFS特定・営業型化' },
-    { label: 'SheetViz', href: '/services/sheetziv', desc: 'Google SheetsベースCRM' },
-    { label: 'インサイドセールス内製化', href: '/services/inside-sales', desc: '90日で自走するIS組織へ' },
-    { label: 'AIチャットアシスタント', href: '/services/ai-chat-assistant', desc: '見えない機会損失を商談機会へ' },
+type NavChild = { label: string; href: string; desc: string };
+type NavGroup = { group: string; items: NavChild[] };
+type NavItem = { label: string; href: string; groups?: NavGroup[] };
+
+// サービスは2本柱のまとまりで見せる（先頭が組織づくり、続いてデータ活用）
+const NAV_ITEMS: NavItem[] = [
+  { label: 'サービス', href: '#', groups: [
+    { group: '組織づくり', items: [
+      { label: '組織づくり支援', href: '/services/soshikizukuri', desc: '集団から、組織へ' },
+    ]},
+    { group: 'データ活用', items: [
+      { label: 'カチカタ', href: '/services/kachikata', desc: 'KFS特定・営業型化' },
+      { label: 'SheetViz', href: '/services/sheetziv', desc: 'Google SheetsベースCRM' },
+      { label: 'インサイドセールス内製化', href: '/services/inside-sales', desc: '90日で自走するIS組織へ' },
+      { label: 'AIチャットアシスタント', href: '/services/ai-chat-assistant', desc: '見えない機会損失を商談機会へ' },
+    ]},
   ]},
   { label: 'ブログ', href: '/blog' },
   { label: '会社概要', href: '/about' },
@@ -56,7 +66,7 @@ export default function Header() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6">
           {NAV_ITEMS.map((item) =>
-            item.children ? (
+            item.groups ? (
               <div key={item.label} className="relative group">
                 <button
                   className="nav-link flex items-center gap-1 text-sm font-medium text-slate-700
@@ -71,19 +81,26 @@ export default function Header() {
                   </svg>
                 </button>
                 {/* Dropdown */}
-                <div className="absolute top-full left-0 mt-2 w-52 bg-white rounded-xl
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl
                                 border border-slate-200 shadow-lg opacity-0 invisible
                                 group-hover:opacity-100 group-hover:visible transition-all
                                 duration-200 p-2">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className="block px-3 py-2 rounded-lg hover:bg-slate-50 no-underline"
-                    >
-                      <div className="text-sm font-bold text-slate-800">{child.label}</div>
-                      <div className="text-xs text-slate-500">{child.desc}</div>
-                    </Link>
+                  {item.groups.map((g, gi) => (
+                    <div key={g.group} className={gi > 0 ? 'mt-1 border-t border-slate-100 pt-2' : ''}>
+                      <div className="px-3 pb-1 pt-1 text-[11px] font-bold uppercase tracking-wider text-brand-orange">
+                        {g.group}
+                      </div>
+                      {g.items.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block px-3 py-2 rounded-lg hover:bg-slate-50 no-underline"
+                        >
+                          <div className="text-sm font-bold text-slate-800">{child.label}</div>
+                          <div className="text-xs text-slate-500">{child.desc}</div>
+                        </Link>
+                      ))}
+                    </div>
                   ))}
                 </div>
               </div>
@@ -118,20 +135,27 @@ export default function Header() {
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-200 bg-white px-6 py-4 space-y-3">
           {NAV_ITEMS.map((item) =>
-            item.children ? (
+            item.groups ? (
               <div key={item.label}>
                 <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">
                   {item.label}
                 </div>
-                {item.children.map((child) => (
-                  <Link
-                    key={child.href}
-                    href={child.href}
-                    className="block py-2 text-sm text-slate-700 hover:text-brand-orange no-underline"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {child.label}
-                  </Link>
+                {item.groups.map((g) => (
+                  <div key={g.group} className="mb-2">
+                    <div className="mt-2 text-[11px] font-bold uppercase tracking-wider text-brand-orange">
+                      {g.group}
+                    </div>
+                    {g.items.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="block py-2 text-sm text-slate-700 hover:text-brand-orange no-underline"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
                 ))}
               </div>
             ) : (

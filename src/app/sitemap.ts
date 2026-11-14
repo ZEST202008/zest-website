@@ -8,6 +8,7 @@ export const revalidate = 3600;
 
 const STATIC_ROUTES: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
   { path: '', priority: 1.0, changeFrequency: 'weekly' },
+  { path: '/services/soshikizukuri', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/services/kachikata', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/services/ai-chat-assistant', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/services/sheetziv', priority: 0.8, changeFrequency: 'monthly' },
