@@ -10,7 +10,7 @@ import { AiChatFlowDiagram } from '@/components/graphics/service-diagrams';
 
 export const metadata: Metadata = {
   title: 'AIチャットアシスタント｜Webサイトの離脱を商談機会に変えるAI接客',
-  description: 'Webサイトに眠る「見えない機会損失」を確実な「商談機会」へ。フォーム入力の手間や営業への警戒感から離脱していた訪問者へ、AIが自然な会話の中でリードを獲得し売上機会を最大化。初期費用50万円・月額5万円のフルマネージド。',
+  description: 'Webサイトに眠る「見えない機会損失」を、取りこぼしの少ない「商談機会」へ。フォーム入力の手間や営業への警戒感から離脱していた訪問者へ、AIが自然な会話の中でリードを獲得し売上機会を最大化。初期費用50万円・月額5万円のフルマネージド。',
   openGraph: {
     images: [{ url: '/og/ai-chat-assistant.png', width: 1200, height: 630, alt: 'AIチャットアシスタント' }],
   },
@@ -46,7 +46,7 @@ const FEATURES = [
   {
     icon: <Users size={22} className="text-brand-orange" />,
     num: 'Benefit 04',
-    title: 'フォーム離脱をゼロにする「見えないリード獲得術」',
+    title: 'フォーム離脱を、なくしていく「見えないリード獲得術」',
     desc: '自然な会話の中で企業名・氏名・メールアドレスを取得。フォームへの誘導なしでリード情報を収集し、バウンスしたページからも問い合わせを取りこぼしません。',
     items: ['取得情報はSlack通知・メール通知に自動連携', '会話履歴・連絡先情報をクラウドDBにセキュアに蓄積', '将来的にCRMへの連携拡張にも対応可能'],
   },
@@ -304,12 +304,12 @@ export default function AiChatAssistantPage() {
           <span className="section-label">ROI</span>
           <h2 className="section-title">「月額5万円」は圧倒的なコストパフォーマンス</h2>
           <p className="section-sub mb-10">
-            インサイドセールスを1名採用したり、コールセンターに外注すれば月額40〜50万円は下りません。
+            インサイドセールスを1名採用したり、コールセンターに外注すれば月額40〜80万円は下りません。
           </p>
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="card border border-slate-200 opacity-75">
               <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">従来の選択肢</div>
-              <div className="text-3xl font-black text-slate-500 mb-2">月額 40〜50万円〜</div>
+              <div className="text-3xl font-black text-slate-500 mb-2">月額 40〜80万円</div>
               <ul className="space-y-1.5">
                 {['インサイドセールス採用', 'コールセンター外注'].map((t) => (
                   <li key={t} className="flex items-center gap-2 text-sm text-red-400">
@@ -323,7 +323,7 @@ export default function AiChatAssistantPage() {
               <div className="text-3xl font-black text-brand-orange mb-2">月額 5万円</div>
               <p className="text-slate-500 text-xs mb-3">インフラ費用込み・フルマネージド提供</p>
               <ul className="space-y-1.5">
-                {['人間の約1/8のコストで全自動対応', '24時間365日・即時応答', '深夜追加費用ゼロ'].map((t) => (
+                {['一次対応は自動で、商談になる会話だけ人へ', '24時間365日・即時応答', '深夜の追加費用なし'].map((t) => (
                   <li key={t} className="flex items-center gap-2 text-sm text-slate-700">
                     <CheckCircle size={13} className="text-brand-orange shrink-0" /> {t}
                   </li>
@@ -335,10 +335,10 @@ export default function AiChatAssistantPage() {
             <div className="flex items-start gap-3">
               <TrendingUp size={20} className="text-brand-orange mt-0.5 shrink-0" />
               <p className="text-slate-700 text-sm leading-relaxed">
-                <strong className="text-brand-orange">＋αの純利益：</strong>
-                月額5万円は「すべての訪問者に完璧な1次対応を行う専属スタッフの人件費」として確実にペイします。
+                <strong className="text-brand-orange">＋αの上積み：</strong>
+                月額5万円は「すべての訪問者に一次対応を行う専属スタッフの人件費」として考えると、十分に見合う水準です。
                 その上で、AIが自然な会話から拾い上げたフォーム離脱層のリードは、
-                すべて御社の<strong className="text-slate-800">純利益（UPSIDE）</strong>になります。
+                これまで取りこぼしていた<strong className="text-slate-800">上積み分</strong>になります。
               </p>
             </div>
           </div>

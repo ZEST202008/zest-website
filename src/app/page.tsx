@@ -506,7 +506,7 @@ const SERVICES = [
     source: '眠っている休眠顧客',
     tagline: '休眠顧客を商談機会に変える',
     description:
-      '眠っている既存顧客を確実な商談へ。月額6万円〜の圧倒的ローコストで、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
+      '眠っている既存顧客を、取りこぼしの少ない商談機会へ。初期費用150万円・月額3万円で、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
     logo: null as string | null,
   },
   {
@@ -519,12 +519,12 @@ const SERVICES = [
     logo: '/kachikata-logo.png' as string | null,
   },
   {
-    slug: 'sheetziv',
+    slug: 'sheetviz',
     name: 'SheetViz',
     source: '営業の日々の活動',
     tagline: '営業データをリアルタイムで可視化',
     description:
-      'Google SheetsとAppSheetを使った、導入コストゼロの営業支援CRM。フィールド・インサイド・管理職の3役割に最適化し、データを自社資産に変えます。',
+      '追加ライセンス不要、いつものGoogleスプレッドシートで動く営業支援CRM。フィールド・インサイド・管理職の3役割に最適化し、データを自社資産に変えます。',
     logo: '/sheetviz-logo.png' as string | null,
   },
   {
@@ -533,7 +533,7 @@ const SERVICES = [
     source: 'サイトの訪問者',
     tagline: '見えない機会損失を商談機会へ',
     description:
-      'Webサイトに眠る機会損失を確実な商談へ。AIが24時間訪問者の問い合わせに対応し、自然な会話でリードを獲得。初期費用50万円・月額5万円のフルマネージド。',
+      'Webサイトに眠る機会損失を、取りこぼしの少ない商談へ。AIが24時間訪問者の問い合わせに対応し、自然な会話でリードを獲得。初期費用50万円・月額5万円のフルマネージド。',
     logo: '/ai_chat_assistant-logo.png' as string | null,
   },
 ];
@@ -606,8 +606,9 @@ const OUTCOMES = [
   },
   {
     Icon: BadgePercent,
-    label: 'コストが下がる',
-    desc: 'パートで回る営業の仕組み、AIによる定型業務の自動化、新人の早期戦力化。経費を削るのではなく、売上をつくるためのコストそのものが下がり続ける状態をつくります。',
+    label: '見えないコストが、構造から下がる',
+    desc: '人が辞めるたびにノウハウが消え、一から教え直す。マネージャーの時間が確認と指示に奪われる。報われない仕事が続き、現場の活力が落ちていく。帳簿には載らないけれど、確実に会社を削っているコストです。',
+    desc2: 'ZESTは勝ち方を「型」にして社内に残します。型があれば、誰がやっても同じ成果が出る。人が入れ替わっても成果は落ちず、新人は早く立ち上がり、マネジメントは指示から仕組みの改善へ移る。だからコストは、一度きりではなく構造から下がり続けます。',
   },
   {
     Icon: Sparkles,
@@ -633,8 +634,11 @@ function Outcomes() {
               <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center mb-4 mx-auto">
                 <o.Icon size={24} className="text-brand-orange" />
               </div>
-              <h3 className="font-black text-brand-navy text-xl mb-3">{o.label}</h3>
+              <h3 className="font-black text-brand-navy text-xl mb-3 [word-break:keep-all]">{o.label}</h3>
               <p className="text-slate-600 text-sm leading-relaxed">{o.desc}</p>
+              {'desc2' in o && (
+                <p className="text-slate-600 text-sm leading-relaxed mt-3">{o.desc2}</p>
+              )}
             </div>
           ))}
         </div>

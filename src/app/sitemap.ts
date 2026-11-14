@@ -11,7 +11,7 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: Metadata
   { path: '/services/soshikizukuri', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/services/kachikata', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/services/ai-chat-assistant', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/services/sheetziv', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/services/sheetviz', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/services/inside-sales', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.8, changeFrequency: 'yearly' },
   { path: '/about', priority: 0.7, changeFrequency: 'yearly' },

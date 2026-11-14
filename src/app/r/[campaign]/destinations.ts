@@ -20,7 +20,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zest2020.com';
 const DESTINATIONS: Record<string, { path: string; campaign: string }> = {
   ai: { path: '/services/ai-chat-assistant', campaign: 'outbound-ai-chat' },
   kachikata: { path: '/services/kachikata', campaign: 'outbound-kachikata' },
-  sheetviz: { path: '/services/sheetziv', campaign: 'outbound-sheetviz' },
+  sheetviz: { path: '/services/sheetviz', campaign: 'outbound-sheetviz' },
   is: { path: '/services/inside-sales', campaign: 'outbound-inside-sales' },
 };
 

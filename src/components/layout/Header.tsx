@@ -17,8 +17,8 @@ const NAV_ITEMS: NavItem[] = [
     ]},
     { group: 'データ活用', items: [
       { label: 'カチカタ', href: '/services/kachikata', desc: 'KFS特定・営業型化' },
-      { label: 'SheetViz', href: '/services/sheetziv', desc: 'Google SheetsベースCRM' },
-      { label: 'インサイドセールス内製化', href: '/services/inside-sales', desc: '90日で自走するIS組織へ' },
+      { label: 'SheetViz', href: '/services/sheetviz', desc: 'Google SheetsベースCRM' },
+      { label: 'インサイドセールス内製化', href: '/services/inside-sales', desc: '最短90日で自走するIS組織へ' },
       { label: 'AIチャットアシスタント', href: '/services/ai-chat-assistant', desc: '見えない機会損失を商談機会へ' },
     ]},
   ]},

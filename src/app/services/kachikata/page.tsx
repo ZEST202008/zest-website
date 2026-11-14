@@ -118,7 +118,7 @@ const ADVANTAGES = [
   {
     icon: <Shield size={22} className="text-brand-orange" />,
     title: '独自学習データ',
-    desc: '複数社の営業データで訓練された独自モデルを保有。業界・商材の特性を踏まえたKFS特定で、汎用AIツールでは出せない精度を実現する。',
+    desc: '複数社への支援を重ねる中で磨き上げてきた、ZEST独自の分析モデル。各社のデータは、その会社の支援以外には一切使用しません。',
   },
 ];
 
@@ -556,7 +556,7 @@ export default function KachikataPage() {
               競争優位性
             </span>
             <h2 className="text-3xl font-black text-white leading-tight mb-5">
-              なぜカチカタだけが<br />「再現性」を実現できるのか
+              カチカタが<br />「再現性」にこだわる理由
             </h2>
             <p className="text-slate-400 text-base leading-8">
               3つの固有資産が、他社にはない精度と実行力を生み出します。

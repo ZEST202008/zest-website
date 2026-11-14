@@ -23,6 +23,8 @@ const nextConfig = {
     return [
       // 会社概要
       { source: '/company', destination: '/about', permanent: true },
+      // SheetViz のURLの綴り違いを修正したため、旧URLから転送する
+      { source: '/services/sheetziv', destination: '/services/sheetviz', permanent: true },
       // プライバシーポリシー（Wixは日本語URLを生成していた）
       // Next.js はエンコード済みのパスで照合するため、パーセントエンコードで書く。
       // 日本語のまま書くと一致せず404になる（実測で確認済み）。
@@ -35,7 +37,7 @@ const nextConfig = {
       // SheetViz の資料ダウンロードページ → SheetViz サービスページ
       {
         source: '/sheetviz%E6%A6%82%E8%A6%81%E8%B3%87%E6%96%99dl',
-        destination: '/services/sheetziv',
+        destination: '/services/sheetviz',
         permanent: true,
       },
       // お知らせ・ニュース → ブログ

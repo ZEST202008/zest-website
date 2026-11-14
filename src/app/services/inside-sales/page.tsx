@@ -8,8 +8,8 @@ import { InsideSalesArt } from '@/components/graphics/service-art';
 import { InsideSales90Diagram } from '@/components/graphics/service-diagrams';
 
 export const metadata: Metadata = {
-  title: 'インサイドセールス内製化プログラム｜90日で自走するIS組織へ',
-  description: '眠っている既存休眠顧客を確実な商談機会へ。月額6万円〜の圧倒的ローコストで、持続可能なIS組織を90日で社内に完全内製化するプログラム。',
+  title: 'インサイドセールス内製化プログラム｜最短90日で自走するIS組織へ',
+  description: '眠っている既存休眠顧客を、取りこぼしの少ない商談機会へ。初期費用150万円・月額3万円で、持続可能なIS組織を最短90日で社内に完全内製化するプログラム。',
   openGraph: {
     images: [{ url: '/og/inside-sales.png', width: 1200, height: 630, alt: 'インサイドセールス内製化プログラム' }],
   },
@@ -144,12 +144,12 @@ export default function InsideSalesPage() {
                 <span className="text-brand-orange">内製化プログラム</span>
               </h1>
               <p className="text-xl text-brand-orange font-bold mb-6">
-                〜自社に眠る「既存休眠顧客」を、確実な商談機会に変える〜
+                〜自社に眠る「既存休眠顧客」を、商談機会に変える〜
               </p>
               <p className="text-slate-600 leading-relaxed max-w-2xl mb-8">
                 企業が持続的にトップラインを拡大するための最適解は、疲弊を伴う焼き畑の新規営業ではなく、
                 すでに保有している顧客資産の<strong className="text-slate-800">LTV（顧客生涯価値）を最大化すること</strong>。
-                本プログラムは、月額6万円〜の圧倒的ローコストで、その仕組みを貴社社内に完全移譲します。
+                本プログラムは、初期費用150万円・月額3万円で、その仕組みを貴社社内に完全移譲します。
               </p>
               <Link href="/contact" className="btn-primary">
                 <ArrowRight size={18} /> 無料相談を予約する
@@ -269,10 +269,12 @@ export default function InsideSalesPage() {
             </div>
             <div className="card border-2 border-brand-orange">
               <div className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-3">本プログラム（内製化後）</div>
-              <div className="text-3xl font-black text-brand-navy mb-1">月額 6万円〜</div>
+              <div className="text-2xl font-black text-brand-navy mb-1 leading-snug">
+                システム費用 月3万円<br />＋ 自社スタッフの人件費
+              </div>
               <p className="text-xs text-slate-400 mb-4">
-                時給1,500円 × 1日5時間 × 月8日（週2日）= 60,000円 / 1名<br />
-                ※ SheetViz CRM 月額30,000円が別途かかります
+                人件費の試算例：時給1,500円 × 1日5時間 × 月8日（週2日）＝ 60,000円 / 1名<br />
+                ※ システム費用（SheetViz IS）はアカウント1〜5名枠。6名以上に増やす場合は別途お見積もりします。
               </p>
               <ul className="space-y-1.5">
                 {['顧客データ・ノウハウはすべて自社資産', '人員を増やすだけで売上が純増', 'AI時代に備えた独自データが蓄積される'].map(t => (
@@ -352,9 +354,9 @@ export default function InsideSalesPage() {
       <section className="py-20">
         <div className="container-inner max-w-4xl" data-reveal>
           <span className="section-label">Evidence</span>
-          <h2 className="section-title">「アポは必然としてこぼれ落ちてくる」と断言できる根拠</h2>
+          <h2 className="section-title">「アポは必然としてこぼれ落ちてくる」。私たちはそう考えています</h2>
           <p className="section-sub mb-10">
-            机上の空論ではありません。2つの絶対的なエビデンスと最強のシステムがセットになっているからです。
+            机上の空論ではありません。正しいプロセスを積み重ねれば、アポは必然としてこぼれ落ちてくる。私たちはそう考え、2つの裏付けとシステムをセットにした型をつくってきました。
           </p>
           <div className="grid md:grid-cols-2 gap-6 mb-10">
             <div className="card">
@@ -371,8 +373,8 @@ export default function InsideSalesPage() {
               <h3 className="font-black text-brand-navy text-lg mb-3">データ分析が導く「統計的裏付け」</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 現場の膨大な架電データ（誰に、いつ、何を話し、どうなったか）をSheetVizで集約・分析。
-                「このプロセスを踏めば、一定確率で成約に近づく」という相関関係が、
-                数学的なファクトとしてすでに特定されています。
+                「このプロセスを踏めば、一定確率で成約に近づく」という相関関係を、
+                データで確かめてきました。
               </p>
             </div>
           </div>
@@ -392,8 +394,8 @@ export default function InsideSalesPage() {
               <h4 className="font-black text-brand-navy mb-2">カチカタ & プレイブック — 勝ちパターンの科学的再現</h4>
               <p className="text-slate-600 text-sm leading-relaxed">
                 特定された「成約に直結する行動（センターピン）」を具体的なトークスクリプトに落とし込み。
-                オペレーターは「科学的に証明された型」通りに実行するだけで、
-                才能や経験に依存せず高い再現性を発揮します。
+                オペレーターはデータで確かめてきた型の通りに実行することで、
+                才能や経験に頼らずに成果を再現しやすくなります。
               </p>
             </div>
           </div>
@@ -420,12 +422,12 @@ export default function InsideSalesPage() {
             </p>
             <div className="border-t border-slate-100 pt-4">
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                SheetViz CRM ランニング費用（別途）
+                SheetViz IS ランニング費用（別途）
               </div>
               <div className="text-2xl font-black text-brand-navy">
                 30,000 <span className="text-sm font-bold text-slate-400">円 / 月（税別）</span>
               </div>
-              <p className="text-slate-500 text-xs mt-1">アカウント数1〜5名枠（管理者1名含む）</p>
+              <p className="text-slate-500 text-xs mt-1">アカウント数1〜5名枠（管理者1名含む）。6名以上に増やす場合は別途お見積もりします。</p>
             </div>
           </div>
           {/* ROI比較 */}
@@ -472,7 +474,7 @@ export default function InsideSalesPage() {
             <Link href="/services/kachikata" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors text-white text-sm font-bold px-4 py-2.5 rounded-xl">
               カチカタについて詳しく <ArrowRight size={15} />
             </Link>
-            <Link href="/services/sheetziv" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors text-white text-sm font-bold px-4 py-2.5 rounded-xl">
+            <Link href="/services/sheetviz" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors text-white text-sm font-bold px-4 py-2.5 rounded-xl">
               SheetVizについて詳しく <ArrowRight size={15} />
             </Link>
           </div>
