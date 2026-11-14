@@ -24,10 +24,10 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zest2020.com';
 export const metadata: Metadata = {
   title: {
     template: '%s | ZEST Inc.',
-    default: 'ZEST Inc. | 経営コンサルティング × データ活用',
+    default: 'ZEST Inc. | 組織づくり × データ活用',
   },
   description:
-    '中小企業の稼ぐ力そのものをつくる。ZESTは経営コンサルティングとデータ活用の2本柱で、勝ち方の特定から現場への定着までを一社ごとに設計します。カチカタ／SheetViz／インサイドセールス内製化／AIチャットアシスタント。',
+    '中小企業の稼ぐ力そのものをつくる。ZESTは組織づくりとデータ活用の2本柱で、勝ち方の特定から現場への定着までを一社ごとに設計します。組織づくり支援／カチカタ／SheetViz／インサイドセールス内製化／AIチャットアシスタント。',
   metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: './',
@@ -62,7 +62,7 @@ const organizationJsonLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/zest-logo.png`,
   description:
-    '経営コンサルティングとデータ活用の2本柱で、中小企業の稼ぐ力そのものをつくる会社。勝ち方の特定から現場への定着までを一社ごとに支援する。',
+    '組織づくりとデータ活用の2本柱で、中小企業の稼ぐ力そのものをつくる会社。勝ち方の特定から現場への定着までを一社ごとに支援する。',
   foundingDate: '2020-08',
   address: {
     '@type': 'PostalAddress',

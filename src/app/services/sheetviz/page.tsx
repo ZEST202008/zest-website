@@ -130,7 +130,7 @@ export default function SheetVizPage() {
       <section className="bg-brand-bg py-20">
         <div className="container-inner" data-reveal>
           <span className="section-label">Automation</span>
-          <h2 className="section-title">4つの自動化で、手作業をゼロに</h2>
+          <h2 className="section-title">4つの自動化で、手作業をなくしていく</h2>
           <p className="section-sub mb-10 max-w-2xl">
             引き継ぎ・通知・集計など、営業組織のルーティン業務を自動化。
             担当者は「売る」ことだけに集中できます。

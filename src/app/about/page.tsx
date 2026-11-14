@@ -20,7 +20,7 @@ const COMPANY_INFO = [
   { label: '設立', value: '2020年8月' },
   { label: '資本金', value: '15,000,000円' },
   { label: '所在地', value: '〒107-0061 東京都港区北青山3-6-7' },
-  { label: '事業内容', value: '経営コンサルティング事業 / データ活用事業（カチカタ・SheetViz・インサイドセールス内製化・AIチャットアシスタント）' },
+  { label: '事業内容', value: '組織づくり事業 / データ活用事業（カチカタ・SheetViz・インサイドセールス内製化・AIチャットアシスタント）' },
   { label: 'メンバー', value: '20名（業務委託・アドバイザー含む）' },
 ];
 
@@ -75,8 +75,8 @@ export default function AboutPage() {
           <span className="section-label">会社概要</span>
           <h1 className="section-title">「勝ち」と「価値」を、組織の力に変える</h1>
           <p className="section-sub">
-            ZESTは、勘と経験を担う<strong className="text-brand-navy">経営コンサルティング</strong>と、
-            データを担う<strong className="text-brand-navy">データ活用</strong>の2本柱で、
+            ZESTは、勘と経験を再現性の高い型にする<strong className="text-brand-navy">組織づくり</strong>と、
+            その型の成功要因をデータで更新し続ける<strong className="text-brand-navy">データ活用</strong>の2本柱で、
             中小企業の<strong className="text-brand-navy">稼ぐ力そのもの</strong>をつくる会社です。
             経営判断の両輪を一社ごとに結び直し、売上・コスト・人材の3つを同時に動かします。
           </p>
@@ -160,7 +160,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   だからZESTは、2本柱で経営に入ります。
-                  <strong className="text-brand-navy">経営コンサルティング</strong>で「何をやるか」を決め、
+                  <strong className="text-brand-navy">組織づくり</strong>で「何をやるか」を決め、
                   <strong className="text-brand-navy">データ活用</strong>でそれを回り続ける仕組みに変える。
                   <strong className="text-brand-navy">カチカタ</strong>で勝ち方の中心（KFS）を特定し、
                   <strong className="text-brand-navy">SheetViz</strong>でその型を日々の業務に実装し、

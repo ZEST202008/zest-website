@@ -23,6 +23,11 @@ const CARDS = [
     sub: '株式会社ZEST 会社概要',
   },
   {
+    file: 'soshikizukuri',
+    title: ['集団から、', '組織へ。'],
+    sub: '組織づくり支援｜成果が出るから、仕事は楽しくなる。',
+  },
+  {
     file: 'kachikata',
     title: ['属人性を排し、', '再現性を極める。'],
     sub: 'カチカタ｜KFS特定・営業の型化サービス',

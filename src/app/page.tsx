@@ -1,10 +1,8 @@
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  ArrowRight, TrendingUp, BadgePercent, Sparkles,
-  Database, Users, Building2, LineChart, Megaphone, BookOpen,
-} from 'lucide-react';
+import { ArrowRight, TrendingUp, BadgePercent, Sparkles } from 'lucide-react';
+import { ShudanToSoshikiFigure } from '@/components/graphics/soshikizukuri-art';
 
 // 読み込み時アニメーションの遅延（ヒーロー）
 const load = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
@@ -55,7 +53,7 @@ function Hero() {
             className="anim-fade-up text-slate-400 text-base leading-relaxed mb-10 max-w-2xl"
             style={load(380)}
           >
-            ZESTは「勘と経験」と「データ」の2本柱で、<br className="hidden md:block" />
+            ZESTは「型」と「データ」の2本柱で、<br className="hidden md:block" />
             中小企業の稼ぐ力そのものをつくります。
           </p>
           <div className="anim-fade-up" style={load(500)}>
@@ -159,7 +157,7 @@ function RibbonDiagram() {
       <svg
         viewBox="0 0 1040 500"
         role="img"
-        aria-label="リボン図。左の輪が経営コンサルティング（勘と経験）、右の輪がデータ活用（データ）、中央の結び目があなたの現場。上の矢印は決めたことを仕組みとして社内に残す流れ、下の矢印はたまったデータが次の経営判断の根拠になる流れ、中央の破線は現場の知見が新しい型になる流れ。"
+        aria-label="リボン図。左の輪が組織づくり（型）、右の輪がデータ活用（データ）、中央の結び目があなたの現場。上の矢印は決めたことを仕組みとして社内に残す流れ、下の矢印はたまったデータが次の経営判断の根拠になる流れ、中央の破線は現場の知見が新しい型になる流れ。"
         className="w-full min-w-[760px] h-auto"
       >
         <defs>
@@ -171,7 +169,7 @@ function RibbonDiagram() {
           </marker>
         </defs>
 
-        {/* 循環：コンサル → データ活用 */}
+        {/* 循環：組織づくり → データ活用 */}
         <g className="rb-part" style={rb(560)}>
           <text x="520" y="96" textAnchor="middle" fontSize="13" fontWeight="700" fill="#e04102">
             決めたことを、仕組みとして社内に残す
@@ -182,10 +180,11 @@ function RibbonDiagram() {
         {/* 左の柱 */}
         <g className="rb-part" style={rb(0)}>
           <path d="M 70,140 L 420,235 L 420,325 L 70,420 L 118,280 Z" fill="#fff5f0" stroke="#e04102" strokeWidth="1.5" />
-          <text x="240" y="232" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#e04102">勘と経験 ／ 人の知恵</text>
-          <text x="240" y="263" textAnchor="middle" fontSize="19" fontWeight="700" fill="#1a2744">経営コンサルティング</text>
-          <text x="240" y="295" textAnchor="middle" fontSize="14" fill="#475569">「何をやるか」を決める</text>
-          <text x="240" y="319" textAnchor="middle" fontSize="14" fill="#475569">一社ごとに、一から設計する</text>
+          <text x="240" y="232" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.08em" fill="#e04102">型 ／ 人の知恵</text>
+          <text x="240" y="263" textAnchor="middle" fontSize="19" fontWeight="700" fill="#1a2744">組織づくり</text>
+          <text x="240" y="295" textAnchor="middle" fontSize="14" fill="#475569">人が成果を発揮するための道しるべを示し、</text>
+          <text x="240" y="312" textAnchor="middle" fontSize="14" fill="#475569">人と規律で回す</text>
+          <text x="240" y="331" textAnchor="middle" fontSize="14" fill="#475569">一社ごとに、一から設計する</text>
         </g>
 
         {/* 右の柱 */}
@@ -212,7 +211,7 @@ function RibbonDiagram() {
           <text x="520" y="404" textAnchor="middle" fontSize="12" fill="#64748b">現場で生まれた知見が、新しい型になる</text>
         </g>
 
-        {/* 循環：データ活用 → コンサル */}
+        {/* 循環：データ活用 → 組織づくり */}
         <g className="rb-part" style={rb(690)}>
           <path d="M 748,368 Q 520,536 292,368" fill="none" stroke="#e04102" strokeWidth="2" markerEnd="url(#hp-arrow-orange)" />
           <text x="520" y="478" textAnchor="middle" fontSize="13" fontWeight="700" fill="#e04102">
@@ -239,10 +238,10 @@ function MobileRibbon() {
   return (
     <div className="md:hidden">
       <div className="rounded-2xl border border-brand-orange/40 bg-orange-50/50 p-5 text-center">
-        <div className="text-xs font-bold tracking-wider text-brand-orange mb-1">勘と経験 ／ 人の知恵</div>
-        <div className="font-black text-brand-navy text-lg mb-2">経営コンサルティング</div>
+        <div className="text-xs font-bold tracking-wider text-brand-orange mb-1">型 ／ 人の知恵</div>
+        <div className="font-black text-brand-navy text-lg mb-2">組織づくり</div>
         <p className="text-slate-600 text-sm leading-relaxed">
-          「何をやるか」を決める。一社ごとに、一から設計する。
+          人が成果を発揮するための道しるべを示し、人と規律で回す。一社ごとに、一から設計する。
         </p>
       </div>
 
@@ -287,8 +286,8 @@ function TwoPillars() {
             あなたの現場で結ばれる。
           </h2>
           <p className="section-sub mt-3">
-            ZESTの事業は、勘と経験を担う<strong className="text-brand-navy font-black">経営コンサルティング</strong>と、
-            データを担う<strong className="text-brand-navy font-black">データ活用</strong>の2本柱。
+            ZESTの事業は、勘と経験を再現性の高い型にする<strong className="text-brand-navy font-black">組織づくり</strong>と、
+            その型の成功要因をデータで更新し続ける<strong className="text-brand-navy font-black">データ活用</strong>の2本柱。
             経営判断の両輪を、それぞれの柱が担います。
           </p>
         </div>
@@ -359,8 +358,8 @@ function BothFigure() {
 const WHY_TWO = [
   {
     Figure: GutOnlyFigure,
-    title: '勘と経験だけでは',
-    desc: '事実と仕組みの裏付けがないため、意思決定に確証が持てない。正しい方向に進んでいるのかが不明瞭なまま走ることになります。',
+    title: '型だけでは',
+    desc: '事実の裏付けがないため、その型が正しいのかを確かめられない。正しい方向に進んでいるのかが不明瞭なまま走ることになります。',
     accent: false,
   },
   {
@@ -372,7 +371,7 @@ const WHY_TWO = [
   {
     Figure: BothFigure,
     title: '2つが噛み合うと',
-    desc: 'あなたの会社の意志と独自性に、事実と仕組みの裏付けがつく。進む方向を確かめながら、その会社にしかない勝ち方として回り続けます。',
+    desc: 'あなたの会社の意志と独自性が型になり、その型に事実と仕組みの裏付けがつく。進む方向を確かめながら、その会社にしかない勝ち方として回り続けます。',
     accent: true,
   },
 ];
@@ -385,7 +384,7 @@ function WhyTwoPillars() {
           <span className="section-label">なぜ2本柱なのか</span>
           <h2 className="section-title">片方だけでは、エンジンにならない。</h2>
           <p className="section-sub mt-3">
-            「データ」と「勘と経験」は、それぞれ単独では本領を発揮しません。互いを補い合って、はじめて成長のエンジンになります。
+            「データ」と「型」は、それぞれ単独では本領を発揮しません。互いを補い合って、はじめて成長のエンジンになります。
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -419,19 +418,19 @@ function WhyTwoPillars() {
 // ── 循環 ──────────────────────────────────────────────────
 const CYCLE = [
   {
-    from: '経営コンサルティング',
+    from: '組織づくり',
     to: 'データ活用',
-    desc: '経営コンサルで決めたことを、データ活用の仕組みで社内に残す。',
+    desc: '組織づくりで設定した、成果を左右する重要な要因（KFS）を、データ活用でつくるデータ基盤によって、常にデータに基づいて更新し続ける。',
   },
   {
     from: 'データ活用',
-    to: '経営コンサルティング',
+    to: '組織づくり',
     desc: 'たまったデータが、次の経営判断の根拠になる。',
   },
   {
     from: '現場の知見',
     to: '新しい型',
-    desc: 'コンサルの現場で生まれた知見を型にして、データ活用の商品にする。',
+    desc: '組織づくりの現場で生まれた知見を型にして、データ活用の商品にする。',
   },
 ];
 
@@ -460,94 +459,39 @@ function Cycle() {
   );
 }
 
-// ── 柱①：経営コンサルティング ──────────────────────────────
-const ACHIEVEMENTS = [
-  {
-    Icon: Building2,
-    category: '経営・事業戦略',
-    achievement:
-      '中期経営計画の策定と実行管理を一体で支援。事業ポートフォリオの見直しと組織再編を実現。',
-    tags: ['中期経営計画', '組織設計', 'ポートフォリオ戦略'],
-  },
-  {
-    Icon: LineChart,
-    category: '営業・セールスプロセス',
-    achievement:
-      'KFS（センターピン）の特定とセールスプレイブック全社展開で、成約率改善・新人の早期戦力化を実現。',
-    tags: ['KFS特定', 'プレイブック策定', '属人化排除'],
-  },
-  {
-    Icon: Users,
-    category: '採用・人材育成',
-    achievement:
-      '採用ペルソナと評価基準を再設計し、定着率の高い採用フローと次世代リーダー育成を複数社で実現。',
-    tags: ['採用ペルソナ設計', '人材育成', '評価制度構築'],
-  },
-  {
-    Icon: Megaphone,
-    category: 'マーケティング体制',
-    achievement:
-      'ゼロからのマーケティングチーム組成と運用ガイド整備で、商談転換率の向上に貢献。',
-    tags: ['チーム組成', '顧客インサイト分析', 'マーケOps'],
-  },
-  {
-    Icon: BookOpen,
-    category: 'マニュアル・ナレッジ整備',
-    achievement:
-      '属人化していた業務ノウハウを言語化・標準化。新人が独力で業務遂行できる体制を構築。',
-    tags: ['業務マニュアル整備', 'ナレッジ管理', '引き継ぎ標準化'],
-  },
-  {
-    Icon: Database,
-    category: 'DX推進・データ経営',
-    achievement:
-      'SheetViz CRM導入でデータ経営に移行。経営判断のスピードと根拠の精度が大幅に向上。',
-    tags: ['CRM開発・導入', 'BIダッシュボード', 'データドリブン経営'],
-  },
-];
-
-function ConsultingPillar() {
+// ── 柱①：組織づくり ──────────────────────────────────────
+// 詳しい説明は /services/soshikizukuri に置き、ここは入口だけにする
+function SoshikiPillar() {
   return (
     <section className="py-20 bg-white">
       <div className="container-inner">
-        <div className="text-center mb-12 max-w-3xl mx-auto" data-reveal>
-          <span className="section-label">柱① 経営コンサルティング</span>
+        <div className="text-center mb-8 max-w-3xl mx-auto" data-reveal>
+          <span className="section-label">柱① 組織づくり</span>
           <h2 className="section-title">強い会社を、より強く。</h2>
-          <p className="section-sub mt-3">
-            立て直しや再生ではなく、伸びている会社の次の成長を加速させることに力を発揮します。
-            テーマと期間を決める<strong className="text-brand-navy font-black">プロジェクト型</strong>と、
-            継続して経営判断を支える<strong className="text-brand-navy font-black">顧問型</strong>で関わります。
-          </p>
+          <div className="section-sub mt-4 space-y-3 text-left md:text-center">
+            <p>
+              目指すのは、ミッションを全員で共有し、共感でつながり、一人ひとりが自らを律して、自走する組織です。
+              人が生き生きと働き、成果を発揮し続ける組織です。
+            </p>
+            <p>
+              そのために必要なのは、特別なやる気や、一部の人の頑張りに頼ることではありません。
+              向かう方向に共感し、マネジメントの型に沿って動けば、誰もが成果を出せる。成果が出るから、人は次も動く。
+            </p>
+            <p>
+              マネジメントとは何か。マネージャーに何が求められるのか。
+              その答えが型として明確になっていて、どのマネージャーも同じ言葉で答えられる。
+              属人性ではなく、<strong className="text-brand-navy font-black">再現性のある型</strong>で成果を出し続ける組織。それが、ZESTの考えるあるべき組織です。
+            </p>
+          </div>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {ACHIEVEMENTS.map((a, i) => (
-            <div
-              key={a.category}
-              data-reveal
-              style={rev((i % 3) * 90)}
-              className="card hover:border-brand-orange/30 flex flex-col"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">
-                  <a.Icon size={18} className="text-brand-orange" />
-                </div>
-                <span className="text-xs font-bold text-brand-orange tracking-wider">
-                  {a.category}
-                </span>
-              </div>
-              <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">{a.achievement}</p>
-              <div className="flex flex-wrap gap-1.5 mt-auto">
-                {a.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs bg-slate-100 text-slate-500 font-semibold px-2 py-0.5 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+        <div className="max-w-4xl mx-auto" data-reveal>
+          <ShudanToSoshikiFigure />
+        </div>
+        <div className="text-center mt-6" data-reveal>
+          <Link href="/services/soshikizukuri" className="btn-primary">
+            <ArrowRight size={18} />
+            組織づくり支援について詳しく見る
+          </Link>
         </div>
       </div>
     </section>
@@ -562,7 +506,7 @@ const SERVICES = [
     source: '眠っている休眠顧客',
     tagline: '休眠顧客を商談機会に変える',
     description:
-      '眠っている既存顧客を確実な商談へ。月額6万円〜の圧倒的ローコストで、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
+      '眠っている既存顧客を、取りこぼしの少ない商談機会へ。初期費用150万円・月額3万円で、パートスタッフが成果を出す持続可能なIS組織を社内に完全内製化します。',
     logo: null as string | null,
   },
   {
@@ -575,12 +519,12 @@ const SERVICES = [
     logo: '/kachikata-logo.png' as string | null,
   },
   {
-    slug: 'sheetziv',
+    slug: 'sheetviz',
     name: 'SheetViz',
     source: '営業の日々の活動',
     tagline: '営業データをリアルタイムで可視化',
     description:
-      'Google SheetsとAppSheetを使った、導入コストゼロの営業支援CRM。フィールド・インサイド・管理職の3役割に最適化し、データを自社資産に変えます。',
+      '追加ライセンス不要、いつものGoogleスプレッドシートで動く営業支援CRM。フィールド・インサイド・管理職の3役割に最適化し、データを自社資産に変えます。',
     logo: '/sheetviz-logo.png' as string | null,
   },
   {
@@ -589,14 +533,14 @@ const SERVICES = [
     source: 'サイトの訪問者',
     tagline: '見えない機会損失を商談機会へ',
     description:
-      'Webサイトに眠る機会損失を確実な商談へ。AIが24時間訪問者の問い合わせに対応し、自然な会話でリードを獲得。初期費用50万円・月額5万円のフルマネージド。',
+      'Webサイトに眠る機会損失を、取りこぼしの少ない商談へ。AIが24時間訪問者の問い合わせに対応し、自然な会話でリードを獲得。初期費用50万円・月額5万円のフルマネージド。',
     logo: '/ai_chat_assistant-logo.png' as string | null,
   },
 ];
 
 function DataPillar() {
   return (
-    <section className="py-20 bg-brand-bg">
+    <section id="data" className="scroll-mt-20 py-20 bg-brand-bg">
       <div className="container-inner">
         <div className="text-center mb-12 max-w-3xl mx-auto" data-reveal>
           <span className="section-label">柱② データ活用</span>
@@ -662,8 +606,9 @@ const OUTCOMES = [
   },
   {
     Icon: BadgePercent,
-    label: 'コストが下がる',
-    desc: 'パートで回る営業の仕組み、AIによる定型業務の自動化、新人の早期戦力化。経費を削るのではなく、売上をつくるためのコストそのものが下がり続ける状態をつくります。',
+    label: '見えないコストが、構造から下がる',
+    desc: '人が辞めるたびにノウハウが消え、一から教え直す。マネージャーの時間が確認と指示に奪われる。報われない仕事が続き、現場の活力が落ちていく。帳簿には載らないけれど、確実に会社を削っているコストです。',
+    desc2: 'ZESTは勝ち方を「型」にして社内に残します。型があれば、誰がやっても同じ成果が出る。人が入れ替わっても成果は落ちず、新人は早く立ち上がり、マネジメントは指示から仕組みの改善へ移る。だからコストは、一度きりではなく構造から下がり続けます。',
   },
   {
     Icon: Sparkles,
@@ -689,8 +634,11 @@ function Outcomes() {
               <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center mb-4 mx-auto">
                 <o.Icon size={24} className="text-brand-orange" />
               </div>
-              <h3 className="font-black text-brand-navy text-xl mb-3">{o.label}</h3>
+              <h3 className="font-black text-brand-navy text-xl mb-3 [word-break:keep-all]">{o.label}</h3>
               <p className="text-slate-600 text-sm leading-relaxed">{o.desc}</p>
+              {'desc2' in o && (
+                <p className="text-slate-600 text-sm leading-relaxed mt-3">{o.desc2}</p>
+              )}
             </div>
           ))}
         </div>
@@ -769,7 +717,7 @@ export default function HomePage() {
       <TwoPillars />
       <WhyTwoPillars />
       <Cycle />
-      <ConsultingPillar />
+      <SoshikiPillar />
       <DataPillar />
       <Outcomes />
       <Manifesto />
