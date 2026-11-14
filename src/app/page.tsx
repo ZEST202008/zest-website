@@ -607,8 +607,7 @@ const OUTCOMES = [
   {
     Icon: BadgePercent,
     label: '見えないコストが、構造から下がる',
-    desc: '人が辞めるたびにノウハウが消え、一から教え直す。マネージャーの時間が確認と指示に奪われる。報われない仕事が続き、現場の活力が落ちていく。帳簿には載らないけれど、確実に会社を削っているコストです。',
-    desc2: 'ZESTは勝ち方を「型」にして社内に残します。型があれば、誰がやっても同じ成果が出る。人が入れ替わっても成果は落ちず、新人は早く立ち上がり、マネジメントは指示から仕組みの改善へ移る。だからコストは、一度きりではなく構造から下がり続けます。',
+    desc: '人が辞めるたびにノウハウが消え、マネージャーの時間は確認と指示に奪われる。帳簿に載らないまま会社を削るコストです。勝ち方を「型」にして残せば、人が替わっても成果は落ちず、構造から下がり続けます。',
   },
   {
     Icon: Sparkles,
@@ -636,9 +635,6 @@ function Outcomes() {
               </div>
               <h3 className="font-black text-brand-navy text-xl mb-3 [word-break:keep-all]">{o.label}</h3>
               <p className="text-slate-600 text-sm leading-relaxed">{o.desc}</p>
-              {'desc2' in o && (
-                <p className="text-slate-600 text-sm leading-relaxed mt-3">{o.desc2}</p>
-              )}
             </div>
           ))}
         </div>
