@@ -5,7 +5,6 @@ import type { ReactNode } from 'react';
 const ORANGE = '#e04102';
 const NAVY = '#1a2744';
 const LINE = '#cbd5e1';
-const FAINT = '#e2e8f0';
 const TEXT = '#334155';
 const MUTED = '#64748b';
 
@@ -23,7 +22,7 @@ function Figure({
   children: ReactNode;
 }) {
   return (
-    <figure className="my-8">
+    <figure className="my-8 first:mt-0 last:mb-0">
       <div className="overflow-x-auto">
         <svg
           role="img"
@@ -127,22 +126,23 @@ export function SeikaCycleFigure() {
       caption="図: やる気を待つのではなく、型の反復で成果を出し、その成果が次のやる気を生む。"
       viewBox="0 0 900 360"
     >
-      <Box x={355} y={18} w={190} h={62} title="型を反復する" accent />
-      <Box x={672} y={148} w={190} h={62} title="成果が出る" />
-      <Box x={355} y={278} w={190} h={62} title="創意工夫が生まれる" />
-      <Box x={38} y={148} w={190} h={62} title="やりがいが生まれる" />
+      <Box x={355} y={19} w={190} h={62} title="型を反復する" accent />
+      <Box x={675} y={149} w={190} h={62} title="成果が出る" />
+      <Box x={355} y={279} w={190} h={62} title="創意工夫が生まれる" />
+      <Box x={35} y={149} w={190} h={62} title="やりがいが生まれる" />
 
+      {/* 4本とも同じ曲がり方になるよう、制御点を左右上下で鏡写しにしている */}
       <g fill="none" stroke={ORANGE} strokeWidth="2.5" markerEnd="url(#sz-arrow)">
-        <path d="M 553 54 Q 700 54 755 142" />
-        <path d="M 755 216 Q 700 334 553 309" />
-        <path d="M 347 309 Q 200 334 145 216" />
-        <path d="M 145 142 Q 200 24 347 49" />
+        <path d="M 551 62 C 662 62, 764 92, 764 142" />
+        <path d="M 764 218 C 764 268, 662 298, 551 298" />
+        <path d="M 349 298 C 238 298, 136 268, 136 218" />
+        <path d="M 136 142 C 136 92, 238 62, 349 62" />
       </g>
 
-      <text x="660" y="96" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>反復するから出る</text>
-      <text x="672" y="286" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>成果がやる気を生む</text>
-      <text x="232" y="286" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>型に工夫を盛り込む</text>
-      <text x="228" y="96" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>良い工夫が次の型に</text>
+      <text x="656" y="112" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>反復するから出る</text>
+      <text x="656" y="254" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>成果がやる気を生む</text>
+      <text x="244" y="254" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>型に工夫を盛り込む</text>
+      <text x="244" y="112" textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>良い工夫が次の型に</text>
 
       <circle cx="450" cy="180" r="74" fill={ORANGE} opacity="0.08" />
       <text x="450" y="174" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>組織が</text>
@@ -164,23 +164,24 @@ export function KouzouFigure() {
       <text x="450" y="76" textAnchor="middle" fontSize="12" fill={MUTED}>人が迷わず動ける方向を示す</text>
 
       <g fill="none" stroke={ORANGE} strokeWidth="2" markerEnd="url(#sz-arrow)">
-        <path d="M 300 96 L 300 136" />
-        <path d="M 600 96 L 600 136" />
+        <path d="M 290 96 L 290 136" />
+        <path d="M 610 96 L 610 136" />
       </g>
 
-      <rect x="140" y="140" width="320" height="96" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2" />
-      <text x="300" y="174" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>人とチーム</text>
-      <text x="300" y="196" textAnchor="middle" fontSize="12" fontWeight="700" fill={ORANGE}>中心：評価</text>
-      <text x="300" y="218" textAnchor="middle" fontSize="12" fill={MUTED}>人が生き生きと働き、育つ</text>
+      <rect x="140" y="140" width="300" height="96" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2" />
+      <text x="290" y="174" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>人とチーム</text>
+      <text x="290" y="196" textAnchor="middle" fontSize="12" fontWeight="700" fill={ORANGE}>中心：評価</text>
+      <text x="290" y="218" textAnchor="middle" fontSize="12" fill={MUTED}>人が生き生きと働き、育つ</text>
 
-      <rect x="440" y="140" width="320" height="96" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2" />
-      <text x="600" y="174" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>規律と仕組み</text>
-      <text x="600" y="196" textAnchor="middle" fontSize="12" fontWeight="700" fill={ORANGE}>中心：型</text>
-      <text x="600" y="218" textAnchor="middle" fontSize="12" fill={MUTED}>決めたことをやり切る</text>
+      <rect x="460" y="140" width="300" height="96" rx="12" fill="#ffffff" stroke={NAVY} strokeWidth="2" />
+      <text x="610" y="174" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>規律と仕組み</text>
+      <text x="610" y="196" textAnchor="middle" fontSize="12" fontWeight="700" fill={ORANGE}>中心：型</text>
+      <text x="610" y="218" textAnchor="middle" fontSize="12" fill={MUTED}>決めたことをやり切る</text>
 
+      {/* 2本の柱は、どちらも真下の出口へ向ける */}
       <g fill="none" stroke={ORANGE} strokeWidth="2" markerEnd="url(#sz-arrow)">
-        <path d="M 300 236 L 300 258 L 450 258 L 450 274" />
-        <path d="M 600 236 L 600 258 L 450 258" />
+        <path d="M 290 236 L 290 272" />
+        <path d="M 610 236 L 610 272" />
       </g>
 
       <rect x="150" y="278" width="600" height="56" rx="12" fill={ORANGE} />
@@ -199,18 +200,18 @@ export function ManagementCycleFigure() {
       viewBox="0 0 900 360"
     >
       <Box x={350} y={16} w={200} h={70} title="計画と調整" sub="道しるべを示す" num="1" accent />
-      <Box x={668} y={146} w={200} h={70} title="組織化と統率" sub="人とチームを率いる" num="2" />
+      <Box x={670} y={146} w={200} h={70} title="組織化と統率" sub="人とチームを率いる" num="2" />
       <Box x={350} y={276} w={200} h={70} title="委任と検証" sub="規律でやり切る" num="3" />
-      <Box x={32} y={146} w={200} h={70} title="承認と型化" sub="成果を返し、型にする" num="4" />
+      <Box x={30} y={146} w={200} h={70} title="承認と型化" sub="成果を返し、型にする" num="4" />
 
       <g fill="none" stroke={ORANGE} strokeWidth="2.5" markerEnd="url(#sz-arrow)">
-        <path d="M 558 54 Q 706 54 758 140" />
-        <path d="M 758 222 Q 706 336 558 311" />
-        <path d="M 342 311 Q 196 336 142 222" />
+        <path d="M 556 60 C 666 60, 760 90, 760 140" />
+        <path d="M 760 222 C 760 272, 666 302, 556 302" />
+        <path d="M 344 302 C 234 302, 140 272, 140 222" />
       </g>
       {/* ④ → ① は太く描いて、一周して戻ることをはっきり見せる */}
-      <path d="M 142 140 Q 196 20 342 46" fill="none" stroke={ORANGE} strokeWidth="4" markerEnd="url(#sz-arrow)" />
-      <text x="214" y="86" textAnchor="middle" fontSize="12" fontWeight="700" fill={ORANGE}>型の上から、次の一周</text>
+      <path d="M 140 140 C 140 90, 234 60, 344 60" fill="none" stroke={ORANGE} strokeWidth="4" markerEnd="url(#sz-arrow)" />
+      <text x="246" y="112" textAnchor="middle" fontSize="12" fontWeight="700" fill={NAVY}>型の上から、次の一周</text>
 
       <circle cx="450" cy="181" r="78" fill={ORANGE} opacity="0.08" />
       <text x="450" y="175" textAnchor="middle" fontSize="15" fontWeight="700" fill={NAVY}>一周ごとに</text>
@@ -232,7 +233,7 @@ export function InsightProcessFigure() {
     <Figure
       label="事前シート、ヒアリング、テーマごとの壁打ち、整理と提出、フィックスの5つの工程が左から右へ進む図。中心の壁打ちを強調している。"
       caption="図: 答えを渡すのではなく、問いで構想を引き出し、対話のなかで発展させる5工程。"
-      viewBox="0 0 900 230"
+      viewBox="0 0 900 160"
     >
       {steps.map((s, i) => (
         <g key={s.title}>
@@ -252,10 +253,6 @@ export function InsightProcessFigure() {
           )}
         </g>
       ))}
-      <line x1="24" y1="168" x2="876" y2="168" stroke={FAINT} strokeWidth="1.5" />
-      <text x="278" y="192" textAnchor="middle" fontSize="12" fill={MUTED}>1回1時間ほど × 2〜3回</text>
-      <text x="622" y="192" textAnchor="middle" fontSize="12" fill={MUTED}>ヒアリング完了後、約1か月で提出</text>
-      <text x="794" y="212" textAnchor="middle" fontSize="12" fill={MUTED}>確認ミーティングで確定</text>
     </Figure>
   );
 }

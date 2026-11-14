@@ -386,22 +386,25 @@ export default function SoshikizukuriPage() {
             提案や見積もりは含まない、社長の考えを整理することだけに特化したサービスです。
           </p>
           <div className="card mt-8 border-2 border-brand-orange" data-reveal>
-            <dl className="divide-y divide-slate-100 border-b border-slate-100 pb-4 mb-5">
-              <div className="flex items-baseline justify-between gap-4 py-3 first:pt-0">
-                <dt className="text-xs font-bold text-slate-500">インサイトレポート</dt>
-                <dd className="text-3xl font-black text-brand-orange leading-none">
-                  30<span className="text-lg">万円</span>
-                  <span className="text-sm font-normal text-slate-500">（税別）</span>
-                </dd>
+            <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-slate-100 pb-4">
+              <div>
+                <p className="text-xs font-bold text-slate-500 mb-1">入口の商品</p>
+                <p className="text-xl font-black text-brand-navy leading-none">インサイトレポート</p>
               </div>
-            </dl>
-            <p className="font-bold text-brand-navy mb-3">進め方</p>
+              <p className="text-3xl font-black text-brand-orange leading-none">
+                30<span className="text-lg">万円</span>
+                <span className="text-sm font-normal text-slate-500">（税別）</span>
+              </p>
+            </div>
+            <p className="font-bold text-brand-navy mt-5 mb-2">進め方</p>
             <p className="text-sm text-slate-600 leading-relaxed">
               1回1時間ほどのヒアリングを2〜3回行い、その中でテーマごとに壁打ちを重ねます。
               ヒアリングを終えてから約1か月で、社長の言葉でまとめたドキュメントを提出します。
               そのドキュメントをもとに確認のミーティングを行い、内容を確定して納品します。
             </p>
-            <InsightProcessFigure />
+            <div className="my-5">
+              <InsightProcessFigure />
+            </div>
             <Link href="/contact" className="btn-primary">
               <ArrowRight size={18} /> インサイトレポートについて相談する
             </Link>
