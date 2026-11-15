@@ -294,7 +294,7 @@ export default function InsideSalesPage() {
           <span className="section-label">Deliverables</span>
           <h2 className="section-title">貴社に完全移譲する「4つの営業資産」</h2>
           <p className="section-sub mb-12 max-w-2xl">
-            一過性のコンサルではなく、プログラム終了後も自走し続ける資産を丸ごとお渡しします。
+            一過性の外注ではなく、プログラム終了後も自走し続ける資産を丸ごとお渡しします。
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {PACKAGES.map((p) => (

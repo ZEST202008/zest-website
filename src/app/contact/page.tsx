@@ -5,7 +5,7 @@ import { AnalyticsEvent } from '@/lib/analytics';
 
 export const metadata: Metadata = {
   title: 'お問い合わせ・無料相談',
-  description: '営業組織の型化・データ活用についての無料相談を受け付けています。まずはお気軽にご連絡ください。',
+  description: '組織づくり・データ活用についての無料相談を受け付けています。まずはお気軽にご連絡ください。',
 };
 
 const FORM_URL =
@@ -26,7 +26,7 @@ export default function ContactPage() {
           <h1 className="section-title">まずは話すだけで大丈夫です。</h1>
           <p className="section-sub">
             「何から始めればよいかわからない」という段階からお気軽にご相談ください。
-            現状のCRM・データ体制は問いません。
+            組織づくり・データ活用のどちらからでも、現状の体制は問いません。
           </p>
         </div>
 

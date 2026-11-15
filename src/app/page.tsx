@@ -691,7 +691,7 @@ function CtaSection() {
         <span className="section-label">お問い合わせ</span>
         <h2 className="section-title mb-4">まずは、話してみてください。</h2>
         <p className="text-slate-600 mb-10 leading-relaxed">
-          現状のデータ環境・ツール・課題は問いません。<br />
+          組織づくり・データ活用のどちらからでも、現状の体制は問いません。<br />
           「何から始めればいいかわからない」その段階から、ZESTが一緒に考えます。
         </p>
         <Link href="/contact" className="btn-primary text-base px-8 py-4">

@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'ブログ',
-  description: '営業組織のデータ活用・型化に関するノウハウや事例をお届けします。',
+  description: '組織づくりとデータ活用に関するノウハウや事例、ZESTからのお知らせをお届けします。',
 };
 
 // 10分ごとに作り直す。公開直後に反映したいときは /api/revalidate を叩く。
@@ -26,14 +26,14 @@ export default async function BlogPage() {
       <div className="container-inner">
         <div className="mb-12">
           <span className="section-label">ブログ</span>
-          <h1 className="section-title">営業組織の型化・データ活用</h1>
+          <h1 className="section-title">組織づくりとデータ活用</h1>
           <p className="section-sub">ノウハウや事例、ZESTからのお知らせをお届けします。</p>
         </div>
 
         {posts.length === 0 ? (
           <div className="text-center py-20 text-slate-400">
             <p className="text-lg mb-2">記事を準備中です</p>
-            <p className="text-sm">Notionで記事を作成すると自動的に表示されます</p>
+            <p className="text-sm">公開までもうしばらくお待ちください</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

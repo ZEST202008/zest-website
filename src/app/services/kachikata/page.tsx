@@ -133,7 +133,7 @@ const COMPARISON_AXES = [
 
 type Mark = 'great' | 'ok' | 'bad';
 const COMPARISON_DATA: { company: string; marks: Mark[] }[] = [
-  { company: '大手コンサル', marks: ['bad', 'bad', 'bad', 'ok', 'bad'] },
+  { company: '大手ファーム', marks: ['bad', 'bad', 'bad', 'ok', 'bad'] },
   { company: 'SFAベンダー', marks: ['ok', 'ok', 'ok', 'ok', 'ok'] },
   { company: '営業研修', marks: ['bad', 'great', 'great', 'bad', 'bad'] },
   { company: 'カチカタ', marks: ['great', 'great', 'great', 'great', 'great'] },
