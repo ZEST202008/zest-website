@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getBlogPosts, getBlogPostContent } from '@/lib/notion';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
@@ -25,14 +26,17 @@ export async function generateMetadata(
     if (post) {
       return { title: post.title, description: post.excerpt };
     }
-  } catch {}
-  return { title: 'ブログ記事' };
+  } catch (e) {
+    console.error('[blog] メタデータの取得に失敗しました', e);
+  }
+  return { title: '記事が見つかりません', robots: { index: false } };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   let post: any = null;
   let content = '';
+  let fetchFailed = false;
 
   try {
     const posts = await getBlogPosts();
@@ -42,17 +46,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
   } catch (e) {
     console.error('[blog] 記事の取得に失敗しました', e);
+    fetchFailed = true;
   }
 
-  if (!post) {
+  // Notionから取れなかっただけのときは404にしない。
+  // 一時的な障害で、生きている記事まで検索結果から外されるのを避ける。
+  if (!post && fetchFailed) {
     return (
       <div className="container-inner py-20 text-center">
-        <p className="text-slate-500">記事が見つかりませんでした</p>
+        <p className="text-slate-500">記事を読み込めませんでした。時間をおいて開いてください。</p>
         <Link href="/blog" className="btn-secondary mt-6 inline-flex">
           ブログ一覧に戻る
         </Link>
       </div>
     );
+  }
+
+  // Notionから消された記事・存在しないURLは404を返す（ソフト404にしない）
+  if (!post) {
+    notFound();
   }
 
   return (
