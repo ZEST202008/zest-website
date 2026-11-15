@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   description: '営業組織のデータ活用・型化に関するノウハウや事例をお届けします。',
 };
 
-export const revalidate = 3600; // 1時間ごとに再生成
+// 10分ごとに作り直す。公開直後に反映したいときは /api/revalidate を叩く。
+export const revalidate = 600;
 
 export default async function BlogPage() {
   let posts: Awaited<ReturnType<typeof getBlogPosts>> = [];
@@ -16,7 +17,8 @@ export default async function BlogPage() {
   try {
     posts = await getBlogPosts();
   } catch (e) {
-    // Notion未設定時はサンプル表示
+    // 取得に失敗しても画面は出す。原因が分かるようログには残す
+    console.error('[blog] Notionからの記事取得に失敗しました', e);
   }
 
   return (
