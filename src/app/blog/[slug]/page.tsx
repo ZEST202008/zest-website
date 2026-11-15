@@ -3,7 +3,8 @@ import { getBlogPosts, getBlogPostContent } from '@/lib/notion';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-export const revalidate = 3600;
+// 10分ごとに作り直す。公開直後に反映したいときは /api/revalidate を叩く。
+export const revalidate = 600;
 
 export async function generateStaticParams() {
   try {
@@ -40,7 +41,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       content = await getBlogPostContent(post.id);
     }
   } catch (e) {
-    // フォールバック
+    console.error('[blog] 記事の取得に失敗しました', e);
   }
 
   if (!post) {

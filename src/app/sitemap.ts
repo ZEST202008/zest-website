@@ -39,7 +39,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
-  } catch {
+  } catch (e) {
+    console.error('[sitemap] Notionからの記事取得に失敗しました', e);
     blogEntries = [];
   }
 
