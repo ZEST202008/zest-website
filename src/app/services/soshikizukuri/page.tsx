@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   description:
     '成果が出るから、仕事は楽しくなる。型で成果を出し、成果でやる気を生む組織づくり。道しるべ・人とチーム・規律と仕組みの3つで、自走する組織をつくります。入口は30万円（税別）のインサイトレポート。',
   openGraph: {
-    images: [{ url: '/og/soshikizukuri.png', width: 1200, height: 630, alt: '組織づくり支援｜集団から、組織へ' }],
+    images: [{ url: '/og/v2/soshikizukuri.png', width: 1200, height: 630, alt: '組織づくり支援｜集団から、組織へ' }],
   },
   twitter: {
-    images: ['/og/soshikizukuri.png'],
+    images: ['/og/v2/soshikizukuri.png'],
   },
 };
 

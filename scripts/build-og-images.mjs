@@ -1,7 +1,12 @@
 // OGP画像（1200x630）をSVGから書き出す。
-// 生成物 public/og/*.png はコミット済みなので、文言やデザインを変えたいときだけ
+// 生成物はコミット済みなので、文言やデザインを変えたいときだけ
 // `node scripts/build-og-images.mjs` を実行する。
 // 日本語の字形はローカルの Hiragino Sans を使って描画するため、macOS 上で実行すること。
+//
+// 出力先にバージョンを付けている理由：
+// LINEやSlackは og:image のURL単位で画像をキャッシュする。ファイル名を変えないと、
+// 中身を差し替えても共有カードには古い画像が出続ける。文言を変えたときは
+// OUT_DIR のバージョンを上げ、各ページのメタデータの参照先も合わせて変えること。
 import sharp from 'sharp';
 import { mkdir } from 'node:fs/promises';
 
@@ -10,11 +15,12 @@ const H = 630;
 const NAVY = '#1a2744';
 const ORANGE = '#e04102';
 const FONT = 'Hiragino Sans, Noto Sans JP, sans-serif';
+const OUT_DIR = 'public/og/v2';
 
 const CARDS = [
   {
     file: 'default',
-    title: ['経営コンサルティング', '× データ活用'],
+    title: ['組織づくり', '× データ活用'],
     sub: '中小企業の稼ぐ力そのものをつくる。',
   },
   {
@@ -39,7 +45,7 @@ const CARDS = [
   },
   {
     file: 'inside-sales',
-    title: ['休眠顧客を、', '確実な商談機会に。'],
+    title: ['休眠顧客を、', '商談機会に。'],
     sub: 'インサイドセールス内製化プログラム',
   },
   {
@@ -99,12 +105,12 @@ async function whiteLogo(width) {
     .toBuffer();
 }
 
-await mkdir('public/og', { recursive: true });
+await mkdir(OUT_DIR, { recursive: true });
 const logo = await whiteLogo(200);
 const logoMeta = await sharp(logo).metadata();
 
 for (const card of CARDS) {
-  const out = `public/og/${card.file}.png`;
+  const out = `${OUT_DIR}/${card.file}.png`;
   await sharp(Buffer.from(background()))
     .composite([
       { input: logo, left: 80, top: 80 },
