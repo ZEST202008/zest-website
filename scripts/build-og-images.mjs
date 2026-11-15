@@ -15,13 +15,14 @@ const H = 630;
 const NAVY = '#1a2744';
 const ORANGE = '#e04102';
 const FONT = 'Hiragino Sans, Noto Sans JP, sans-serif';
-const OUT_DIR = 'public/og/v2';
+const OUT_DIR = 'public/og/v3';
 
 const CARDS = [
   {
     file: 'default',
     title: ['組織づくり', '× データ活用'],
-    sub: '中小企業の稼ぐ力そのものをつくる。',
+    // フッターのタグラインと同じ文（src/components/layout/Footer.tsx）
+    sub: ['現場の勘と経験に、裏付けを。', '中小企業の稼ぐ力をつくる。'],
   },
   {
     file: 'about',
@@ -80,10 +81,14 @@ function textLayer({ title, sub }) {
   const titleLines = title
     .map((line, i) => `<text x="80" y="${300 + i * 86}" font-family="${FONT}" font-size="68" font-weight="700" fill="#ffffff">${esc(line)}</text>`)
     .join('\n  ');
+  // sub は1行でも配列でも書ける。複数行のときは行間を38pxで積む。
+  const subLines = (Array.isArray(sub) ? sub : [sub])
+    .map((line, i) => `<text x="80" y="${300 + title.length * 86 + 14 + i * 38}" font-family="${FONT}" font-size="30" font-weight="500" fill="#9fb0c9">${esc(line)}</text>`)
+    .join('\n  ');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
   <rect x="80" y="196" width="72" height="6" rx="3" fill="${ORANGE}"/>
   ${titleLines}
-  <text x="80" y="${300 + title.length * 86 + 20}" font-family="${FONT}" font-size="30" font-weight="500" fill="#9fb0c9">${esc(sub)}</text>
+  ${subLines}
   <text x="80" y="${H - 54}" font-family="${FONT}" font-size="26" font-weight="500" fill="#7f90aa">www.zest2020.com</text>
 </svg>`;
 }

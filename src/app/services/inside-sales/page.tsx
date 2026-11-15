@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   title: 'インサイドセールス内製化プログラム｜最短90日で自走するIS組織へ',
   description: '眠っている既存休眠顧客を、取りこぼしの少ない商談機会へ。初期費用150万円・月額3万円で、持続可能なIS組織を最短90日で社内に完全内製化するプログラム。',
   openGraph: {
-    images: [{ url: '/og/v2/inside-sales.png', width: 1200, height: 630, alt: 'インサイドセールス内製化プログラム' }],
+    images: [{ url: '/og/v3/inside-sales.png', width: 1200, height: 630, alt: 'インサイドセールス内製化プログラム' }],
   },
   twitter: {
-    images: ['/og/v2/inside-sales.png'],
+    images: ['/og/v3/inside-sales.png'],
   },
 };
 
