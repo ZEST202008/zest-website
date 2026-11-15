@@ -12,10 +12,10 @@ export const metadata: Metadata = {
   title: 'AIチャットアシスタント｜Webサイトの離脱を商談機会に変えるAI接客',
   description: 'Webサイトに眠る「見えない機会損失」を、取りこぼしの少ない「商談機会」へ。フォーム入力の手間や営業への警戒感から離脱していた訪問者へ、AIが自然な会話の中でリードを獲得し売上機会を最大化。初期費用50万円・月額5万円のフルマネージド。',
   openGraph: {
-    images: [{ url: '/og/ai-chat-assistant.png', width: 1200, height: 630, alt: 'AIチャットアシスタント' }],
+    images: [{ url: '/og/v2/ai-chat-assistant.png', width: 1200, height: 630, alt: 'AIチャットアシスタント' }],
   },
   twitter: {
-    images: ['/og/ai-chat-assistant.png'],
+    images: ['/og/v2/ai-chat-assistant.png'],
   },
 };
 

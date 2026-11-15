@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   title: '会社概要',
   description: 'ZESTのVision・Mission・Value、代表メッセージ、会社情報をご紹介します。',
   openGraph: {
-    images: [{ url: '/og/about.png', width: 1200, height: 630, alt: '株式会社ZEST 会社概要' }],
+    images: [{ url: '/og/v2/about.png', width: 1200, height: 630, alt: '株式会社ZEST 会社概要' }],
   },
   twitter: {
-    images: ['/og/about.png'],
+    images: ['/og/v2/about.png'],
   },
 };
 
