@@ -41,11 +41,11 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     siteName: 'ZEST Inc.',
     url: SITE_URL,
-    images: [{ url: '/og/v2/default.png', width: 1200, height: 630, alt: 'ZEST Inc.' }],
+    images: [{ url: '/og/v3/default.png', width: 1200, height: 630, alt: 'ZEST Inc.' }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/og/v2/default.png'],
+    images: ['/og/v3/default.png'],
   },
   // Search Console の所有権確認（HTMLタグ方式を使う場合に環境変数へ設定）
   ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION

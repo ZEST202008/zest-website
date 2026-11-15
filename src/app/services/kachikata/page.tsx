@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   title: 'カチカタ | KFS特定・営業の型化サービス',
   description: 'トップセールスの行動パターンをデータで解析し、誰もが再現できる「型」として定着させる。センターピン特定サービス カチカタ × SheetViz で営業組織のデータ活用を支援します。',
   openGraph: {
-    images: [{ url: '/og/v2/kachikata.png', width: 1200, height: 630, alt: 'カチカタ｜KFS特定・営業の型化サービス' }],
+    images: [{ url: '/og/v3/kachikata.png', width: 1200, height: 630, alt: 'カチカタ｜KFS特定・営業の型化サービス' }],
   },
   twitter: {
-    images: ['/og/v2/kachikata.png'],
+    images: ['/og/v3/kachikata.png'],
   },
 };
 

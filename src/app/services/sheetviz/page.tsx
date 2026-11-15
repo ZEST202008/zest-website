@@ -9,10 +9,10 @@ export const metadata: Metadata = {
   title: 'SheetViz | Google Sheetsベース営業支援プラットフォーム',
   description: 'Google Sheetsを基盤にした営業支援プラットフォーム。フィールドセールス・インサイドセールス・管理職の3役割に最適化された3アプリ構成で、営業組織全体の生産性を向上します。',
   openGraph: {
-    images: [{ url: '/og/v2/sheetviz.png', width: 1200, height: 630, alt: 'SheetViz｜Google Sheetsベース営業支援プラットフォーム' }],
+    images: [{ url: '/og/v3/sheetviz.png', width: 1200, height: 630, alt: 'SheetViz｜Google Sheetsベース営業支援プラットフォーム' }],
   },
   twitter: {
-    images: ['/og/v2/sheetviz.png'],
+    images: ['/og/v3/sheetviz.png'],
   },
 };
 
